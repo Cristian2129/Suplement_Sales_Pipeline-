@@ -27,7 +27,7 @@ jobs:
     # Ejecuta tu pipeline real para verificar que funciona
     # =======================================================
     - name:  Run Pre-Deployment Integration Test
-      run: pytest tests/test_pipeline_integration.py -v
+      run:  pytest tests/test_integration_pipeline.py -v
 
     # =======================================================
     # DESPLIEGUE REAL (comentado para tu entrega)
