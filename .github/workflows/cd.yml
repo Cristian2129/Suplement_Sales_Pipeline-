@@ -1,0 +1,42 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name:  Checkout repo
+      uses: actions/checkout@v3
+
+    - name:  Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name:  Install dependencies
+      run: |
+        pip install -r requirements.txt || true
+        pip install pytest
+
+    # =======================================================
+    # PRE-DEPLOYMENT CHECK
+    # Ejecuta tu pipeline real para verificar que funciona
+    # =======================================================
+    - name:  Run Pre-Deployment Integration Test
+      run: pytest tests/integration/test_pipeline_integration.py -v
+
+    # =======================================================
+    # DESPLIEGUE REAL (comentado para tu entrega)
+    # =======================================================
+    # - name:  Build Docker image
+    #   run: docker build -t supplement-pipeline:latest .
+
+    # - name:  Deploy to server/cloud
+    #   run: echo "Aquí iría el despliegue (DockerHub, AWS, Azure...)"
+
+    - name:  Deployment stage completed
+      run: echo "CD finalizado (modo académico)"

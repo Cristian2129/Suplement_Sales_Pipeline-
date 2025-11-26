@@ -1,0 +1,26 @@
+data_sources:
+  sales:
+    path: "data/raw/Supplement_Sales_Weekly_Expanded.csv"
+
+  social_media:
+    instagram:
+      enabled: true
+      path: "data/raw/instagram_data.json"
+
+    tiktok:
+      enabled: true
+      path: "data/raw/tiktok_data.json"
+
+    youtube:
+      enabled: true
+      path: "data/raw/youtube_data.json"
+
+pipeline:
+  enable_validation: true
+  enable_transformation: true
+  enable_feature_engineering: false
+  enable_modeling: false
+
+output:
+  clean_data_path: "data/clean/"
+  logs_path: "logs/"
