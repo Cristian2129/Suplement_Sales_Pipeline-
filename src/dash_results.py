@@ -10,10 +10,11 @@ import subprocess
 import threading
 from PIL import Image
 import json
+import sys
+import os
 
 st.set_page_config(
-    page_title="Pipeline Supplement Sales",
-    page_icon="💊",
+    page_title="Pipeline de Ventas de Suplementos",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -106,46 +107,84 @@ def get_execution_history():
 
 
 # ==========================================
-# EJECUTOR DE PIPELINE
+# EJECUTOR DE PIPELINE - CORREGIDO
 # ==========================================
 
 def run_pipeline():
     """
-    Ejecuta el pipeline completo
+    Ejecuta el pipeline completo usando subprocess
     """
-    import sys
-    import os
-    
-    # Agregar directorio src al path
-    sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
-    
     try:
         start_time = time.time()
         
-        # Importar orchestrator
-        from orchestrator import DataPipelineOrchestrator
+        # Barra de progreso
+        progress_bar = st.progress(0)
+        status_text = st.empty()
         
-        # Crear orchestrator y ejecutar
-        with st.spinner('Ejecutando pipeline...'):
-            orchestrator = DataPipelineOrchestrator()
-            success = orchestrator.run_complete_pipeline()
+        status_text.text('Inicializando pipeline...')
+        progress_bar.progress(10)
+        
+        # Obtener ruta al orchestrator
+        src_path = Path(__file__).parent.parent / 'src'
+        orchestrator_path = src_path / 'orchestrator.py'
+        
+        if not orchestrator_path.exists():
+            st.error(f"No se encontro orchestrator.py en {orchestrator_path}")
+            return False
+        
+        status_text.text('Ejecutando pipeline...')
+        progress_bar.progress(30)
+        
+        # Ejecutar como subprocess
+        result = subprocess.run(
+            [sys.executable, str(orchestrator_path)],
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minutos timeout
+        )
+        
+        progress_bar.progress(90)
         
         duration = time.time() - start_time
         
-        if success:
+        if result.returncode == 0:
             save_execution_history('success', duration)
+            progress_bar.progress(100)
+            status_text.text('Completado!')
             st.success(f'Pipeline completado en {duration:.1f}s')
+            
+            # Mostrar ultimas lineas del output
+            with st.expander("Ver log de ejecucion"):
+                output_lines = result.stdout.split('\n')
+                st.code('\n'.join(output_lines[-30:]))
+            
             return True
         else:
-            save_execution_history('failed', duration, 'Pipeline returned False')
-            st.error('Pipeline fallo')
+            save_execution_history('failed', duration, result.stderr)
+            st.error(f'Pipeline fallo (codigo: {result.returncode})')
+            
+            with st.expander("Ver error"):
+                st.code(result.stderr)
+            
             return False
             
+    except subprocess.TimeoutExpired:
+        duration = time.time() - start_time
+        save_execution_history('timeout', duration, 'Timeout after 5 minutes')
+        st.error('Pipeline timeout (>5 minutos)')
+        return False
+        
     except Exception as e:
         duration = time.time() - start_time
         save_execution_history('error', duration, str(e))
-        st.error(f'Error ejecutando pipeline: {e}')
+        st.error(f'Error: {e}')
         return False
+    finally:
+        try:
+            progress_bar.empty()
+            status_text.empty()
+        except:
+            pass
 
 
 # ==========================================
@@ -156,14 +195,14 @@ def main():
     # Header mejorado
     col1, col2, col3 = st.columns([6, 2, 2])
     with col1:
-        st.title("Pipeline Observatory")
+        st.title("Observatorio del Pipeline")
         st.caption("Observabilidad completa del pipeline de datos")
     with col2:
-        if st.button("Refresh", use_container_width=True, type="secondary"):
+        if st.button("Actualizar", use_container_width=True, type="secondary"):
             st.cache_data.clear()
             st.rerun()
     with col3:
-        if st.button("Run Pipeline", use_container_width=True, type="primary"):
+        if st.button("Ejecutar Pipeline", use_container_width=True, type="primary"):
             run_pipeline()
             st.cache_data.clear()
             time.sleep(1)
@@ -172,31 +211,30 @@ def main():
     st.markdown("---")
     
     # ==========================================
-    # TABS PRINCIPALES
+    # PESTAÑAS PRINCIPALES
     # ==========================================
     
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-        "Overview", 
-        "Infrastructure", 
-        "Performance",
-        "Analysis Results",
-        "Logs",
-        "History"
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "Resumen", 
+        "Rendimiento",
+        "Resultados del Analisis",
+        "Registros",
+        "Historial"
     ])
     
     # ==========================================
-    # TAB 1: OVERVIEW
+    # PESTAÑA 1: RESUMEN
     # ==========================================
     with tab1:
-        st.header("Pipeline Status Overview")
+        st.header("Resumen del Estado del Pipeline")
         
         # Estado de archivos
         files = {
-            'sales': 'data/processed/sales_processed.csv',
-            'social': 'data/processed/social_media_merged_processed.csv',
-            'daily': 'data/processed/daily_aggregates_processed.csv',
-            'segments': 'data/processed/customer_segments.csv',
-            'correlation': 'data/processed/correlation_general.csv'
+            'ventas': 'data/processed/sales_processed.csv',
+            'redes_sociales': 'data/processed/social_media_merged_processed.csv',
+            'agregados_diarios': 'data/processed/daily_aggregates_processed.csv',
+            'segmentos': 'data/processed/customer_segments.csv',
+            'correlacion': 'data/processed/correlation_general.csv'
         }
         
         total = len(files)
@@ -206,26 +244,26 @@ def main():
         col1, col2, col3, col4, col5 = st.columns(5)
         
         with col1:
-            status = "OK" if exists == total else "Partial"
-            st.metric("Pipeline Status", status, f"{exists}/{total} datasets")
+            status = "OK" if exists == total else "Parcial"
+            st.metric("Estado del Pipeline", status, f"{exists}/{total} datasets")
         
         with col2:
-            sales = load_data(files['sales'])
+            sales = load_data(files['ventas'])
             records = len(sales) if sales is not None else 0
-            st.metric("Total Records", f"{records:,}")
+            st.metric("Registros Totales", f"{records:,}")
         
         with col3:
-            daily = load_data(files['daily'])
+            daily = load_data(files['agregados_diarios'])
             days = len(daily) if daily is not None else 0
-            st.metric("Days Analyzed", f"{days:,}")
+            st.metric("Dias Analizados", f"{days:,}")
         
         with col4:
-            corr = load_data(files['correlation'])
+            corr = load_data(files['correlacion'])
             if corr is not None and len(corr) > 0:
                 r = corr['r'].iloc[0]
-                st.metric("Correlation", f"{r:.3f}")
+                st.metric("Correlacion", f"{r:.3f}")
             else:
-                st.metric("Correlation", "N/A")
+                st.metric("Correlacion", "N/A")
         
         with col5:
             # Ultima ejecucion
@@ -234,59 +272,59 @@ def main():
                 last = history[-1]
                 last_time = datetime.fromisoformat(last['timestamp'])
                 time_ago = (datetime.now() - last_time).seconds // 60
-                st.metric("Last Run", f"{time_ago}m ago", 
-                         "✅" if last['status'] == 'success' else "❌")
+                status_icon = "✅" if last['status'] == 'success' else "❌"
+                st.metric("Ultima Ejecucion", f"{time_ago}m atras", status_icon)
             else:
-                st.metric("Last Run", "Never", "➖")
+                st.metric("Ultima Ejecucion", "Nunca", "➖")
         
         st.markdown("---")
         
-        # Quick stats
+        # Estadisticas rapidas
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.subheader("Data Summary")
+            st.subheader("Resumen de Datos")
             
             if sales is not None:
-                st.write(f"**Sales**: {len(sales):,} transactions")
+                st.write(f"**Ventas**: {len(sales):,} transacciones")
                 if 'amount' in sales.columns:
                     total_revenue = sales['amount'].sum()
-                    st.write(f"**Revenue**: ${total_revenue:,.0f}")
+                    st.write(f"**Ingresos**: ${total_revenue:,.0f}")
                 if 'customer_id' in sales.columns:
-                    st.write(f"**Customers**: {sales['customer_id'].nunique():,}")
+                    st.write(f"**Clientes**: {sales['customer_id'].nunique():,}")
                 if 'product_name' in sales.columns:
-                    st.write(f"**Products**: {sales['product_name'].nunique()}")
+                    st.write(f"**Productos**: {sales['product_name'].nunique()}")
             
-            social = load_data(files['social'])
+            social = load_data(files['redes_sociales'])
             if social is not None:
-                st.write(f"**Social Posts**: {len(social):,}")
+                st.write(f"**Publicaciones Sociales**: {len(social):,}")
                 if 'platform' in social.columns:
                     platforms = ', '.join(social['platform'].unique())
-                    st.write(f"**Platforms**: {platforms}")
+                    st.write(f"**Plataformas**: {platforms}")
         
         with col2:
-            st.subheader("Key Insights")
+            st.subheader("Informacion Clave")
             
             if corr is not None and len(corr) > 0:
                 r = corr['r'].iloc[0]
-                sig = "Significant" if corr['significant'].iloc[0] else "Not significant"
-                direction = "Positive" if r > 0 else "Negative"
-                st.write(f"**Correlation**: {r:.3f} ({direction})")
-                st.write(f"**Significance**: {sig}")
+                sig = "Significativa" if corr['significant'].iloc[0] else "No significativa"
+                direction = "Positiva" if r > 0 else "Negativa"
+                st.write(f"**Correlacion**: {r:.3f} ({direction})")
+                st.write(f"**Significancia**: {sig}")
             
-            segments = load_data(files['segments'])
+            segments = load_data(files['segmentos'])
             if segments is not None and 'segment_name' in segments.columns:
                 top_segment = segments['segment_name'].value_counts().index[0]
                 count = segments['segment_name'].value_counts().iloc[0]
-                st.write(f"**Largest Segment**: {top_segment} ({count})")
+                st.write(f"**Segmento Mas Grande**: {top_segment} ({count})")
             
             lag = load_data('data/processed/correlation_lag.csv')
             if lag is not None and len(lag) > 0:
                 best = lag.loc[lag['correlation'].abs().idxmax()]
-                st.write(f"**Optimal Lag**: {best['lag_days']:.0f} days")
+                st.write(f"**Lag Optimo**: {best['lag_days']:.0f} dias")
         
         with col3:
-            st.subheader("File Status")
+            st.subheader("Estado de Archivos")
             
             for name, path in files.items():
                 if Path(path).exists():
@@ -295,113 +333,19 @@ def main():
                     time_ago = datetime.now() - modified
                     
                     if time_ago.seconds < 3600:
-                        time_str = f"{time_ago.seconds // 60}m ago"
+                        time_str = f"{time_ago.seconds // 60}m atras"
                     else:
-                        time_str = f"{time_ago.seconds // 3600}h ago"
+                        time_str = f"{time_ago.seconds // 3600}h atras"
                     
                     st.write(f"**{name}**: {size:.0f}KB ({time_str})")
                 else:
-                    st.write(f"**{name}**: Missing")
+                    st.write(f"**{name}**: Faltante")
     
     # ==========================================
-    # TAB 2: INFRASTRUCTURE (igual que antes)
+    # PESTAÑA 2: RENDIMIENTO
     # ==========================================
     with tab2:
-        st.header("Infrastructure Metrics")
-        
-        sys_metrics = get_system_metrics()
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.metric("CPU Usage", f"{sys_metrics['cpu_percent']:.1f}%")
-            
-            fig = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=sys_metrics['cpu_percent'],
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "CPU"},
-                gauge={
-                    'axis': {'range': [0, 100]},
-                    'bar': {'color': "darkblue"},
-                    'steps': [
-                        {'range': [0, 50], 'color': "lightgreen"},
-                        {'range': [50, 80], 'color': "yellow"},
-                        {'range': [80, 100], 'color': "red"}
-                    ],
-                }
-            ))
-            fig.update_layout(height=200)
-            st.plotly_chart(fig, use_container_width=True)
-        
-        with col2:
-            st.metric("Memory Usage", 
-                     f"{sys_metrics['memory_percent']:.1f}%",
-                     delta=f"{sys_metrics['memory_used_gb']:.1f}GB / {sys_metrics['memory_total_gb']:.1f}GB")
-            
-            fig = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=sys_metrics['memory_percent'],
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "RAM"},
-                gauge={
-                    'axis': {'range': [0, 100]},
-                    'bar': {'color': "darkgreen"},
-                    'steps': [
-                        {'range': [0, 60], 'color': "lightgreen"},
-                        {'range': [60, 85], 'color': "yellow"},
-                        {'range': [85, 100], 'color': "red"}
-                    ],
-                }
-            ))
-            fig.update_layout(height=200)
-            st.plotly_chart(fig, use_container_width=True)
-        
-        with col3:
-            st.metric("Disk Usage", 
-                     f"{sys_metrics['disk_percent']:.1f}%",
-                     delta=f"{sys_metrics['disk_used_gb']:.0f}GB / {sys_metrics['disk_total_gb']:.0f}GB")
-            
-            fig = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=sys_metrics['disk_percent'],
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Disk"},
-                gauge={
-                    'axis': {'range': [0, 100]},
-                    'bar': {'color': "purple"},
-                    'steps': [
-                        {'range': [0, 70], 'color': "lightgreen"},
-                        {'range': [70, 90], 'color': "yellow"},
-                        {'range': [90, 100], 'color': "red"}
-                    ],
-                }
-            ))
-            fig.update_layout(height=200)
-            st.plotly_chart(fig, use_container_width=True)
-        
-        st.markdown("---")
-        
-        st.subheader("System Information")
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.write(f"**OS**: {psutil.os.name}")
-            st.write(f"**CPU Cores**: {sys_metrics['cpu_count']}")
-            st.write(f"**Total RAM**: {sys_metrics['memory_total_gb']:.1f} GB")
-            st.write(f"**Total Disk**: {sys_metrics['disk_total_gb']:.0f} GB")
-        
-        with col2:
-            process = psutil.Process()
-            st.write(f"**Python Memory**: {process.memory_info().rss / (1024**2):.0f} MB")
-            st.write(f"**Threads**: {process.num_threads()}")
-            st.write(f"**Uptime**: {(time.time() - process.create_time()) / 3600:.1f}h")
-    
-    # ==========================================
-    # TAB 3: PERFORMANCE
-    # ==========================================
-    with tab3:
-        st.header("Performance Metrics")
+        st.header("Metricas de Rendimiento")
         
         history = get_execution_history()
         
@@ -412,14 +356,14 @@ def main():
             df_history = df_history.sort_values('timestamp')
             
             # Grafico de tiempos de ejecucion
-            st.subheader("Execution Times")
+            st.subheader("Tiempos de Ejecucion")
             
             fig = px.line(df_history, x='timestamp', y='duration_seconds',
-                         title='Pipeline Execution Duration Over Time',
+                         title='Duracion de Ejecucion del Pipeline en el Tiempo',
                          markers=True,
                          color='status',
                          color_discrete_map={'success': 'green', 'failed': 'red', 'error': 'orange'})
-            fig.update_layout(xaxis_title='Date', yaxis_title='Duration (seconds)')
+            fig.update_layout(xaxis_title='Fecha', yaxis_title='Duracion (segundos)')
             st.plotly_chart(fig, use_container_width=True)
             
             # Estadisticas
@@ -427,63 +371,63 @@ def main():
             
             with col1:
                 avg_duration = df_history['duration_seconds'].mean()
-                st.metric("Avg Duration", f"{avg_duration:.1f}s")
+                st.metric("Duracion Promedio", f"{avg_duration:.1f}s")
             
             with col2:
                 min_duration = df_history['duration_seconds'].min()
-                st.metric("Fastest", f"{min_duration:.1f}s")
+                st.metric("Mas Rapida", f"{min_duration:.1f}s")
             
             with col3:
                 max_duration = df_history['duration_seconds'].max()
-                st.metric("Slowest", f"{max_duration:.1f}s")
+                st.metric("Mas Lenta", f"{max_duration:.1f}s")
             
             with col4:
                 success_rate = (df_history['status'] == 'success').sum() / len(df_history) * 100
-                st.metric("Success Rate", f"{success_rate:.0f}%")
+                st.metric("Tasa de Exito", f"{success_rate:.0f}%")
         else:
-            st.info("No execution history available. Run the pipeline first!")
+            st.info("No hay historial de ejecuciones disponible. Ejecute el pipeline primero!")
         
         st.markdown("---")
         
         # Tamanos de archivos
-        st.subheader("File Sizes")
+        st.subheader("Tamanos de Archivos")
         
         files = {
-            'sales': 'data/processed/sales_processed.csv',
-            'social': 'data/processed/social_media_merged_processed.csv',
-            'daily': 'data/processed/daily_aggregates_processed.csv',
-            'segments': 'data/processed/customer_segments.csv'
+            'ventas': 'data/processed/sales_processed.csv',
+            'redes_sociales': 'data/processed/social_media_merged_processed.csv',
+            'agregados_diarios': 'data/processed/daily_aggregates_processed.csv',
+            'segmentos': 'data/processed/customer_segments.csv'
         }
         
         file_data = []
         for name, path in files.items():
             if Path(path).exists():
                 size_kb = Path(path).stat().st_size / 1024
-                file_data.append({'Dataset': name, 'Size (KB)': size_kb})
+                file_data.append({'Dataset': name, 'Tamaño (KB)': size_kb})
         
         if file_data:
             df_sizes = pd.DataFrame(file_data)
-            fig = px.bar(df_sizes, x='Dataset', y='Size (KB)',
-                        color='Size (KB)',
+            fig = px.bar(df_sizes, x='Dataset', y='Tamaño (KB)',
+                        color='Tamaño (KB)',
                         color_continuous_scale='Blues',
-                        title='Dataset Sizes')
+                        title='Tamanos de Datasets')
             st.plotly_chart(fig, use_container_width=True)
     
     # ==========================================
-    # TAB 4: ANALYSIS RESULTS (igual que antes)
+    # PESTAÑA 3: RESULTADOS DEL ANALISIS
     # ==========================================
-    with tab4:
-        st.header("Analysis Results")
+    with tab3:
+        st.header("Resultados del Analisis")
         
-        st.subheader("Visualizations")
+        st.subheader("Visualizaciones")
         
         images = {
-            'Correlation Scatter': 'dashboards/static/correlation_scatter.png',
-            'Correlation by Segment': 'dashboards/static/correlation_by_segment.png',
-            'Correlation Lag': 'dashboards/static/correlation_lag.png',
-            'Segments Distribution': 'dashboards/static/segments_distribution.png',
-            'Segments PCA': 'dashboards/static/segments_pca.png',
-            'Segments RFM Profiles': 'dashboards/static/segments_rfm_profiles.png'
+            'Dispersion de Correlacion': 'dashboards/static/correlation_scatter.png',
+            'Correlacion por Segmento': 'dashboards/static/correlation_by_segment.png',
+            'Correlacion con Lag': 'dashboards/static/correlation_lag.png',
+            'Distribucion de Segmentos': 'dashboards/static/segments_distribution.png',
+            'PCA de Segmentos': 'dashboards/static/segments_pca.png',
+            'Perfiles RFM de Segmentos': 'dashboards/static/segments_rfm_profiles.png'
         }
         
         cols = st.columns(2)
@@ -494,43 +438,43 @@ def main():
                     img = Image.open(path)
                     st.image(img, use_container_width=True)
                 else:
-                    st.info(f"{title} not generated yet")
+                    st.info(f"{title} no generado aun")
         
         st.markdown("---")
         
-        st.subheader("Correlation Results")
+        st.subheader("Resultados de Correlacion")
         
         col1, col2 = st.columns(2)
         
         with col1:
             corr = load_data('data/processed/correlation_general.csv')
             if corr is not None:
-                st.write("**General Correlation**")
+                st.write("**Correlacion General**")
                 st.dataframe(corr, use_container_width=True, hide_index=True)
         
         with col2:
             corr_seg = load_data('data/processed/correlation_by_segment.csv')
             if corr_seg is not None:
-                st.write("**By Segment**")
+                st.write("**Por Segmento**")
                 st.dataframe(corr_seg, use_container_width=True, hide_index=True)
         
         corr_prod = load_data('data/processed/correlation_by_product.csv')
         if corr_prod is not None:
-            st.subheader("Top Products by Correlation")
+            st.subheader("Top Productos por Correlacion")
             top_10 = corr_prod.nlargest(10, 'correlation')
             
             fig = px.bar(top_10, x='correlation', y='product',
                         orientation='h',
                         color='correlation',
                         color_continuous_scale='Viridis',
-                        title='Top 10 Products')
+                        title='Top 10 Productos')
             st.plotly_chart(fig, use_container_width=True)
     
     # ==========================================
-    # TAB 5: LOGS (igual que antes)
+    # PESTAÑA 4: REGISTROS
     # ==========================================
-    with tab5:
-        st.header("Pipeline Logs")
+    with tab4:
+        st.header("Registros del Pipeline")
         
         log_path = Path('pipeline_execution.log')
         
@@ -541,13 +485,13 @@ def main():
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
-                show_errors = st.checkbox("Show ERROR", value=True)
+                show_errors = st.checkbox("Mostrar ERROR", value=True)
             with col2:
-                show_warnings = st.checkbox("Show WARNING", value=True)
+                show_warnings = st.checkbox("Mostrar WARNING", value=True)
             with col3:
-                show_info = st.checkbox("Show INFO", value=True)
+                show_info = st.checkbox("Mostrar INFO", value=True)
             with col4:
-                num_lines = st.selectbox("Lines", [50, 100, 200, 500], index=0)
+                num_lines = st.selectbox("Lineas", [50, 100, 200, 500], index=0)
             
             filtered_logs = []
             for line in logs[-num_lines:]:
@@ -556,10 +500,10 @@ def main():
                    (show_info and 'INFO' in line):
                     filtered_logs.append(line)
             
-            st.text_area("Logs", "".join(filtered_logs), height=400)
+            st.text_area("Registros", "".join(filtered_logs), height=400)
             
             st.markdown("---")
-            st.subheader("Log Statistics")
+            st.subheader("Estadisticas de Registros")
             
             col1, col2, col3 = st.columns(3)
             
@@ -568,19 +512,19 @@ def main():
             info_count = sum(1 for line in logs if 'INFO' in line)
             
             with col1:
-                st.metric("Errors", error_count, delta=-error_count if error_count > 0 else None, delta_color="inverse")
+                st.metric("Errores", error_count, delta=-error_count if error_count > 0 else None, delta_color="inverse")
             with col2:
-                st.metric("Warnings", warning_count)
+                st.metric("Advertencias", warning_count)
             with col3:
-                st.metric("Info", info_count)
+                st.metric("Informacion", info_count)
         else:
-            st.warning("No log file found at pipeline_execution.log")
+            st.warning("No se encontro archivo de registro en pipeline_execution.log")
     
     # ==========================================
-    # TAB 6: HISTORY (NUEVA)
+    # PESTAÑA 5: HISTORIAL
     # ==========================================
-    with tab6:
-        st.header("Execution History")
+    with tab5:
+        st.header("Historial de Ejecuciones")
         
         history = get_execution_history()
         
@@ -601,26 +545,26 @@ def main():
             )
             
             # Tendencia de exito
-            st.subheader("Success Trend")
+            st.subheader("Tendencia de Exito")
             
             df_history['success'] = (df_history['status'] == 'success').astype(int)
             df_history['cumulative_success_rate'] = df_history['success'].expanding().mean() * 100
             
             fig = px.line(df_history, x='timestamp', y='cumulative_success_rate',
-                         title='Cumulative Success Rate',
+                         title='Tasa de Exito Acumulada',
                          markers=True)
-            fig.update_layout(yaxis_title='Success Rate (%)', yaxis_range=[0, 105])
+            fig.update_layout(yaxis_title='Tasa de Exito (%)', yaxis_range=[0, 105])
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.info("No execution history. Run the pipeline to see history!")
+            st.info("No hay historial de ejecuciones. Ejecute el pipeline para ver el historial!")
     
     # ==========================================
-    # SIDEBAR
+    # BARRA LATERAL
     # ==========================================
     with st.sidebar:
-        st.header("Settings")
+        st.header("Configuracion")
         
-        auto_refresh = st.checkbox("Auto-refresh (10s)", value=False)
+        auto_refresh = st.checkbox("Auto-actualizar (10s)", value=False)
         
         if auto_refresh:
             time.sleep(10)
@@ -628,47 +572,43 @@ def main():
         
         st.markdown("---")
         
-        st.subheader("Quick Actions")
+        st.subheader("Acciones Rapidas")
         
-        if st.button("Run Full Pipeline", use_container_width=True, type="primary"):
+        if st.button("Ejecutar Pipeline Completo", use_container_width=True, type="primary"):
             run_pipeline()
             st.cache_data.clear()
             time.sleep(1)
             st.rerun()
         
-        if st.button("Clear Cache", use_container_width=True):
+        if st.button("Limpiar Cache", use_container_width=True):
             st.cache_data.clear()
-            st.success("Cache cleared!")
+            st.success("Cache limpiado!")
         
         st.markdown("---")
         
-        st.subheader("System Alerts")
+        st.subheader("Alertas del Sistema")
         
-        sys = get_system_metrics()
-        
-        if sys['cpu_percent'] > 80:
-            st.error("High CPU usage!")
-        
-        if sys['memory_percent'] > 85:
-            st.error("High memory usage!")
-        
-        if sys['disk_percent'] > 90:
-            st.error("Disk almost full!")
+        # Estado del pipeline
+        files = {
+            'ventas': 'data/processed/sales_processed.csv',
+            'redes_sociales': 'data/processed/social_media_merged_processed.csv',
+            'agregados_diarios': 'data/processed/daily_aggregates_processed.csv',
+            'segmentos': 'data/processed/customer_segments.csv',
+            'correlacion': 'data/processed/correlation_general.csv'
+        }
         
         exists = sum(1 for f in files.values() if Path(f).exists())
         total = len(files)
         if exists < total:
-            st.warning(f"{total - exists} datasets missing")
+            st.warning(f"{total - exists} datasets faltantes")
         
-        # Estado del pipeline
         history = get_execution_history()
         if history:
             last = history[-1]
             if last['status'] == 'success':
-                st.success("Last run: SUCCESS")
+                st.success("Ultima ejecucion: EXITO")
             else:
-                st.error(f"Last run: {last['status'].upper()}")
+                st.error(f"Ultima ejecucion: {last['status'].upper()}")
 
 if __name__ == '__main__':
-    import os
     main()

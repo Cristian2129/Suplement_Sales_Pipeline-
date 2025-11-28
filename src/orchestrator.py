@@ -1,626 +1,311 @@
 """
-Dashboard Unificado de Observabilidad
-SOLO SE AGREGÓ: Función para ejecutar pipeline + import json
+Pipeline Orchestrator
+Orquesta la ejecución completa del pipeline de datos
 """
 
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
+import logging
+import sys
+import traceback
 from pathlib import Path
 from datetime import datetime
-import psutil
-import platform
-import time
-from PIL import Image
-import json  # ← NUEVO
-import sys   # ← NUEVO
+from data_ingestion import DataIngestion
+from data_validation import DataValidator
+from data_transformation import DataTransformation
 
-st.set_page_config(
-    page_title="Pipeline Suplement Sales",
-    page_icon="💊",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# ==========================================
-# NUEVO: EJECUTOR DE PIPELINE
-# ==========================================
-
-def save_execution_history(status, duration, error=None):
-    """Guarda historial de ejecuciones"""
-    history_file = Path('data/execution_history.json')
-    history_file.parent.mkdir(parents=True, exist_ok=True)
+# Configurar logging con archivo
+def setup_logging():
+    """Configura logging a consola y archivo"""
+    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     
-    execution = {
-        'timestamp': datetime.now().isoformat(),
-        'status': status,
-        'duration_seconds': duration,
-        'error': error
-    }
+    # Crear handlers
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
     
-    if history_file.exists():
-        with open(history_file, 'r') as f:
-            history = json.load(f)
-    else:
-        history = []
+    file_handler = logging.FileHandler('pipeline_execution.log')
+    file_handler.setLevel(logging.INFO)
     
-    history.append(execution)
-    history = history[-50:]  
+    # Formato
+    formatter = logging.Formatter(log_format)
+    console_handler.setFormatter(formatter)
+    file_handler.setFormatter(formatter)
     
-    with open(history_file, 'w') as f:
-        json.dump(history, f, indent=2)
+    # Configurar root logger
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    root_logger.addHandler(console_handler)
+    root_logger.addHandler(file_handler)
+    
+    return logging.getLogger(__name__)
+
+logger = setup_logging()
 
 
-def run_pipeline():
-    """Ejecuta el pipeline completo"""
-    # Agregar src al path
-    src_path = Path(__file__).parent.parent / 'src'
-    if str(src_path) not in sys.path:
-        sys.path.insert(0, str(src_path))
+class PipelineOrchestrator:
+    """Orquestador principal del pipeline DataOps"""
+
+    def __init__(self, config_path="config/pipeline_config.yaml"):
+        """Inicializa el orquestador"""
+        logger.info("Inicializando Pipeline Orchestrator...")
+        
+        self.config_path = config_path
+        self.execution_stats = {
+            'start_time': None,
+            'end_time': None,
+            'duration_seconds': None,
+            'status': 'initialized',
+            'stages_completed': [],
+            'stages_failed': [],
+            'errors': []
+        }
+        
+        # Crear instancias de módulos
+        try:
+            self.ingestor = DataIngestion(config_path)
+            self.validator = DataValidator()
+            self.transformer = DataTransformation()
+            logger.info("Módulos del pipeline inicializados correctamente")
+        except Exception as e:
+            logger.error(f" Error inicializando módulos: {e}")
+            raise
+
+    def run(self):
+        """Ejecuta el pipeline completo"""
+        self.execution_stats['start_time'] = datetime.now()
+        self.execution_stats['status'] = 'running'
+        
+        logger.info("\n" + ""*35)
+        logger.info("INICIANDO EJECUCIÓN DEL PIPELINE")
+        logger.info(" "*35 + "\n")
+        
+        try:
+            # ========================================
+            # STAGE 1: INGESTA
+            # ========================================
+            logger.info("\n" + "="*70)
+            logger.info("STAGE 1: INGESTA DE DATOS")
+            logger.info("="*70)
+            
+            raw_data = self._run_ingestion()
+            self.execution_stats['stages_completed'].append('ingestion')
+            
+            # ========================================
+            # STAGE 2: TRANSFORMACIÓN
+            # ========================================
+            logger.info("\n" + "="*70)
+            logger.info("STAGE 2: TRANSFORMACIÓN DE DATOS")
+            logger.info("="*70)
+            
+            transformed_data = self._run_transformation(raw_data)
+            self.execution_stats['stages_completed'].append('transformation')
+            
+            # ========================================
+            # STAGE 3: VALIDACIÓN (de datos transformados)
+            # ========================================
+            logger.info("\n" + "="*70)
+            logger.info("STAGE 3: VALIDACIÓN DE CALIDAD")
+            logger.info("="*70)
+            
+            validation_results = self._run_validation(transformed_data)
+            self.execution_stats['stages_completed'].append('validation')
+            
+            # ========================================
+            # FINALIZACIÓN
+            # ========================================
+            self.execution_stats['status'] = 'completed'
+            self._finalize_execution(validation_results)
+            
+            return {
+                'data': transformed_data,
+                'validation': validation_results,
+                'stats': self.execution_stats
+            }
+            
+        except Exception as e:
+            self.execution_stats['status'] = 'failed'
+            self.execution_stats['errors'].append({
+                'error': str(e),
+                'traceback': traceback.format_exc()
+            })
+            
+            logger.error("\n" + " "*35)
+            logger.error("ERROR EN LA EJECUCIÓN DEL PIPELINE")
+            logger.error(" "*35)
+            logger.error(f"Error: {e}")
+            logger.error(f"Traceback:\n{traceback.format_exc()}")
+            
+            return None
+
+    def _run_ingestion(self):
+        """Ejecuta la etapa de ingesta"""
+        try:
+            logger.info("Iniciando ingesta de datos...")
+            
+            raw_data = self.ingestor.ingest_all()
+            
+            # Resumen
+            logger.info("\n Resumen de ingesta:")
+            for source, df in raw_data.items():
+                if df is not None and hasattr(df, '__len__'):
+                    logger.info(f" {source}: {len(df)} registros")
+                else:
+                    logger.warning(f" {source}: No disponible")
+            
+            logger.info("\n Ingesta completada exitosamente")
+            return raw_data
+            
+        except Exception as e:
+            logger.error(f" Error en ingesta: {e}")
+            self.execution_stats['stages_failed'].append('ingestion')
+            raise
+
+    def _run_transformation(self, raw_data):
+        """Ejecuta la etapa de transformación"""
+        try:
+            logger.info("Iniciando transformación de datos...")
+            
+            transformed_data = self.transformer.transform_all(raw_data)
+            
+            # Resumen
+            logger.info("\n Resumen de transformación:")
+            for name, df in transformed_data.items():
+                if df is not None and hasattr(df, '__len__'):
+                    logger.info(f"  {name}: {len(df)} registros")
+            
+            # Verificar archivos críticos
+            critical_files = ['sales', 'social_media_merged', 'daily_aggregates']
+            missing = [f for f in critical_files if f not in transformed_data or transformed_data[f] is None]
+            
+            if missing:
+                logger.warning(f" Archivos críticos faltantes: {missing}")
+            else:
+                logger.info("Todos los archivos críticos generados")
+            
+            logger.info("\n Transformación completada exitosamente")
+            return transformed_data
+            
+        except Exception as e:
+            logger.error(f" Error en transformación: {e}")
+            self.execution_stats['stages_failed'].append('transformation')
+            raise
+
+    def _run_validation(self, transformed_data):
+        """Ejecuta la etapa de validación"""
+        try:
+            logger.info("Iniciando validación de datos transformados...")
+            
+            validation_results = self.validator.validate_all(transformed_data)
+            
+            # Análisis de resultados
+            passed = sum(1 for v in validation_results.values() if v)
+            total = len(validation_results)
+            success_rate = (passed / total * 100) if total > 0 else 0
+            
+            logger.info(f"\n Resultados de validación:")
+            logger.info(f"  Datasets validados: {passed}/{total} ({success_rate:.1f}%)")
+            
+            for dataset, result in validation_results.items():
+                status = " PASÓ" if result else " ADVERTENCIAS"
+                logger.info(f"  {dataset}: {status}")
+            
+            # Decisión sobre continuar o no
+            if not all(validation_results.values()):
+                logger.warning("\n  ADVERTENCIA: Algunos datasets tienen problemas de calidad")
+                logger.warning("El pipeline continuó, pero revisa los logs para más detalles")
+            else:
+                logger.info("\n Todos los datasets pasaron la validación")
+            
+            return validation_results
+            
+        except Exception as e:
+            logger.error(f" Error en validación: {e}")
+            self.execution_stats['stages_failed'].append('validation')
+            raise
+
+    def _finalize_execution(self, validation_results):
+        """Finaliza la ejecución y genera resumen"""
+        self.execution_stats['end_time'] = datetime.now()
+        duration = self.execution_stats['end_time'] - self.execution_stats['start_time']
+        self.execution_stats['duration_seconds'] = duration.total_seconds()
+        
+        logger.info("\n" + " "*35)
+        logger.info("PIPELINE COMPLETADO EXITOSAMENTE")
+        logger.info(" "*35)
+        
+        logger.info(f"\n Información de ejecución:")
+        logger.info(f"  Inicio: {self.execution_stats['start_time'].strftime('%Y-%m-%d %H:%M:%S')}")
+        logger.info(f"  Fin: {self.execution_stats['end_time'].strftime('%Y-%m-%d %H:%M:%S')}")
+        logger.info(f"  Duración: {self.execution_stats['duration_seconds']:.2f} segundos")
+        
+        logger.info(f"\n Etapas completadas:")
+        for stage in self.execution_stats['stages_completed']:
+            logger.info(f" {stage}")
+        
+        if self.execution_stats['stages_failed']:
+            logger.warning(f"\n  Etapas con problemas:")
+            for stage in self.execution_stats['stages_failed']:
+                logger.warning(f"{stage}")
+        
+        # Verificar archivos generados
+        logger.info(f"\n Archivos generados:")
+        processed_path = Path('data/processed')
+        if processed_path.exists():
+            files = list(processed_path.glob('*.csv'))
+            for file in sorted(files):
+                size_mb = file.stat().st_size / (1024 * 1024)
+                logger.info(f" {file.name} ({size_mb:.2f} MB)")
+        
+        # Validación general
+        all_valid = all(validation_results.values())
+        if all_valid:
+            logger.info(f"\n Calidad de datos: TODOS LOS CHECKS PASADOS")
+        else:
+            logger.warning(f"\n  Calidad de datos: REVISAR ADVERTENCIAS")
+        
+        logger.info("\n" + "="*70)
+        logger.info("Log completo guardado en: pipeline_execution.log")
+        logger.info("="*70 + "\n")
+    
+    def get_execution_stats(self):
+        """Retorna estadísticas de ejecución"""
+        return self.execution_stats
+
+
+def main():
+    """Función principal"""
+    print("\n" + "="*70)
+    print("SUPPLEMENT SALES PIPELINE - DATAOPS PROJECT")
+    print("Segmentación de Clientes y Análisis de Redes Sociales")
+    print("="*70 + "\n")
     
     try:
-        start_time = time.time()
-        
-        # Progress bar
-        progress_bar = st.progress(0)
-        status_text = st.empty()
-        
-        status_text.text('Inicializando pipeline...')
-        progress_bar.progress(20)
-        
-        # Importar y ejecutar
-        from orchestrator import PipelineOrchestrator
-        
-        status_text.text(' Ejecutando pipeline...')
-        progress_bar.progress(50)
-        
+        # Crear y ejecutar orquestador
         orchestrator = PipelineOrchestrator()
         result = orchestrator.run()
         
-        progress_bar.progress(100)
-        status_text.text(' Completado!')
-        
-        duration = time.time() - start_time
-        
         if result is not None:
-            save_execution_history('success', duration)
-            st.success(f' Pipeline completado en {duration:.1f}s')
+            print("\n" + "="*70)
+            print("PIPELINE EJECUTADO EXITOSAMENTE")
+            print("="*70)
             
-            # Mostrar stats
             stats = orchestrator.get_execution_stats()
-            with st.expander("Ver detalles"):
-                st.write(f"**Etapas:** {', '.join(stats['stages_completed'])}")
-                st.write(f"**Duración:** {stats['duration_seconds']:.2f}s")
+            print(f"\n  Duración total: {stats['duration_seconds']:.2f} segundos")
+            print(f" Etapas completadas: {', '.join(stats['stages_completed'])}")
+            print(f" Datos procesados guardados en: data/processed/")
+            print(f" Log detallado en: pipeline_execution.log")
             
-            return True
+            return 0
         else:
-            save_execution_history('failed', duration)
-            st.error(' Pipeline falló')
-            return False
+            print("\n" + "="*70)
+            print(" PIPELINE FALLÓ")
+            print("="*70)
+            print("\n  Revisa el archivo pipeline_execution.log para más detalles")
+            return 1
             
     except Exception as e:
-        duration = time.time() - start_time
-        save_execution_history('error', duration, str(e))
-        st.error(f' Error: {e}')
-        return False
-    finally:
-        try:
-            progress_bar.empty()
-            status_text.empty()
-        except:
-            pass
+        print(f"\n Error fatal: {e}")
+        print(f"Traceback:\n{traceback.format_exc()}")
+        return 1
 
-
-# ==========================================
-# MÉTRICAS DE INFRAESTRUCTURA
-# ==========================================
-
-import os
-
-def get_system_metrics():
-    try:
-        if os.name == 'nt':
-            root_path = 'C:\\'
-        else:
-            root_path = '/'
-        
-        sys_metrics = {
-            'cpu_percent': psutil.cpu_percent(interval=1),
-            'cpu_count': psutil.cpu_count(),
-            'memory_percent': psutil.virtual_memory().percent,
-            'memory_used_gb': psutil.virtual_memory().used / (1024**3),
-            'memory_total_gb': psutil.virtual_memory().total / (1024**3),
-            'disk_percent': psutil.disk_usage(root_path).percent,
-            'disk_used_gb': psutil.disk_usage(root_path).used / (1024**3),
-            'disk_total_gb': psutil.disk_usage(root_path).total / (1024**3)
-        }
-        return sys_metrics
-    except Exception as e:
-        print(f"Error obteniendo métricas del sistema: {e}")
-        return {
-            'cpu_percent': 0,
-            'cpu_count': 0,
-            'memory_percent': 0,
-            'memory_used_gb': 0,
-            'memory_total_gb': 0,
-            'disk_percent': 0,
-            'disk_used_gb': 0,
-            'disk_total_gb': 0
-        }
-
-
-# ==========================================
-# MÉTRICAS DE RENDIMIENTO
-# ==========================================
-
-def get_execution_times():
-    """Lee tiempos de ejecución del log"""
-    times = {
-        'ingestion': None,
-        'transformation': None,
-        'segmentation': None,
-        'correlation': None,
-        'total': None
-    }
-    
-    log_path = Path('pipeline_execution.log')
-    if log_path.exists():
-        with open(log_path, 'r') as f:
-            content = f.read()
-            
-        import re
-        
-        patterns = {
-            'ingestion': r'INGESTA.*?(\d+\.?\d*)\s*second',
-            'transformation': r'TRANSFORMACI[OÓ]N.*?(\d+\.?\d*)\s*second',
-            'segmentation': r'SEGMENTACI[OÓ]N.*?(\d+\.?\d*)\s*second',
-            'correlation': r'CORRELACI[OÓ]N.*?(\d+\.?\d*)\s*second',
-        }
-        
-        for key, pattern in patterns.items():
-            match = re.search(pattern, content, re.IGNORECASE)
-            if match:
-                times[key] = float(match.group(1))
-    
-    return times
-
-# ==========================================
-# CARGA DE DATOS
-# ==========================================
-
-@st.cache_data(ttl=60)
-def load_data(filepath):
-    """Carga datos con cache de 60 segundos"""
-    try:
-        if Path(filepath).exists():
-            return pd.read_csv(filepath)
-    except Exception as e:
-        st.error(f"Error: {e}")
-    return None
-
-# ==========================================
-# DASHBOARD PRINCIPAL
-# ==========================================
-
-def main():
-    # Header - MODIFICADO
-    col1, col2, col3 = st.columns([6, 2, 2])
-    with col1:
-        st.title("Pipeline Observatory")
-        st.caption("Observabilidad completa del pipeline de datos")
-    with col2:
-        if st.button(" Refresh", use_container_width=True):
-            st.cache_data.clear()
-            st.rerun()
-    with col3:
-        # ← BOTÓN NUEVO
-        if st.button("Run", use_container_width=True, type="primary"):
-            run_pipeline()
-            st.cache_data.clear()
-            time.sleep(1)
-            st.rerun()
-    
-    st.markdown("---")
-    
-    # ==========================================
-    # TABS PRINCIPALES
-    # ==========================================
-    
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        " Overview", 
-        " Infrastructure", 
-        " Performance",
-        " Analysis Results",
-        " Logs"
-    ])
-    
-    # ==========================================
-    # TAB 1: OVERVIEW
-    # ==========================================
-    with tab1:
-        st.header(" Pipeline Status Overview")
-        
-        # Estado de archivos
-        col1, col2, col3, col4 = st.columns(4)
-        
-        files = {
-            'sales': 'data/processed/sales_processed.csv',
-            'social': 'data/processed/social_media_merged_processed.csv',
-            'daily': 'data/processed/daily_aggregates_processed.csv',
-            'segments': 'data/processed/customer_segments.csv',
-            'correlation': 'data/processed/correlation_general.csv'
-        }
-        
-        total = len(files)
-        exists = sum(1 for f in files.values() if Path(f).exists())
-        
-        with col1:
-            st.metric("Pipeline Status", 
-                     " OK" if exists == total else " Partial",
-                     f"{exists}/{total} datasets")
-        
-        with col2:
-            sales = load_data(files['sales'])
-            records = len(sales) if sales is not None else 0
-            st.metric("Total Records", f"{records:,}")
-        
-        with col3:
-            daily = load_data(files['daily'])
-            days = len(daily) if daily is not None else 0
-            st.metric("Days Analyzed", f"{days:,}")
-        
-        with col4:
-            corr = load_data(files['correlation'])
-            if corr is not None and len(corr) > 0:
-                r = corr['r'].iloc[0]
-                st.metric("Correlation", f"{r:.3f}")
-            else:
-                st.metric("Correlation", "N/A")
-        
-        st.markdown("---")
-        
-        # Quick stats
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader(" Data Summary")
-            
-            if sales is not None:
-                st.write(f"**Sales**: {len(sales):,} transactions")
-                if 'amount' in sales.columns:
-                    st.write(f"**Revenue**: ${sales['amount'].sum():,.0f}")
-                if 'customer_id' in sales.columns:
-                    st.write(f"**Customers**: {sales['customer_id'].nunique():,}")
-            
-            social = load_data(files['social'])
-            if social is not None:
-                st.write(f"**Social Posts**: {len(social):,}")
-                if 'platform' in social.columns:
-                    st.write(f"**Platforms**: {social['platform'].nunique()}")
-        
-        with col2:
-            st.subheader("Key Insights")
-            
-            # Correlación
-            if corr is not None and len(corr) > 0:
-                r = corr['r'].iloc[0]
-                sig = " Significant" if corr['significant'].iloc[0] else " Not significant"
-                st.write(f"**Correlation**: {r:.3f} ({sig})")
-            
-            # Segmentos
-            segments = load_data(files['segments'])
-            if segments is not None and 'segment_name' in segments.columns:
-                top_segment = segments['segment_name'].value_counts().index[0]
-                st.write(f"**Largest Segment**: {top_segment}")
-            
-            # Lag óptimo
-            lag = load_data('data/processed/correlation_lag.csv')
-            if lag is not None and len(lag) > 0:
-                best = lag.loc[lag['correlation'].abs().idxmax()]
-                st.write(f"**Optimal Lag**: {best['lag_days']:.0f} days")
-    
-    # ==========================================
-    # TAB 2: INFRASTRUCTURE
-    # ==========================================
-    with tab2:
-        st.header("Infrastructure Metrics")
-        
-        sys_metrics = get_system_metrics()
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.metric("CPU Usage", 
-                     f"{sys_metrics['cpu_percent']:.1f}%",
-                     delta=None,
-                     delta_color="inverse")
-            
-            fig = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=sys_metrics['cpu_percent'],
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "CPU"},
-                gauge={
-                    'axis': {'range': [0, 100]},
-                    'bar': {'color': "darkblue"},
-                    'steps': [
-                        {'range': [0, 50], 'color': "lightgreen"},
-                        {'range': [50, 80], 'color': "yellow"},
-                        {'range': [80, 100], 'color': "red"}
-                    ],
-                }
-            ))
-            fig.update_layout(height=200)
-            st.plotly_chart(fig, use_container_width=True)
-        
-        with col2:
-            st.metric("Memory Usage", 
-                     f"{sys_metrics['memory_percent']:.1f}%",
-                     delta=f"{sys_metrics['memory_used_gb']:.1f}GB / {sys_metrics['memory_total_gb']:.1f}GB")
-            
-            fig = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=sys_metrics['memory_percent'],
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "RAM"},
-                gauge={
-                    'axis': {'range': [0, 100]},
-                    'bar': {'color': "darkgreen"},
-                    'steps': [
-                        {'range': [0, 60], 'color': "lightgreen"},
-                        {'range': [60, 85], 'color': "yellow"},
-                        {'range': [85, 100], 'color': "red"}
-                    ],
-                }
-            ))
-            fig.update_layout(height=200)
-            st.plotly_chart(fig, use_container_width=True)
-        
-        with col3:
-            st.metric("Disk Usage", 
-                     f"{sys_metrics['disk_percent']:.1f}%",
-                     delta=f"{sys_metrics['disk_used_gb']:.0f}GB / {sys_metrics['disk_total_gb']:.0f}GB")
-            
-            fig = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=sys_metrics['disk_percent'],
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Disk"},
-                gauge={
-                    'axis': {'range': [0, 100]},
-                    'bar': {'color': "purple"},
-                    'steps': [
-                        {'range': [0, 70], 'color': "lightgreen"},
-                        {'range': [70, 90], 'color': "yellow"},
-                        {'range': [90, 100], 'color': "red"}
-                    ],
-                }
-            ))
-            fig.update_layout(height=200)
-            st.plotly_chart(fig, use_container_width=True)
-        
-        st.markdown("---")
-        
-        st.subheader("System Information")
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.write(f"**CPU Cores**: {sys_metrics['cpu_count']}")
-            st.write(f"**Total RAM**: {sys_metrics['memory_total_gb']:.1f} GB")
-            st.write(f"**Total Disk**: {sys_metrics['disk_total_gb']:.0f} GB")
-        
-        with col2:
-            st.write(f"**Python**: {psutil.Process().memory_info().rss / (1024**2):.0f} MB")
-            st.write(f"**Threads**: {psutil.Process().num_threads()}")
-    
-    # ==========================================
-    # TAB 3: PERFORMANCE
-    # ==========================================
-    with tab3:
-        st.header(" Performance Metrics")
-        
-        times = get_execution_times()
-        
-        st.subheader(" Execution Times")
-        
-        if all(v is None for v in times.values()):
-            st.info(" No execution times found in logs. Showing file sizes instead.")
-            
-            file_sizes = []
-            for name, path in files.items():
-                if Path(path).exists():
-                    size_kb = Path(path).stat().st_size / 1024
-                    file_sizes.append({'Stage': name, 'Size (KB)': size_kb})
-            
-            if file_sizes:
-                df_sizes = pd.DataFrame(file_sizes)
-                fig = px.bar(df_sizes, x='Stage', y='Size (KB)',
-                           title='Output File Sizes',
-                           color='Size (KB)',
-                           color_continuous_scale='Blues')
-                st.plotly_chart(fig, use_container_width=True)
-        else:
-            stages = [k for k, v in times.items() if v is not None]
-            values = [v for v in times.values() if v is not None]
-            
-            if stages:
-                df_times = pd.DataFrame({'Stage': stages, 'Time (s)': values})
-                fig = px.bar(df_times, x='Stage', y='Time (s)',
-                           title='Pipeline Execution Times',
-                           color='Time (s)',
-                           color_continuous_scale='Reds')
-                st.plotly_chart(fig, use_container_width=True)
-        
-        st.markdown("---")
-        
-        st.subheader(" File Metrics")
-        
-        file_metrics = []
-        for name, path in files.items():
-            if Path(path).exists():
-                size = Path(path).stat().st_size / 1024
-                modified = datetime.fromtimestamp(Path(path).stat().st_mtime)
-                file_metrics.append({
-                    'Dataset': name,
-                    'Size (KB)': f"{size:.1f}",
-                    'Last Modified': modified.strftime('%Y-%m-%d %H:%M:%S')
-                })
-        
-        if file_metrics:
-            st.dataframe(pd.DataFrame(file_metrics), use_container_width=True, hide_index=True)
-    
-    # ==========================================
-    # TAB 4: ANALYSIS RESULTS
-    # ==========================================
-    with tab4:
-        st.header(" Analysis Results")
-        
-        st.subheader(" Visualizations")
-        
-        images = {
-            'Correlation Scatter': 'dashboards/static/correlation_scatter.png',
-            'Correlation by Segment': 'dashboards/static/correlation_by_segment.png',
-            'Correlation Lag': 'dashboards/static/correlation_lag.png',
-            'Segments Distribution': 'dashboards/static/segments_distribution.png',
-            'Segments PCA': 'dashboards/static/segments_pca.png',
-            'Segments RFM Profiles': 'dashboards/static/segments_rfm_profiles.png'
-        }
-        
-        cols = st.columns(2)
-        for idx, (title, path) in enumerate(images.items()):
-            with cols[idx % 2]:
-                if Path(path).exists():
-                    st.subheader(title)
-                    img = Image.open(path)
-                    st.image(img, use_container_width=True)
-                else:
-                    st.info(f" {title} not generated yet")
-        
-        st.markdown("---")
-        
-        st.subheader("Correlation Results")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            corr = load_data('data/processed/correlation_general.csv')
-            if corr is not None:
-                st.write("**General Correlation**")
-                st.dataframe(corr, use_container_width=True, hide_index=True)
-        
-        with col2:
-            corr_seg = load_data('data/processed/correlation_by_segment.csv')
-            if corr_seg is not None:
-                st.write("**By Segment**")
-                st.dataframe(corr_seg, use_container_width=True, hide_index=True)
-        
-        corr_prod = load_data('data/processed/correlation_by_product.csv')
-        if corr_prod is not None:
-            st.subheader("Top Products by Correlation")
-            top_10 = corr_prod.nlargest(10, 'correlation')
-            
-            fig = px.bar(top_10, x='correlation', y='product',
-                        orientation='h',
-                        color='correlation',
-                        color_continuous_scale='Viridis',
-                        title='Top 10 Products')
-            st.plotly_chart(fig, use_container_width=True)
-    
-    # ==========================================
-    # TAB 5: LOGS
-    # ==========================================
-    with tab5:
-        st.header("Pipeline Logs")
-        
-        log_path = Path('pipeline_execution.log')
-        
-        if log_path.exists():
-            with open(log_path, 'r', encoding='utf-8', errors='ignore') as f:
-                logs = f.readlines()
-            
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                show_errors = st.checkbox("Show ERROR", value=True)
-            with col2:
-                show_warnings = st.checkbox("Show WARNING", value=True)
-            with col3:
-                show_info = st.checkbox("Show INFO", value=True)
-            
-            filtered_logs = []
-            for line in logs[-200:]:
-                if (show_errors and 'ERROR' in line) or \
-                   (show_warnings and 'WARNING' in line) or \
-                   (show_info and 'INFO' in line):
-                    filtered_logs.append(line)
-            
-            st.text_area("Logs", 
-                        "".join(filtered_logs[-50:]),
-                        height=400)
-            
-            st.markdown("---")
-            st.subheader(" Log Statistics")
-            
-            col1, col2, col3 = st.columns(3)
-            
-            error_count = sum(1 for line in logs if 'ERROR' in line)
-            warning_count = sum(1 for line in logs if 'WARNING' in line)
-            info_count = sum(1 for line in logs if 'INFO' in line)
-            
-            with col1:
-                st.metric("Errors", error_count, delta=-error_count if error_count > 0 else None, delta_color="inverse")
-            with col2:
-                st.metric("Warnings", warning_count)
-            with col3:
-                st.metric("Info", info_count)
-        else:
-            st.warning(" No log file found at pipeline_execution.log")
-    
-    # ==========================================
-    # SIDEBAR - MODIFICADO
-    # ==========================================
-    with st.sidebar:
-        st.header("Settings")
-        
-        auto_refresh = st.checkbox("Auto-refresh (10s)", value=False)
-        
-        if auto_refresh:
-            time.sleep(10)
-            st.rerun()
-        
-        st.markdown("---")
-        
-        st.subheader(" Quick Actions")
-        
-        # ← BOTÓN MODIFICADO
-        if st.button(" Run Full Pipeline", use_container_width=True, type="primary"):
-            run_pipeline()
-            st.cache_data.clear()
-            time.sleep(1)
-            st.rerun()
-        
-        if st.button("Clear Cache", use_container_width=True):
-            st.cache_data.clear()
-            st.success("Cache cleared!")
-        
-        st.markdown("---")
-        
-        st.subheader(" System Alerts")
-        
-        sys = get_system_metrics()
-        
-        if sys['cpu_percent'] > 80:
-            st.error(" High CPU usage!")
-        
-        if sys['memory_percent'] > 85:
-            st.error(" High memory usage!")
-        
-        if sys['disk_percent'] > 90:
-            st.error(" Disk almost full!")
-        
-        if exists < total:
-            st.warning(f" {total - exists} datasets missing")
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
