@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-11-28T00:41:12.779202",
+  "all_passed": true,
+  "summary": {
+    "sales": true,
+    "instagram": true,
+    "tiktok": true,
+    "youtube": true,
+    "social_media_merged": true,
+    "daily_aggregates": true
+  },
+  "details": {
+    "sales": {
+      "required_columns": true,
+      "nulls": true,
+      "duplicates": true,
+      "ranges": true,
+      "dates": true,
+      "unique_customers": true,
+      "unique_products": true
+    },
+    "instagram": {
+      "required_columns": true,
+      "nulls": true,
+      "ranges": true,
+      "dates": true
+    },
+    "tiktok": {
+      "required_columns": true,
+      "nulls": true,
+      "ranges": true,
+      "dates": true
+    },
+    "youtube": {
+      "required_columns": true,
+      "nulls": true,
+      "ranges": true,
+      "dates": true
+    },
+    "social_media_merged": {
+      "required_columns": true,
+      "nulls": true,
+      "ranges": true,
+      "dates": true,
+      "platforms": true
+    },
+    "daily_aggregates": {
+      "required_columns": true,
+      "nulls": true,
+      "ranges": true,
+      "dates": true,
+      "date_continuity": true
+    }
+  }
+}

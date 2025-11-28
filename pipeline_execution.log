@@ -4490,3 +4490,1731 @@ TODOS LOS DATASETS PASARON LA VALIDACIÓN
 2025-11-27 23:16:23,960 - __main__ - INFO - Log completo guardado en: pipeline_execution.log
 2025-11-27 23:16:23,960 - __main__ - INFO - ======================================================================
 
+2025-11-28 00:40:43,238 - __main__ - INFO - Inicializando Pipeline Orchestrator...
+2025-11-28 00:40:43,255 - data_ingestion - INFO - Configuración cargada desde config/pipeline_config.yaml
+2025-11-28 00:40:43,255 - __main__ - INFO - Modulos del pipeline inicializados correctamente
+2025-11-28 00:40:43,255 - __main__ - INFO - 
+===================================
+2025-11-28 00:40:43,256 - __main__ - INFO - INICIANDO EJECUCION DEL PIPELINE COMPLETO
+2025-11-28 00:40:43,256 - __main__ - INFO - ===================================
+
+2025-11-28 00:40:43,257 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:40:43,258 - __main__ - INFO - ETAPA 1/5: INGESTA DE DATOS
+2025-11-28 00:40:43,259 - __main__ - INFO - ======================================================================
+2025-11-28 00:40:43,259 - __main__ - INFO - Iniciando ingesta de datos...
+2025-11-28 00:40:43,259 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:40:43,260 - data_ingestion - INFO - INICIANDO INGESTA DE DATOS
+2025-11-28 00:40:43,260 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:40:43,260 - data_ingestion - INFO - Cargando datos de ventas desde data/raw/Supplement_Sales_Weekly_Expanded.csv
+2025-11-28 00:40:43,310 - data_ingestion - INFO - Archivo leído: 4384 registros
+2025-11-28 00:40:43,330 - data_ingestion - INFO - Rango de fechas: 2020-01-06 00:00:00 a 2025-03-31 00:00:00
+2025-11-28 00:40:43,331 - data_ingestion - INFO - Generando engagement seeds MEJORADOS...
+2025-11-28 00:40:43,486 - data_ingestion - INFO - Seeds generados para 274 fechas
+2025-11-28 00:40:43,487 - data_ingestion - INFO -    Rango: 0.242 - 1.000
+2025-11-28 00:40:43,487 - data_ingestion - INFO -    Promedio: 0.605
+2025-11-28 00:40:43,487 - data_ingestion - INFO -    Desviación std: 0.155 (>0.15 es bueno)
+2025-11-28 00:40:43,488 - data_ingestion - INFO - Datos cargados: 4384 registros
+2025-11-28 00:40:43,508 - data_ingestion - INFO - Instagram: 859 posts cargados
+2025-11-28 00:40:43,529 - data_ingestion - INFO - TikTok: 883 videos cargados
+2025-11-28 00:40:43,546 - data_ingestion - INFO - YouTube: 292 videos cargados
+2025-11-28 00:40:43,546 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:40:43,547 - data_ingestion - INFO - INGESTA COMPLETADA
+2025-11-28 00:40:43,547 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:40:43,547 - __main__ - INFO - 
+Resumen de ingesta:
+2025-11-28 00:40:43,547 - __main__ - INFO -   sales: 4384 registros
+2025-11-28 00:40:43,548 - __main__ - INFO -   instagram: 859 registros
+2025-11-28 00:40:43,548 - __main__ - INFO -   tiktok: 883 registros
+2025-11-28 00:40:43,548 - __main__ - INFO -   youtube: 292 registros
+2025-11-28 00:40:43,549 - __main__ - INFO - 
+Ingesta completada exitosamente
+2025-11-28 00:40:43,549 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:40:43,549 - __main__ - INFO - ETAPA 2/5: TRANSFORMACION DE DATOS
+2025-11-28 00:40:43,549 - __main__ - INFO - ======================================================================
+2025-11-28 00:40:43,550 - __main__ - INFO - Iniciando transformacion de datos...
+2025-11-28 00:40:43,550 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,550 - data_transformation - INFO - INICIANDO TRANSFORMACIÓN DE DATOS
+2025-11-28 00:40:43,551 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,551 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:40:43,551 - data_transformation - INFO - TRANSFORMANDO DATOS DE VENTAS
+2025-11-28 00:40:43,552 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,552 - data_transformation - INFO - 
+[1/6] Generando identificadores...
+2025-11-28 00:40:43,555 - data_transformation - INFO - transaction_id generado
+2025-11-28 00:40:43,556 - data_transformation - INFO - product_id generado (16 productos)
+2025-11-28 00:40:43,565 - data_transformation - INFO - customer_id generado desde location (1292 clientes)
+2025-11-28 00:40:43,565 - data_transformation - INFO - 
+[2/6] Calculando métricas derivadas...
+2025-11-28 00:40:43,566 - data_transformation - INFO - 
+[3/6] Limpiando datos...
+2025-11-28 00:40:43,574 - data_transformation - INFO - 
+[4/6] Eliminando outliers...
+2025-11-28 00:40:43,576 - data_transformation - INFO - Outliers eliminados: 0 (0.0%)
+2025-11-28 00:40:43,576 - data_transformation - INFO - 
+[5/6] Creando features temporales...
+2025-11-28 00:40:43,585 - data_transformation - INFO -   Features temporales creadas
+2025-11-28 00:40:43,586 - data_transformation - INFO - 
+[6/6] Resumen de transformación...
+2025-11-28 00:40:43,586 - data_transformation - INFO -   Registros iniciales: 4384
+2025-11-28 00:40:43,586 - data_transformation - INFO -   Registros finales: 4384
+2025-11-28 00:40:43,587 - data_transformation - INFO -   Registros eliminados: 0 (0.0%)
+2025-11-28 00:40:43,587 - data_transformation - INFO -   Clientes únicos: 1292
+2025-11-28 00:40:43,588 - data_transformation - INFO -   Productos únicos: 16
+2025-11-28 00:40:43,588 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,588 - data_transformation - INFO - 
+Transformando datos de instagram...
+2025-11-28 00:40:43,592 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0136, max: 0.0765)
+2025-11-28 00:40:43,592 - data_transformation - INFO -   Variación: 0.0119
+2025-11-28 00:40:43,595 - data_transformation - INFO -   instagram: 859 registros procesados
+2025-11-28 00:40:43,596 - data_transformation - INFO - 
+Transformando datos de tiktok...
+2025-11-28 00:40:43,598 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0154, max: 0.1112)
+2025-11-28 00:40:43,599 - data_transformation - INFO -   Variación: 0.0172
+2025-11-28 00:40:43,602 - data_transformation - INFO -   tiktok: 883 registros procesados
+2025-11-28 00:40:43,602 - data_transformation - INFO - 
+Transformando datos de youtube...
+2025-11-28 00:40:43,605 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0105, max: 0.0501)
+2025-11-28 00:40:43,605 - data_transformation - INFO -   Variación: 0.0084
+2025-11-28 00:40:43,608 - data_transformation - INFO -   youtube: 292 registros procesados
+2025-11-28 00:40:43,608 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:40:43,608 - data_transformation - INFO - COMBINANDO DATOS DE REDES SOCIALES
+2025-11-28 00:40:43,609 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,609 - data_transformation - INFO -  Instagram: 859 posts
+2025-11-28 00:40:43,609 - data_transformation - INFO - TikTok: 883 videos
+2025-11-28 00:40:43,610 - data_transformation - INFO - YouTube: 292 videos
+2025-11-28 00:40:43,613 - data_transformation - INFO - 
+  Total combinado: 2034 registros
+2025-11-28 00:40:43,614 - data_transformation - INFO -   Plataformas: ['instagram', 'tiktok', 'youtube']
+2025-11-28 00:40:43,614 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,614 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:40:43,615 - data_transformation - INFO - CALCULANDO AGREGADOS DIARIOS
+2025-11-28 00:40:43,615 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,615 - data_transformation - INFO - 
+Agregando ventas por día...
+2025-11-28 00:40:43,624 - data_transformation - INFO -   Ventas agregadas: 274 días
+2025-11-28 00:40:43,625 - data_transformation - INFO -   Rango ventas: $62198 - $110304
+2025-11-28 00:40:43,625 - data_transformation - INFO - 
+Agregando redes sociales por día...
+2025-11-28 00:40:43,625 - data_transformation - INFO -   Engagement original - std: 0.0170
+2025-11-28 00:40:43,706 - data_transformation - INFO -   Redes sociales agregadas: 1414 días
+2025-11-28 00:40:43,707 - data_transformation - INFO -   Engagement diario - std: 0.0148
+2025-11-28 00:40:43,707 - data_transformation - INFO -   Rango engagement: 0.0105 - 0.0975
+2025-11-28 00:40:43,712 - data_transformation - INFO - 
+  Datos combinados: 274 días
+2025-11-28 00:40:43,713 - data_transformation - INFO -   Días con ventas: 274
+2025-11-28 00:40:43,714 - data_transformation - INFO -   Días con engagement: 199
+2025-11-28 00:40:43,714 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,714 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:40:43,715 - data_transformation - INFO - GUARDANDO DATOS PROCESADOS
+2025-11-28 00:40:43,715 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,750 - data_transformation - INFO - data\processed\sales_processed.csv (4384 registros)
+2025-11-28 00:40:43,756 - data_transformation - INFO - data\processed\instagram_processed.csv (859 registros)
+2025-11-28 00:40:43,764 - data_transformation - INFO - data\processed\tiktok_processed.csv (883 registros)
+2025-11-28 00:40:43,767 - data_transformation - INFO - data\processed\youtube_processed.csv (292 registros)
+2025-11-28 00:40:43,784 - data_transformation - INFO - data\processed\social_media_merged_processed.csv (2034 registros)
+2025-11-28 00:40:43,790 - data_transformation - INFO - data\processed\daily_aggregates_processed.csv (274 registros)
+2025-11-28 00:40:43,790 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,790 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,791 - data_transformation - INFO - TRANSFORMACIÓN COMPLETADA
+2025-11-28 00:40:43,791 - data_transformation - INFO - ======================================================================
+2025-11-28 00:40:43,791 - __main__ - INFO - 
+Resumen de transformacion:
+2025-11-28 00:40:43,791 - __main__ - INFO -   sales: 4384 registros
+2025-11-28 00:40:43,792 - __main__ - INFO -   instagram: 859 registros
+2025-11-28 00:40:43,792 - __main__ - INFO -   tiktok: 883 registros
+2025-11-28 00:40:43,792 - __main__ - INFO -   youtube: 292 registros
+2025-11-28 00:40:43,792 - __main__ - INFO -   social_media_merged: 2034 registros
+2025-11-28 00:40:43,793 - __main__ - INFO -   daily_aggregates: 274 registros
+2025-11-28 00:40:43,793 - __main__ - INFO - Todos los archivos criticos generados
+2025-11-28 00:40:43,793 - __main__ - INFO - 
+Transformacion completada exitosamente
+2025-11-28 00:40:43,794 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:40:43,794 - __main__ - INFO - ETAPA 3/5: VALIDACION DE CALIDAD
+2025-11-28 00:40:43,794 - __main__ - INFO - ======================================================================
+2025-11-28 00:40:43,794 - __main__ - INFO - Iniciando validacion de datos transformados...
+2025-11-28 00:40:43,795 - data_validation - INFO - 
+                    
+2025-11-28 00:40:43,795 - data_validation - INFO - INICIANDO VALIDACIÓN COMPLETA DE DATOS
+2025-11-28 00:40:43,795 - data_validation - INFO -                     
+
+2025-11-28 00:40:43,795 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:40:43,796 - data_validation - INFO - VALIDANDO DATOS DE VENTAS
+2025-11-28 00:40:43,796 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,796 - data_validation - INFO - [SALES] Todas las columnas requeridas presentes
+2025-11-28 00:40:43,797 - data_validation - INFO - [SALES] Sin nulos en columnas criticas
+2025-11-28 00:40:43,798 - data_validation - INFO - [SALES] Sin duplicados
+2025-11-28 00:40:43,799 - data_validation - INFO - [SALES] Rangos numéricos válidos
+2025-11-28 00:40:43,799 - data_validation - INFO - [SALES] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-28 00:40:43,800 - data_validation - INFO - [SALES] customer_id: 1292 valores unicos
+2025-11-28 00:40:43,800 - data_validation - INFO - [SALES] product_id: 16 valores unicos
+2025-11-28 00:40:43,800 - data_validation - INFO - 
+[SALES] Resumen:
+2025-11-28 00:40:43,801 - data_validation - INFO -  Total registros: 4384
+2025-11-28 00:40:43,801 - data_validation - INFO -  Clientes únicos: 1292
+2025-11-28 00:40:43,802 - data_validation - INFO -  Productos únicos: 16
+2025-11-28 00:40:43,802 - data_validation - INFO -  Checks pasados: 7/7
+2025-11-28 00:40:43,802 - data_validation - INFO - [SALES] VALIDACIÓN EXITOSA
+2025-11-28 00:40:43,803 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,803 - data_validation - INFO - 
+[INSTAGRAM] Validando...
+2025-11-28 00:40:43,803 - data_validation - INFO - [INSTAGRAM] Todas las columnas requeridas presentes
+2025-11-28 00:40:43,805 - data_validation - INFO - [INSTAGRAM] Sin nulos en columnas criticas
+2025-11-28 00:40:43,806 - data_validation - INFO - [INSTAGRAM] Rangos numéricos válidos
+2025-11-28 00:40:43,806 - data_validation - INFO - [INSTAGRAM] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-28 00:40:43,806 - data_validation - INFO - [INSTAGRAM] Validación exitosa (859 registros)
+2025-11-28 00:40:43,807 - data_validation - INFO - 
+[TIKTOK] Validando...
+2025-11-28 00:40:43,807 - data_validation - INFO - [TIKTOK] Todas las columnas requeridas presentes
+2025-11-28 00:40:43,808 - data_validation - INFO - [TIKTOK] Sin nulos en columnas criticas
+2025-11-28 00:40:43,808 - data_validation - INFO - [TIKTOK] Rangos numéricos válidos
+2025-11-28 00:40:43,809 - data_validation - INFO - [TIKTOK] Fechas válidas (2020-01-06 a 2025-03-27)
+2025-11-28 00:40:43,809 - data_validation - INFO - [TIKTOK] Validación exitosa (883 registros)
+2025-11-28 00:40:43,809 - data_validation - INFO - 
+[YOUTUBE] Validando...
+2025-11-28 00:40:43,810 - data_validation - INFO - [YOUTUBE] Todas las columnas requeridas presentes
+2025-11-28 00:40:43,811 - data_validation - INFO - [YOUTUBE] Sin nulos en columnas criticas
+2025-11-28 00:40:43,811 - data_validation - INFO - [YOUTUBE] Rangos numéricos válidos
+2025-11-28 00:40:43,812 - data_validation - INFO - [YOUTUBE] Fechas válidas (2020-01-07 a 2025-03-23)
+2025-11-28 00:40:43,812 - data_validation - INFO - [YOUTUBE] Validación exitosa (292 registros)
+2025-11-28 00:40:43,812 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:40:43,812 - data_validation - INFO - VALIDANDO SOCIAL MEDIA MERGED
+2025-11-28 00:40:43,813 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,813 - data_validation - INFO - [SOCIAL_MERGED] Todas las columnas requeridas presentes
+2025-11-28 00:40:43,815 - data_validation - INFO - [SOCIAL_MERGED] Sin nulos en columnas criticas
+2025-11-28 00:40:43,815 - data_validation - INFO - [SOCIAL_MERGED] Rangos numéricos válidos
+2025-11-28 00:40:43,816 - data_validation - INFO - [SOCIAL_MERGED] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-28 00:40:43,816 - data_validation - INFO - [SOCIAL_MERGED] platform: 3 valores unicos
+2025-11-28 00:40:43,817 - data_validation - INFO - 
+[SOCIAL_MERGED] Distribución por plataforma:
+2025-11-28 00:40:43,818 - data_validation - INFO -  tiktok: 883 registros
+2025-11-28 00:40:43,818 - data_validation - INFO -  instagram: 859 registros
+2025-11-28 00:40:43,818 - data_validation - INFO -  youtube: 292 registros
+2025-11-28 00:40:43,818 - data_validation - INFO - 
+[SOCIAL_MERGED] Checks pasados: 5/5
+2025-11-28 00:40:43,819 - data_validation - INFO - [SOCIAL_MERGED] VALIDACIÓN EXITOSA
+2025-11-28 00:40:43,819 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,819 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:40:43,819 - data_validation - INFO - VALIDANDO DAILY AGGREGATES
+2025-11-28 00:40:43,820 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,820 - data_validation - INFO - [DAILY_AGG] Todas las columnas requeridas presentes
+2025-11-28 00:40:43,821 - data_validation - INFO - [DAILY_AGG] Sin nulos en columnas criticas
+2025-11-28 00:40:43,822 - data_validation - INFO - [DAILY_AGG] Rangos numéricos válidos
+2025-11-28 00:40:43,822 - data_validation - INFO - [DAILY_AGG] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-28 00:40:43,825 - data_validation - INFO - [DAILY_AGG] Continuidad de fechas OK (gap máximo: 7.0 días)
+2025-11-28 00:40:43,825 - data_validation - INFO - 
+[DAILY_AGG] Resumen:
+2025-11-28 00:40:43,825 - data_validation - INFO -  Total días: 274
+2025-11-28 00:40:43,826 - data_validation - INFO -  Rango: 2020-01-06 a 2025-03-31
+2025-11-28 00:40:43,826 - data_validation - INFO -  Ventas totales: $22,913,280.45
+2025-11-28 00:40:43,826 - data_validation - INFO -  Checks pasados: 5/5
+2025-11-28 00:40:43,826 - data_validation - INFO - [DAILY_AGG] VALIDACIÓN EXITOSA
+2025-11-28 00:40:43,827 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,827 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:40:43,827 - data_validation - INFO - RESUMEN DE VALIDACIÓN
+2025-11-28 00:40:43,827 - data_validation - INFO - ======================================================================
+2025-11-28 00:40:43,828 - data_validation - INFO -  SALES: PASÓ
+2025-11-28 00:40:43,828 - data_validation - INFO -  INSTAGRAM: PASÓ
+2025-11-28 00:40:43,828 - data_validation - INFO -  TIKTOK: PASÓ
+2025-11-28 00:40:43,829 - data_validation - INFO -  YOUTUBE: PASÓ
+2025-11-28 00:40:43,829 - data_validation - INFO -  SOCIAL_MEDIA_MERGED: PASÓ
+2025-11-28 00:40:43,829 - data_validation - INFO -  DAILY_AGGREGATES: PASÓ
+2025-11-28 00:40:43,829 - data_validation - INFO - 
+Total: 6/6 datasets validados exitosamente
+2025-11-28 00:40:43,830 - data_validation - INFO - 
+TODOS LOS DATASETS PASARON LA VALIDACIÓN
+2025-11-28 00:40:43,830 - data_validation - INFO - ======================================================================
+
+2025-11-28 00:40:43,832 - data_validation - INFO -  Reporte de validación guardado: data\processed\validation_report_20251128_004043.json
+2025-11-28 00:40:43,833 - __main__ - INFO - 
+Resultados de validacion:
+2025-11-28 00:40:43,833 - __main__ - INFO -   Datasets validados: 6/6 (100.0%)
+2025-11-28 00:40:43,833 - __main__ - INFO -   PASO: sales
+2025-11-28 00:40:43,833 - __main__ - INFO -   PASO: instagram
+2025-11-28 00:40:43,834 - __main__ - INFO -   PASO: tiktok
+2025-11-28 00:40:43,834 - __main__ - INFO -   PASO: youtube
+2025-11-28 00:40:43,834 - __main__ - INFO -   PASO: social_media_merged
+2025-11-28 00:40:43,835 - __main__ - INFO -   PASO: daily_aggregates
+2025-11-28 00:40:43,835 - __main__ - INFO - 
+Todos los datasets pasaron la validacion
+2025-11-28 00:40:43,835 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:40:43,835 - __main__ - INFO - ETAPA 4/5: SEGMENTACION DE CLIENTES
+2025-11-28 00:40:43,836 - __main__ - INFO - ======================================================================
+2025-11-28 00:40:43,836 - __main__ - INFO - Iniciando segmentacion de clientes...
+2025-11-28 00:40:43,836 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:40:43,836 - customer_segmentation - INFO - INICIANDO SEGMENTACIÓN DE CLIENTES
+2025-11-28 00:40:43,836 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:40:43,837 - customer_segmentation - INFO - 
+[1/5] Calculando métricas RFM...
+2025-11-28 00:40:43,837 - customer_segmentation - INFO -   Calculando métricas RFM por cliente...
+2025-11-28 00:40:43,838 - customer_segmentation - INFO -   Fecha de referencia: 2025-03-31
+2025-11-28 00:40:43,940 - customer_segmentation - INFO -   RFM calculado para 1292 clientes
+2025-11-28 00:40:43,941 - customer_segmentation - INFO -   Recency: 0 - 1911 días
+2025-11-28 00:40:43,941 - customer_segmentation - INFO -   Frequency: 1 - 8 compras
+2025-11-28 00:40:43,941 - customer_segmentation - INFO -   Monetary: $1500.94 - $49828.02
+2025-11-28 00:40:43,942 - customer_segmentation - INFO - 
+[2/5] Aplicando K-means clustering...
+2025-11-28 00:40:43,942 - customer_segmentation - INFO -   Aplicando K-means con 4 clusters...
+2025-11-28 00:40:44,305 - customer_segmentation - INFO -   Clustering completado (inertia: 1285.35)
+2025-11-28 00:40:44,306 - customer_segmentation - INFO -   Distribución de segmentos:
+2025-11-28 00:40:44,306 - customer_segmentation - INFO -     Segmento 0: 285 clientes (22.1%)
+2025-11-28 00:40:44,307 - customer_segmentation - INFO -     Segmento 1: 394 clientes (30.5%)
+2025-11-28 00:40:44,307 - customer_segmentation - INFO -     Segmento 2: 334 clientes (25.9%)
+2025-11-28 00:40:44,307 - customer_segmentation - INFO -     Segmento 3: 279 clientes (21.6%)
+2025-11-28 00:40:44,308 - customer_segmentation - INFO - 
+[3/5] Etiquetando segmentos...
+2025-11-28 00:40:44,308 - customer_segmentation - INFO -   Analizando características de cada segmento...
+2025-11-28 00:40:44,310 - customer_segmentation - INFO - 
+  Perfiles de segmentos:
+2025-11-28 00:40:44,315 - customer_segmentation - INFO -          recency  frequency  monetary
+segment                              
+0        1052.11       5.25  29362.63
+1        1503.17       3.01  14997.40
+2         461.69       3.64  18900.03
+3         661.01       1.73   8327.40
+2025-11-28 00:40:44,319 - customer_segmentation - INFO - 
+  Etiquetas asignadas:
+2025-11-28 00:40:44,320 - customer_segmentation - INFO -     Segmento 1 -> 'Dormido' (394 clientes)
+2025-11-28 00:40:44,320 - customer_segmentation - INFO -     Segmento 0 -> 'VIP' (285 clientes)
+2025-11-28 00:40:44,320 - customer_segmentation - INFO -     Segmento 3 -> 'Ocasional' (279 clientes)
+2025-11-28 00:40:44,321 - customer_segmentation - INFO -     Segmento 2 -> 'Leal' (334 clientes)
+2025-11-28 00:40:44,321 - customer_segmentation - INFO - 
+[4/5] Aplicando PCA para visualización...
+2025-11-28 00:40:44,321 - customer_segmentation - INFO -   Aplicando PCA (2 componentes)...
+2025-11-28 00:40:44,347 - customer_segmentation - INFO -   PCA completado
+2025-11-28 00:40:44,347 - customer_segmentation - INFO -   Varianza explicada por componente:
+2025-11-28 00:40:44,347 - customer_segmentation - INFO -     PC1: 62.81%
+2025-11-28 00:40:44,348 - customer_segmentation - INFO -     PC2: 33.33%
+2025-11-28 00:40:44,348 - customer_segmentation - INFO -   Varianza total explicada: 96.14%
+2025-11-28 00:40:44,348 - customer_segmentation - INFO - 
+[5/5] Guardando resultados...
+2025-11-28 00:40:44,356 - customer_segmentation - INFO -   RFM guardado: data\processed\rfm_analysis.csv
+2025-11-28 00:40:44,366 - customer_segmentation - INFO -   Segmentos guardados: data\processed\customer_segments.csv
+2025-11-28 00:40:44,366 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:40:44,366 - customer_segmentation - INFO - REPORTE DE SEGMENTACIÓN
+2025-11-28 00:40:44,367 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:40:44,369 - customer_segmentation - INFO - 
+SEGMENTO: Dormido
+2025-11-28 00:40:44,370 - customer_segmentation - INFO -   Tamaño: 394 clientes (30.5%)
+2025-11-28 00:40:44,370 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:40:44,371 - customer_segmentation - INFO -     Recency: 1503.2 días
+2025-11-28 00:40:44,371 - customer_segmentation - INFO -     Frequency: 3.0 compras
+2025-11-28 00:40:44,372 - customer_segmentation - INFO -     Monetary: $14997.40
+2025-11-28 00:40:44,372 - customer_segmentation - INFO -     AOV: $5073.88
+2025-11-28 00:40:44,372 - customer_segmentation - INFO -     Product Diversity: 3.0 productos
+2025-11-28 00:40:44,373 - customer_segmentation - INFO - 
+  Valor total del segmento: $5,908,977.24
+2025-11-28 00:40:44,373 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:40:44,373 - customer_segmentation - INFO -     -> Campañas de reactivación
+2025-11-28 00:40:44,373 - customer_segmentation - INFO -     -> Descuentos especiales de 'regreso'
+2025-11-28 00:40:44,374 - customer_segmentation - INFO -     -> Encuestas para entender por qué se fueron
+2025-11-28 00:40:44,375 - customer_segmentation - INFO - 
+SEGMENTO: VIP
+2025-11-28 00:40:44,375 - customer_segmentation - INFO -   Tamaño: 285 clientes (22.1%)
+2025-11-28 00:40:44,375 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:40:44,376 - customer_segmentation - INFO -     Recency: 1052.1 días
+2025-11-28 00:40:44,376 - customer_segmentation - INFO -     Frequency: 5.3 compras
+2025-11-28 00:40:44,376 - customer_segmentation - INFO -     Monetary: $29362.63
+2025-11-28 00:40:44,377 - customer_segmentation - INFO -     AOV: $5659.33
+2025-11-28 00:40:44,377 - customer_segmentation - INFO -     Product Diversity: 5.2 productos
+2025-11-28 00:40:44,377 - customer_segmentation - INFO - 
+  Valor total del segmento: $8,368,349.79
+2025-11-28 00:40:44,378 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:40:44,378 - customer_segmentation - INFO -     -> Programas de fidelidad premium
+2025-11-28 00:40:44,378 - customer_segmentation - INFO -     -> Lanzamientos exclusivos
+2025-11-28 00:40:44,378 - customer_segmentation - INFO -     -> Atención personalizada
+2025-11-28 00:40:44,380 - customer_segmentation - INFO - 
+SEGMENTO: Ocasional
+2025-11-28 00:40:44,380 - customer_segmentation - INFO -   Tamaño: 279 clientes (21.6%)
+2025-11-28 00:40:44,380 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:40:44,381 - customer_segmentation - INFO -     Recency: 661.0 días
+2025-11-28 00:40:44,381 - customer_segmentation - INFO -     Frequency: 1.7 compras
+2025-11-28 00:40:44,381 - customer_segmentation - INFO -     Monetary: $8327.40
+2025-11-28 00:40:44,382 - customer_segmentation - INFO -     AOV: $4864.63
+2025-11-28 00:40:44,382 - customer_segmentation - INFO -     Product Diversity: 1.7 productos
+2025-11-28 00:40:44,383 - customer_segmentation - INFO - 
+  Valor total del segmento: $2,323,344.67
+2025-11-28 00:40:44,383 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:40:44,383 - customer_segmentation - INFO -     -> Campañas de retención
+2025-11-28 00:40:44,383 - customer_segmentation - INFO -     -> Descuentos en segunda compra
+2025-11-28 00:40:44,384 - customer_segmentation - INFO -     -> Email marketing educativo
+2025-11-28 00:40:44,385 - customer_segmentation - INFO - 
+SEGMENTO: Leal
+2025-11-28 00:40:44,385 - customer_segmentation - INFO -   Tamaño: 334 clientes (25.9%)
+2025-11-28 00:40:44,385 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:40:44,386 - customer_segmentation - INFO -     Recency: 461.7 días
+2025-11-28 00:40:44,386 - customer_segmentation - INFO -     Frequency: 3.6 compras
+2025-11-28 00:40:44,386 - customer_segmentation - INFO -     Monetary: $18900.03
+2025-11-28 00:40:44,387 - customer_segmentation - INFO -     AOV: $5250.50
+2025-11-28 00:40:44,387 - customer_segmentation - INFO -     Product Diversity: 3.6 productos
+2025-11-28 00:40:44,387 - customer_segmentation - INFO - 
+  Valor total del segmento: $6,312,608.75
+2025-11-28 00:40:44,388 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:40:44,388 - customer_segmentation - INFO -     -> Incentivos para aumentar ticket promedio
+2025-11-28 00:40:44,388 - customer_segmentation - INFO -     -> Cross-selling de productos complementarios
+2025-11-28 00:40:44,388 - customer_segmentation - INFO -     -> Programas de referidos
+2025-11-28 00:40:44,389 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:40:44,389 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:40:44,389 - customer_segmentation - INFO - SEGMENTACIÓN COMPLETADA
+2025-11-28 00:40:44,390 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:40:44,390 - __main__ - INFO - 
+Generando visualizaciones de segmentacion...
+2025-11-28 00:40:44,390 - customer_segmentation - INFO - 
+Generando visualizaciones...
+2025-11-28 00:40:45,502 - customer_segmentation - INFO -   Gráfico PCA guardado: dashboards\static\segments_pca.png
+2025-11-28 00:40:45,853 - customer_segmentation - INFO -   Gráfico de distribución guardado: dashboards\static\segments_distribution.png
+2025-11-28 00:40:46,479 - customer_segmentation - INFO -   Gráfico de perfiles RFM guardado: dashboards\static\segments_rfm_profiles.png
+2025-11-28 00:40:46,480 - __main__ - INFO - 
+Resumen de segmentacion:
+2025-11-28 00:40:46,480 - __main__ - INFO -   Clientes segmentados: 1292
+2025-11-28 00:40:46,481 - __main__ - INFO -   Segmentos identificados: 4
+2025-11-28 00:40:46,482 - __main__ - INFO -     Dormido: 394 clientes (30.5%)
+2025-11-28 00:40:46,482 - __main__ - INFO -     Leal: 334 clientes (25.9%)
+2025-11-28 00:40:46,483 - __main__ - INFO -     VIP: 285 clientes (22.1%)
+2025-11-28 00:40:46,483 - __main__ - INFO -     Ocasional: 279 clientes (21.6%)
+2025-11-28 00:40:46,483 - __main__ - INFO - 
+Segmentacion completada exitosamente
+2025-11-28 00:40:46,483 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:40:46,484 - __main__ - INFO - ETAPA 5/5: ANALISIS DE CORRELACION
+2025-11-28 00:40:46,484 - __main__ - INFO - ======================================================================
+2025-11-28 00:40:46,484 - __main__ - INFO - Iniciando analisis de correlacion...
+2025-11-28 00:40:46,485 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:40:46,485 - correlation_analysis - INFO - INICIANDO ANALISIS DE CORRELACION AVANZADO
+2025-11-28 00:40:46,485 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:40:46,485 - correlation_analysis - INFO - 
+[1/6] Correlacion general ventas vs social media...
+2025-11-28 00:40:46,486 - correlation_analysis - INFO -   Calculando correlaciones generales...
+2025-11-28 00:40:46,486 - correlation_analysis - INFO - 
+  === DIAGNOSTICO DE DATOS ===
+2025-11-28 00:40:46,486 - correlation_analysis - INFO -   Registros totales: 274
+2025-11-28 00:40:46,487 - correlation_analysis - INFO -   Dias con ventas > 0: 274
+2025-11-28 00:40:46,487 - correlation_analysis - INFO -   Dias con engagement > 0: 199
+2025-11-28 00:40:46,488 - correlation_analysis - INFO -   Rango ventas: $62198 - $110304
+2025-11-28 00:40:46,488 - correlation_analysis - INFO -   Rango engagement: 0.0000 - 0.0936
+2025-11-28 00:40:46,489 - correlation_analysis - INFO -   Variacion ventas (std): $8859.71
+2025-11-28 00:40:46,489 - correlation_analysis - INFO -   Variacion engagement (std): 0.0226
+2025-11-28 00:40:46,497 - correlation_analysis - INFO - 
+  Pearson: r = 0.091 (p=0.1314)
+2025-11-28 00:40:46,498 - correlation_analysis - INFO -   Spearman: rho = 0.075 (p=0.2135)
+2025-11-28 00:40:46,498 - correlation_analysis - INFO -   Kendall: tau = 0.053 (p=0.2020)
+2025-11-28 00:40:46,498 - correlation_analysis - INFO - 
+  Interpretacion: Correlacion muy debil positiva
+2025-11-28 00:40:46,499 - correlation_analysis - INFO -       -> La influencia es muy debil o inexistente
+2025-11-28 00:40:46,499 - correlation_analysis - INFO - 
+[2/6] Analisis de lag temporal...
+2025-11-28 00:40:46,500 - correlation_analysis - INFO -   Analizando lags de 0 a 14 dias...
+2025-11-28 00:40:46,527 - correlation_analysis - INFO - 
+  Mejor lag: 13 dias (r=0.113)
+2025-11-28 00:40:46,528 - correlation_analysis - INFO -       Interpretacion: Efecto a mediano plazo
+2025-11-28 00:40:46,528 - correlation_analysis - INFO - 
+[3/6] Analisis de ventanas moviles...
+2025-11-28 00:40:46,528 - correlation_analysis - INFO -   Calculando correlaciones con ventanas moviles...
+2025-11-28 00:40:46,529 - correlation_analysis - INFO -     Ventana de 7 dias...
+2025-11-28 00:40:46,678 - correlation_analysis - INFO -       Promedio: 0.067
+2025-11-28 00:40:46,679 - correlation_analysis - INFO -       Rango: [-0.879, 0.904]
+2025-11-28 00:40:46,679 - correlation_analysis - INFO -       Mejor periodo termina: 2020-12-07 (r=0.904)
+2025-11-28 00:40:46,679 - correlation_analysis - INFO -     Ventana de 14 dias...
+2025-11-28 00:40:46,801 - correlation_analysis - INFO -       Promedio: 0.090
+2025-11-28 00:40:46,801 - correlation_analysis - INFO -       Rango: [-0.518, 0.669]
+2025-11-28 00:40:46,802 - correlation_analysis - INFO -       Mejor periodo termina: 2024-11-04 (r=0.669)
+2025-11-28 00:40:46,802 - correlation_analysis - INFO -     Ventana de 30 dias...
+2025-11-28 00:40:46,913 - correlation_analysis - INFO -       Promedio: 0.118
+2025-11-28 00:40:46,913 - correlation_analysis - INFO -       Rango: [-0.228, 0.402]
+2025-11-28 00:40:46,914 - correlation_analysis - INFO - 
+[4/6] Correlacion por segmento de cliente...
+2025-11-28 00:40:46,914 - correlation_analysis - INFO -   Calculando correlacion por segmento...
+2025-11-28 00:40:46,943 - correlation_analysis - INFO - 
+  === CORRELACIONES POR SEGMENTO ===
+2025-11-28 00:40:46,943 - correlation_analysis - INFO -   Dormido: r = 0.108 (peso=0.7)
+2025-11-28 00:40:46,944 - correlation_analysis - INFO -   Leal: r = 0.102 (peso=1.1)
+2025-11-28 00:40:46,944 - correlation_analysis - INFO -   VIP: r = -0.039 (peso=1.3)
+2025-11-28 00:40:46,945 - correlation_analysis - INFO -   Ocasional: r = -0.045 (peso=0.9)
+2025-11-28 00:40:46,947 - correlation_analysis - INFO - 
+[5/6] Correlacion por producto...
+2025-11-28 00:40:46,948 - correlation_analysis - INFO -   Calculando correlacion por producto...
+2025-11-28 00:40:46,977 - correlation_analysis - INFO - 
+  === TOP PRODUCTOS MAS REACTIVOS ===
+2025-11-28 00:40:46,977 - correlation_analysis - INFO -   Melatonin: r = 0.168 (SIGNIF)
+2025-11-28 00:40:46,977 - correlation_analysis - INFO -   Green Tea Extract: r = 0.116 (NO_SIGNIF)
+2025-11-28 00:40:46,978 - correlation_analysis - INFO -   Multivitamin: r = 0.077 (NO_SIGNIF)
+2025-11-28 00:40:46,978 - correlation_analysis - INFO -   BCAA: r = 0.054 (NO_SIGNIF)
+2025-11-28 00:40:46,978 - correlation_analysis - INFO -   Whey Protein: r = 0.047 (NO_SIGNIF)
+2025-11-28 00:40:46,979 - correlation_analysis - INFO - 
+[6/6] Guardando resultados...
+2025-11-28 00:40:46,986 - correlation_analysis - INFO -   Resultados guardados
+2025-11-28 00:40:46,987 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:40:46,987 - correlation_analysis - INFO - REPORTE DE CORRELACION
+2025-11-28 00:40:46,987 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:40:46,988 - correlation_analysis - INFO - 
+CORRELACION GENERAL:
+2025-11-28 00:40:46,988 - correlation_analysis - INFO -   Pearson: 0.091 (No significativo)
+2025-11-28 00:40:46,988 - correlation_analysis - INFO -   Spearman: 0.075
+2025-11-28 00:40:46,989 - correlation_analysis - INFO -   Kendall: 0.053
+2025-11-28 00:40:46,989 - correlation_analysis - INFO -   Muestras: 274
+2025-11-28 00:40:46,989 - correlation_analysis - INFO - 
+VENTANAS MOVILES:
+2025-11-28 00:40:46,990 - correlation_analysis - INFO -   7.0 dias: promedio=0.067, max=0.904
+2025-11-28 00:40:46,990 - correlation_analysis - INFO -   14.0 dias: promedio=0.090, max=0.669
+2025-11-28 00:40:46,990 - correlation_analysis - INFO -   30.0 dias: promedio=0.118, max=0.402
+2025-11-28 00:40:46,991 - correlation_analysis - INFO - 
+LAG TEMPORAL:
+2025-11-28 00:40:46,991 - correlation_analysis - INFO -   Optimo: 13 dias (r=0.113)
+2025-11-28 00:40:46,992 - correlation_analysis - INFO - 
+TOP 3 PRODUCTOS MAS REACTIVOS:
+2025-11-28 00:40:46,992 - correlation_analysis - INFO -   11. Melatonin: r=0.168
+2025-11-28 00:40:46,993 - correlation_analysis - INFO -   8. Green Tea Extract: r=0.116
+2025-11-28 00:40:46,993 - correlation_analysis - INFO -   12. Multivitamin: r=0.077
+2025-11-28 00:40:46,993 - correlation_analysis - INFO - 
+SEGMENTOS:
+2025-11-28 00:40:46,994 - correlation_analysis - INFO -   Dormido: r=0.108
+2025-11-28 00:40:46,994 - correlation_analysis - INFO -   Leal: r=0.102
+2025-11-28 00:40:46,994 - correlation_analysis - INFO -   VIP: r=-0.039
+2025-11-28 00:40:46,995 - correlation_analysis - INFO -   Ocasional: r=-0.045
+2025-11-28 00:40:46,995 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:40:46,995 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:40:46,996 - correlation_analysis - INFO - ANALISIS DE CORRELACION COMPLETADO
+2025-11-28 00:40:46,996 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:40:46,996 - __main__ - INFO - 
+Generando visualizaciones de correlacion...
+2025-11-28 00:40:46,996 - correlation_analysis - INFO - 
+Generando visualizaciones...
+2025-11-28 00:40:47,635 - correlation_analysis - INFO -   Scatter plot: dashboards\static\correlation_scatter.png
+2025-11-28 00:40:48,012 - correlation_analysis - INFO -   Lag analysis: dashboards\static\correlation_lag.png
+2025-11-28 00:40:48,326 - correlation_analysis - INFO -   By segment: dashboards\static\correlation_by_segment.png
+2025-11-28 00:40:48,327 - __main__ - INFO - 
+Resumen de correlacion:
+2025-11-28 00:40:48,328 - __main__ - INFO -   Correlacion general (Pearson):
+2025-11-28 00:40:48,328 - __main__ - INFO -     r = 0.091
+2025-11-28 00:40:48,328 - __main__ - INFO -     p-value = 0.1314
+2025-11-28 00:40:48,329 - __main__ - INFO -     No significativa
+2025-11-28 00:40:48,329 - __main__ - INFO -   Lag optimo: 13 dias (r=0.113)
+2025-11-28 00:40:48,330 - __main__ - INFO -   Segmentos analizados: 4
+2025-11-28 00:40:48,330 - __main__ - INFO -   Productos analizados: 16
+2025-11-28 00:40:48,330 - __main__ - INFO - 
+Analisis de correlacion completado exitosamente
+2025-11-28 00:40:48,331 - __main__ - INFO - 
+===================================
+2025-11-28 00:40:48,331 - __main__ - INFO - PIPELINE COMPLETADO EXITOSAMENTE
+2025-11-28 00:40:48,331 - __main__ - INFO - ===================================
+2025-11-28 00:40:48,331 - __main__ - INFO - 
+Informacion de ejecucion:
+2025-11-28 00:40:48,332 - __main__ - INFO -   Inicio: 2025-11-28 00:40:43
+2025-11-28 00:40:48,332 - __main__ - INFO -   Fin: 2025-11-28 00:40:48
+2025-11-28 00:40:48,332 - __main__ - INFO -   Duracion: 5.08 segundos
+2025-11-28 00:40:48,332 - __main__ - INFO - 
+Etapas completadas (5/5):
+2025-11-28 00:40:48,333 - __main__ - INFO -   Ingestion
+2025-11-28 00:40:48,333 - __main__ - INFO -   Transformation
+2025-11-28 00:40:48,333 - __main__ - INFO -   Validation
+2025-11-28 00:40:48,334 - __main__ - INFO -   Segmentation
+2025-11-28 00:40:48,334 - __main__ - INFO -   Correlation
+2025-11-28 00:40:48,335 - __main__ - INFO - 
+Archivos generados:
+2025-11-28 00:40:48,337 - __main__ - INFO -   correlation_by_product.csv (0.00 MB)
+2025-11-28 00:40:48,338 - __main__ - INFO -   correlation_by_segment.csv (0.00 MB)
+2025-11-28 00:40:48,338 - __main__ - INFO -   correlation_general.csv (0.00 MB)
+2025-11-28 00:40:48,338 - __main__ - INFO -   correlation_lag.csv (0.00 MB)
+2025-11-28 00:40:48,339 - __main__ - INFO -   correlation_rolling.csv (0.00 MB)
+2025-11-28 00:40:48,339 - __main__ - INFO -   customer_segments.csv (0.06 MB)
+2025-11-28 00:40:48,340 - __main__ - INFO -   daily_aggregates_processed.csv (0.03 MB)
+2025-11-28 00:40:48,340 - __main__ - INFO -   instagram_processed.csv (0.07 MB)
+2025-11-28 00:40:48,341 - __main__ - INFO -   rfm_analysis.csv (0.06 MB)
+2025-11-28 00:40:48,341 - __main__ - INFO -   sales_processed.csv (0.45 MB)
+2025-11-28 00:40:48,342 - __main__ - INFO -   social_media_merged_processed.csv (0.23 MB)
+2025-11-28 00:40:48,342 - __main__ - INFO -   tiktok_processed.csv (0.10 MB)
+2025-11-28 00:40:48,343 - __main__ - INFO -   youtube_processed.csv (0.03 MB)
+2025-11-28 00:40:48,345 - __main__ - INFO - 
+Visualizaciones generadas:
+2025-11-28 00:40:48,349 - __main__ - INFO -   correlation_by_segment.png
+2025-11-28 00:40:48,350 - __main__ - INFO -   correlation_lag.png
+2025-11-28 00:40:48,350 - __main__ - INFO -   correlation_scatter.png
+2025-11-28 00:40:48,350 - __main__ - INFO -   segments_distribution.png
+2025-11-28 00:40:48,351 - __main__ - INFO -   segments_pca.png
+2025-11-28 00:40:48,352 - __main__ - INFO -   segments_rfm_profiles.png
+2025-11-28 00:40:48,352 - __main__ - INFO - 
+Calidad de datos: TODOS LOS CHECKS PASADOS
+2025-11-28 00:40:48,352 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:40:48,352 - __main__ - INFO - Log completo guardado en: pipeline_execution.log
+2025-11-28 00:40:48,353 - __main__ - INFO - ======================================================================
+
+2025-11-28 00:41:12,416 - __main__ - INFO - Inicializando Pipeline Orchestrator...
+2025-11-28 00:41:12,418 - data_ingestion - INFO - Configuración cargada desde config/pipeline_config.yaml
+2025-11-28 00:41:12,418 - __main__ - INFO - Modulos del pipeline inicializados correctamente
+2025-11-28 00:41:12,418 - __main__ - INFO - 
+===================================
+2025-11-28 00:41:12,418 - __main__ - INFO - INICIANDO EJECUCION DEL PIPELINE COMPLETO
+2025-11-28 00:41:12,418 - __main__ - INFO - ===================================
+
+2025-11-28 00:41:12,419 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:41:12,419 - __main__ - INFO - ETAPA 1/5: INGESTA DE DATOS
+2025-11-28 00:41:12,419 - __main__ - INFO - ======================================================================
+2025-11-28 00:41:12,419 - __main__ - INFO - Iniciando ingesta de datos...
+2025-11-28 00:41:12,419 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:41:12,419 - data_ingestion - INFO - INICIANDO INGESTA DE DATOS
+2025-11-28 00:41:12,419 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:41:12,419 - data_ingestion - INFO - Cargando datos de ventas desde data/raw/Supplement_Sales_Weekly_Expanded.csv
+2025-11-28 00:41:12,427 - data_ingestion - INFO - Archivo leído: 4384 registros
+2025-11-28 00:41:12,432 - data_ingestion - INFO - Rango de fechas: 2020-01-06 00:00:00 a 2025-03-31 00:00:00
+2025-11-28 00:41:12,432 - data_ingestion - INFO - Generando engagement seeds MEJORADOS...
+2025-11-28 00:41:12,574 - data_ingestion - INFO - Seeds generados para 274 fechas
+2025-11-28 00:41:12,575 - data_ingestion - INFO -    Rango: 0.225 - 1.000
+2025-11-28 00:41:12,575 - data_ingestion - INFO -    Promedio: 0.609
+2025-11-28 00:41:12,575 - data_ingestion - INFO -    Desviación std: 0.160 (>0.15 es bueno)
+2025-11-28 00:41:12,575 - data_ingestion - INFO - Datos cargados: 4384 registros
+2025-11-28 00:41:12,581 - data_ingestion - INFO - Instagram: 859 posts cargados
+2025-11-28 00:41:12,587 - data_ingestion - INFO - TikTok: 883 videos cargados
+2025-11-28 00:41:12,590 - data_ingestion - INFO - YouTube: 292 videos cargados
+2025-11-28 00:41:12,590 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:41:12,590 - data_ingestion - INFO - INGESTA COMPLETADA
+2025-11-28 00:41:12,590 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:41:12,590 - __main__ - INFO - 
+Resumen de ingesta:
+2025-11-28 00:41:12,590 - __main__ - INFO -   sales: 4384 registros
+2025-11-28 00:41:12,590 - __main__ - INFO -   instagram: 859 registros
+2025-11-28 00:41:12,591 - __main__ - INFO -   tiktok: 883 registros
+2025-11-28 00:41:12,591 - __main__ - INFO -   youtube: 292 registros
+2025-11-28 00:41:12,591 - __main__ - INFO - 
+Ingesta completada exitosamente
+2025-11-28 00:41:12,591 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:41:12,591 - __main__ - INFO - ETAPA 2/5: TRANSFORMACION DE DATOS
+2025-11-28 00:41:12,591 - __main__ - INFO - ======================================================================
+2025-11-28 00:41:12,591 - __main__ - INFO - Iniciando transformacion de datos...
+2025-11-28 00:41:12,591 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,591 - data_transformation - INFO - INICIANDO TRANSFORMACIÓN DE DATOS
+2025-11-28 00:41:12,591 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,592 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:41:12,592 - data_transformation - INFO - TRANSFORMANDO DATOS DE VENTAS
+2025-11-28 00:41:12,592 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,592 - data_transformation - INFO - 
+[1/6] Generando identificadores...
+2025-11-28 00:41:12,594 - data_transformation - INFO - transaction_id generado
+2025-11-28 00:41:12,595 - data_transformation - INFO - product_id generado (16 productos)
+2025-11-28 00:41:12,600 - data_transformation - INFO - customer_id generado desde location (1292 clientes)
+2025-11-28 00:41:12,600 - data_transformation - INFO - 
+[2/6] Calculando métricas derivadas...
+2025-11-28 00:41:12,600 - data_transformation - INFO - 
+[3/6] Limpiando datos...
+2025-11-28 00:41:12,604 - data_transformation - INFO - 
+[4/6] Eliminando outliers...
+2025-11-28 00:41:12,605 - data_transformation - INFO - Outliers eliminados: 0 (0.0%)
+2025-11-28 00:41:12,605 - data_transformation - INFO - 
+[5/6] Creando features temporales...
+2025-11-28 00:41:12,610 - data_transformation - INFO -   Features temporales creadas
+2025-11-28 00:41:12,610 - data_transformation - INFO - 
+[6/6] Resumen de transformación...
+2025-11-28 00:41:12,610 - data_transformation - INFO -   Registros iniciales: 4384
+2025-11-28 00:41:12,610 - data_transformation - INFO -   Registros finales: 4384
+2025-11-28 00:41:12,610 - data_transformation - INFO -   Registros eliminados: 0 (0.0%)
+2025-11-28 00:41:12,611 - data_transformation - INFO -   Clientes únicos: 1292
+2025-11-28 00:41:12,611 - data_transformation - INFO -   Productos únicos: 16
+2025-11-28 00:41:12,611 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,611 - data_transformation - INFO - 
+Transformando datos de instagram...
+2025-11-28 00:41:12,613 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0136, max: 0.0765)
+2025-11-28 00:41:12,613 - data_transformation - INFO -   Variación: 0.0119
+2025-11-28 00:41:12,616 - data_transformation - INFO -   instagram: 859 registros procesados
+2025-11-28 00:41:12,616 - data_transformation - INFO - 
+Transformando datos de tiktok...
+2025-11-28 00:41:12,617 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0154, max: 0.1112)
+2025-11-28 00:41:12,617 - data_transformation - INFO -   Variación: 0.0172
+2025-11-28 00:41:12,620 - data_transformation - INFO -   tiktok: 883 registros procesados
+2025-11-28 00:41:12,620 - data_transformation - INFO - 
+Transformando datos de youtube...
+2025-11-28 00:41:12,621 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0105, max: 0.0501)
+2025-11-28 00:41:12,622 - data_transformation - INFO -   Variación: 0.0084
+2025-11-28 00:41:12,624 - data_transformation - INFO -   youtube: 292 registros procesados
+2025-11-28 00:41:12,624 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:41:12,624 - data_transformation - INFO - COMBINANDO DATOS DE REDES SOCIALES
+2025-11-28 00:41:12,624 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,624 - data_transformation - INFO -  Instagram: 859 posts
+2025-11-28 00:41:12,624 - data_transformation - INFO - TikTok: 883 videos
+2025-11-28 00:41:12,625 - data_transformation - INFO - YouTube: 292 videos
+2025-11-28 00:41:12,628 - data_transformation - INFO - 
+  Total combinado: 2034 registros
+2025-11-28 00:41:12,628 - data_transformation - INFO -   Plataformas: ['instagram', 'tiktok', 'youtube']
+2025-11-28 00:41:12,628 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,628 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:41:12,628 - data_transformation - INFO - CALCULANDO AGREGADOS DIARIOS
+2025-11-28 00:41:12,629 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,629 - data_transformation - INFO - 
+Agregando ventas por día...
+2025-11-28 00:41:12,633 - data_transformation - INFO -   Ventas agregadas: 274 días
+2025-11-28 00:41:12,633 - data_transformation - INFO -   Rango ventas: $62198 - $110304
+2025-11-28 00:41:12,633 - data_transformation - INFO - 
+Agregando redes sociales por día...
+2025-11-28 00:41:12,633 - data_transformation - INFO -   Engagement original - std: 0.0170
+2025-11-28 00:41:12,692 - data_transformation - INFO -   Redes sociales agregadas: 1414 días
+2025-11-28 00:41:12,693 - data_transformation - INFO -   Engagement diario - std: 0.0148
+2025-11-28 00:41:12,693 - data_transformation - INFO -   Rango engagement: 0.0105 - 0.0975
+2025-11-28 00:41:12,696 - data_transformation - INFO - 
+  Datos combinados: 274 días
+2025-11-28 00:41:12,696 - data_transformation - INFO -   Días con ventas: 274
+2025-11-28 00:41:12,697 - data_transformation - INFO -   Días con engagement: 199
+2025-11-28 00:41:12,697 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,697 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:41:12,697 - data_transformation - INFO - GUARDANDO DATOS PROCESADOS
+2025-11-28 00:41:12,697 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,727 - data_transformation - INFO - data\processed\sales_processed.csv (4384 registros)
+2025-11-28 00:41:12,732 - data_transformation - INFO - data\processed\instagram_processed.csv (859 registros)
+2025-11-28 00:41:12,737 - data_transformation - INFO - data\processed\tiktok_processed.csv (883 registros)
+2025-11-28 00:41:12,740 - data_transformation - INFO - data\processed\youtube_processed.csv (292 registros)
+2025-11-28 00:41:12,755 - data_transformation - INFO - data\processed\social_media_merged_processed.csv (2034 registros)
+2025-11-28 00:41:12,758 - data_transformation - INFO - data\processed\daily_aggregates_processed.csv (274 registros)
+2025-11-28 00:41:12,758 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,758 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,759 - data_transformation - INFO - TRANSFORMACIÓN COMPLETADA
+2025-11-28 00:41:12,759 - data_transformation - INFO - ======================================================================
+2025-11-28 00:41:12,759 - __main__ - INFO - 
+Resumen de transformacion:
+2025-11-28 00:41:12,759 - __main__ - INFO -   sales: 4384 registros
+2025-11-28 00:41:12,759 - __main__ - INFO -   instagram: 859 registros
+2025-11-28 00:41:12,759 - __main__ - INFO -   tiktok: 883 registros
+2025-11-28 00:41:12,759 - __main__ - INFO -   youtube: 292 registros
+2025-11-28 00:41:12,759 - __main__ - INFO -   social_media_merged: 2034 registros
+2025-11-28 00:41:12,759 - __main__ - INFO -   daily_aggregates: 274 registros
+2025-11-28 00:41:12,760 - __main__ - INFO - Todos los archivos criticos generados
+2025-11-28 00:41:12,760 - __main__ - INFO - 
+Transformacion completada exitosamente
+2025-11-28 00:41:12,760 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:41:12,760 - __main__ - INFO - ETAPA 3/5: VALIDACION DE CALIDAD
+2025-11-28 00:41:12,760 - __main__ - INFO - ======================================================================
+2025-11-28 00:41:12,760 - __main__ - INFO - Iniciando validacion de datos transformados...
+2025-11-28 00:41:12,760 - data_validation - INFO - 
+                    
+2025-11-28 00:41:12,760 - data_validation - INFO - INICIANDO VALIDACIÓN COMPLETA DE DATOS
+2025-11-28 00:41:12,760 - data_validation - INFO -                     
+
+2025-11-28 00:41:12,760 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:41:12,761 - data_validation - INFO - VALIDANDO DATOS DE VENTAS
+2025-11-28 00:41:12,761 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,761 - data_validation - INFO - [SALES] Todas las columnas requeridas presentes
+2025-11-28 00:41:12,762 - data_validation - INFO - [SALES] Sin nulos en columnas criticas
+2025-11-28 00:41:12,762 - data_validation - INFO - [SALES] Sin duplicados
+2025-11-28 00:41:12,763 - data_validation - INFO - [SALES] Rangos numéricos válidos
+2025-11-28 00:41:12,763 - data_validation - INFO - [SALES] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-28 00:41:12,764 - data_validation - INFO - [SALES] customer_id: 1292 valores unicos
+2025-11-28 00:41:12,764 - data_validation - INFO - [SALES] product_id: 16 valores unicos
+2025-11-28 00:41:12,764 - data_validation - INFO - 
+[SALES] Resumen:
+2025-11-28 00:41:12,764 - data_validation - INFO -  Total registros: 4384
+2025-11-28 00:41:12,764 - data_validation - INFO -  Clientes únicos: 1292
+2025-11-28 00:41:12,764 - data_validation - INFO -  Productos únicos: 16
+2025-11-28 00:41:12,764 - data_validation - INFO -  Checks pasados: 7/7
+2025-11-28 00:41:12,765 - data_validation - INFO - [SALES] VALIDACIÓN EXITOSA
+2025-11-28 00:41:12,765 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,765 - data_validation - INFO - 
+[INSTAGRAM] Validando...
+2025-11-28 00:41:12,765 - data_validation - INFO - [INSTAGRAM] Todas las columnas requeridas presentes
+2025-11-28 00:41:12,766 - data_validation - INFO - [INSTAGRAM] Sin nulos en columnas criticas
+2025-11-28 00:41:12,766 - data_validation - INFO - [INSTAGRAM] Rangos numéricos válidos
+2025-11-28 00:41:12,766 - data_validation - INFO - [INSTAGRAM] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-28 00:41:12,766 - data_validation - INFO - [INSTAGRAM] Validación exitosa (859 registros)
+2025-11-28 00:41:12,766 - data_validation - INFO - 
+[TIKTOK] Validando...
+2025-11-28 00:41:12,767 - data_validation - INFO - [TIKTOK] Todas las columnas requeridas presentes
+2025-11-28 00:41:12,767 - data_validation - INFO - [TIKTOK] Sin nulos en columnas criticas
+2025-11-28 00:41:12,767 - data_validation - INFO - [TIKTOK] Rangos numéricos válidos
+2025-11-28 00:41:12,768 - data_validation - INFO - [TIKTOK] Fechas válidas (2020-01-06 a 2025-03-27)
+2025-11-28 00:41:12,768 - data_validation - INFO - [TIKTOK] Validación exitosa (883 registros)
+2025-11-28 00:41:12,768 - data_validation - INFO - 
+[YOUTUBE] Validando...
+2025-11-28 00:41:12,768 - data_validation - INFO - [YOUTUBE] Todas las columnas requeridas presentes
+2025-11-28 00:41:12,769 - data_validation - INFO - [YOUTUBE] Sin nulos en columnas criticas
+2025-11-28 00:41:12,769 - data_validation - INFO - [YOUTUBE] Rangos numéricos válidos
+2025-11-28 00:41:12,770 - data_validation - INFO - [YOUTUBE] Fechas válidas (2020-01-07 a 2025-03-23)
+2025-11-28 00:41:12,770 - data_validation - INFO - [YOUTUBE] Validación exitosa (292 registros)
+2025-11-28 00:41:12,770 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:41:12,770 - data_validation - INFO - VALIDANDO SOCIAL MEDIA MERGED
+2025-11-28 00:41:12,770 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,770 - data_validation - INFO - [SOCIAL_MERGED] Todas las columnas requeridas presentes
+2025-11-28 00:41:12,771 - data_validation - INFO - [SOCIAL_MERGED] Sin nulos en columnas criticas
+2025-11-28 00:41:12,772 - data_validation - INFO - [SOCIAL_MERGED] Rangos numéricos válidos
+2025-11-28 00:41:12,772 - data_validation - INFO - [SOCIAL_MERGED] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-28 00:41:12,772 - data_validation - INFO - [SOCIAL_MERGED] platform: 3 valores unicos
+2025-11-28 00:41:12,772 - data_validation - INFO - 
+[SOCIAL_MERGED] Distribución por plataforma:
+2025-11-28 00:41:12,773 - data_validation - INFO -  tiktok: 883 registros
+2025-11-28 00:41:12,773 - data_validation - INFO -  instagram: 859 registros
+2025-11-28 00:41:12,773 - data_validation - INFO -  youtube: 292 registros
+2025-11-28 00:41:12,773 - data_validation - INFO - 
+[SOCIAL_MERGED] Checks pasados: 5/5
+2025-11-28 00:41:12,773 - data_validation - INFO - [SOCIAL_MERGED] VALIDACIÓN EXITOSA
+2025-11-28 00:41:12,773 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,774 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:41:12,774 - data_validation - INFO - VALIDANDO DAILY AGGREGATES
+2025-11-28 00:41:12,774 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,774 - data_validation - INFO - [DAILY_AGG] Todas las columnas requeridas presentes
+2025-11-28 00:41:12,775 - data_validation - INFO - [DAILY_AGG] Sin nulos en columnas criticas
+2025-11-28 00:41:12,775 - data_validation - INFO - [DAILY_AGG] Rangos numéricos válidos
+2025-11-28 00:41:12,775 - data_validation - INFO - [DAILY_AGG] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-28 00:41:12,776 - data_validation - INFO - [DAILY_AGG] Continuidad de fechas OK (gap máximo: 7.0 días)
+2025-11-28 00:41:12,776 - data_validation - INFO - 
+[DAILY_AGG] Resumen:
+2025-11-28 00:41:12,777 - data_validation - INFO -  Total días: 274
+2025-11-28 00:41:12,777 - data_validation - INFO -  Rango: 2020-01-06 a 2025-03-31
+2025-11-28 00:41:12,777 - data_validation - INFO -  Ventas totales: $22,913,280.45
+2025-11-28 00:41:12,777 - data_validation - INFO -  Checks pasados: 5/5
+2025-11-28 00:41:12,777 - data_validation - INFO - [DAILY_AGG] VALIDACIÓN EXITOSA
+2025-11-28 00:41:12,777 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,777 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:41:12,778 - data_validation - INFO - RESUMEN DE VALIDACIÓN
+2025-11-28 00:41:12,778 - data_validation - INFO - ======================================================================
+2025-11-28 00:41:12,778 - data_validation - INFO -  SALES: PASÓ
+2025-11-28 00:41:12,778 - data_validation - INFO -  INSTAGRAM: PASÓ
+2025-11-28 00:41:12,778 - data_validation - INFO -  TIKTOK: PASÓ
+2025-11-28 00:41:12,778 - data_validation - INFO -  YOUTUBE: PASÓ
+2025-11-28 00:41:12,778 - data_validation - INFO -  SOCIAL_MEDIA_MERGED: PASÓ
+2025-11-28 00:41:12,778 - data_validation - INFO -  DAILY_AGGREGATES: PASÓ
+2025-11-28 00:41:12,778 - data_validation - INFO - 
+Total: 6/6 datasets validados exitosamente
+2025-11-28 00:41:12,778 - data_validation - INFO - 
+TODOS LOS DATASETS PASARON LA VALIDACIÓN
+2025-11-28 00:41:12,779 - data_validation - INFO - ======================================================================
+
+2025-11-28 00:41:12,780 - data_validation - INFO -  Reporte de validación guardado: data\processed\validation_report_20251128_004112.json
+2025-11-28 00:41:12,780 - __main__ - INFO - 
+Resultados de validacion:
+2025-11-28 00:41:12,780 - __main__ - INFO -   Datasets validados: 6/6 (100.0%)
+2025-11-28 00:41:12,780 - __main__ - INFO -   PASO: sales
+2025-11-28 00:41:12,781 - __main__ - INFO -   PASO: instagram
+2025-11-28 00:41:12,781 - __main__ - INFO -   PASO: tiktok
+2025-11-28 00:41:12,781 - __main__ - INFO -   PASO: youtube
+2025-11-28 00:41:12,781 - __main__ - INFO -   PASO: social_media_merged
+2025-11-28 00:41:12,781 - __main__ - INFO -   PASO: daily_aggregates
+2025-11-28 00:41:12,781 - __main__ - INFO - 
+Todos los datasets pasaron la validacion
+2025-11-28 00:41:12,781 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:41:12,781 - __main__ - INFO - ETAPA 4/5: SEGMENTACION DE CLIENTES
+2025-11-28 00:41:12,782 - __main__ - INFO - ======================================================================
+2025-11-28 00:41:12,782 - __main__ - INFO - Iniciando segmentacion de clientes...
+2025-11-28 00:41:12,782 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:41:12,782 - customer_segmentation - INFO - INICIANDO SEGMENTACIÓN DE CLIENTES
+2025-11-28 00:41:12,782 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:41:12,782 - customer_segmentation - INFO - 
+[1/5] Calculando métricas RFM...
+2025-11-28 00:41:12,782 - customer_segmentation - INFO -   Calculando métricas RFM por cliente...
+2025-11-28 00:41:12,783 - customer_segmentation - INFO -   Fecha de referencia: 2025-03-31
+2025-11-28 00:41:12,891 - customer_segmentation - INFO -   RFM calculado para 1292 clientes
+2025-11-28 00:41:12,891 - customer_segmentation - INFO -   Recency: 0 - 1911 días
+2025-11-28 00:41:12,892 - customer_segmentation - INFO -   Frequency: 1 - 8 compras
+2025-11-28 00:41:12,892 - customer_segmentation - INFO -   Monetary: $1500.94 - $49828.02
+2025-11-28 00:41:12,892 - customer_segmentation - INFO - 
+[2/5] Aplicando K-means clustering...
+2025-11-28 00:41:12,892 - customer_segmentation - INFO -   Aplicando K-means con 4 clusters...
+2025-11-28 00:41:13,136 - customer_segmentation - INFO -   Clustering completado (inertia: 1285.35)
+2025-11-28 00:41:13,137 - customer_segmentation - INFO -   Distribución de segmentos:
+2025-11-28 00:41:13,137 - customer_segmentation - INFO -     Segmento 0: 285 clientes (22.1%)
+2025-11-28 00:41:13,137 - customer_segmentation - INFO -     Segmento 1: 394 clientes (30.5%)
+2025-11-28 00:41:13,137 - customer_segmentation - INFO -     Segmento 2: 334 clientes (25.9%)
+2025-11-28 00:41:13,138 - customer_segmentation - INFO -     Segmento 3: 279 clientes (21.6%)
+2025-11-28 00:41:13,138 - customer_segmentation - INFO - 
+[3/5] Etiquetando segmentos...
+2025-11-28 00:41:13,138 - customer_segmentation - INFO -   Analizando características de cada segmento...
+2025-11-28 00:41:13,139 - customer_segmentation - INFO - 
+  Perfiles de segmentos:
+2025-11-28 00:41:13,143 - customer_segmentation - INFO -          recency  frequency  monetary
+segment                              
+0        1052.11       5.25  29362.63
+1        1503.17       3.01  14997.40
+2         461.69       3.64  18900.03
+3         661.01       1.73   8327.40
+2025-11-28 00:41:13,147 - customer_segmentation - INFO - 
+  Etiquetas asignadas:
+2025-11-28 00:41:13,147 - customer_segmentation - INFO -     Segmento 1 -> 'Dormido' (394 clientes)
+2025-11-28 00:41:13,147 - customer_segmentation - INFO -     Segmento 0 -> 'VIP' (285 clientes)
+2025-11-28 00:41:13,148 - customer_segmentation - INFO -     Segmento 3 -> 'Ocasional' (279 clientes)
+2025-11-28 00:41:13,148 - customer_segmentation - INFO -     Segmento 2 -> 'Leal' (334 clientes)
+2025-11-28 00:41:13,148 - customer_segmentation - INFO - 
+[4/5] Aplicando PCA para visualización...
+2025-11-28 00:41:13,148 - customer_segmentation - INFO -   Aplicando PCA (2 componentes)...
+2025-11-28 00:41:13,152 - customer_segmentation - INFO -   PCA completado
+2025-11-28 00:41:13,152 - customer_segmentation - INFO -   Varianza explicada por componente:
+2025-11-28 00:41:13,152 - customer_segmentation - INFO -     PC1: 62.81%
+2025-11-28 00:41:13,153 - customer_segmentation - INFO -     PC2: 33.33%
+2025-11-28 00:41:13,153 - customer_segmentation - INFO -   Varianza total explicada: 96.14%
+2025-11-28 00:41:13,153 - customer_segmentation - INFO - 
+[5/5] Guardando resultados...
+2025-11-28 00:41:13,160 - customer_segmentation - INFO -   RFM guardado: data\processed\rfm_analysis.csv
+2025-11-28 00:41:13,166 - customer_segmentation - INFO -   Segmentos guardados: data\processed\customer_segments.csv
+2025-11-28 00:41:13,166 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:41:13,166 - customer_segmentation - INFO - REPORTE DE SEGMENTACIÓN
+2025-11-28 00:41:13,166 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:41:13,167 - customer_segmentation - INFO - 
+SEGMENTO: Dormido
+2025-11-28 00:41:13,167 - customer_segmentation - INFO -   Tamaño: 394 clientes (30.5%)
+2025-11-28 00:41:13,167 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:41:13,167 - customer_segmentation - INFO -     Recency: 1503.2 días
+2025-11-28 00:41:13,168 - customer_segmentation - INFO -     Frequency: 3.0 compras
+2025-11-28 00:41:13,168 - customer_segmentation - INFO -     Monetary: $14997.40
+2025-11-28 00:41:13,168 - customer_segmentation - INFO -     AOV: $5073.88
+2025-11-28 00:41:13,168 - customer_segmentation - INFO -     Product Diversity: 3.0 productos
+2025-11-28 00:41:13,168 - customer_segmentation - INFO - 
+  Valor total del segmento: $5,908,977.24
+2025-11-28 00:41:13,168 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:41:13,169 - customer_segmentation - INFO -     -> Campañas de reactivación
+2025-11-28 00:41:13,169 - customer_segmentation - INFO -     -> Descuentos especiales de 'regreso'
+2025-11-28 00:41:13,169 - customer_segmentation - INFO -     -> Encuestas para entender por qué se fueron
+2025-11-28 00:41:13,169 - customer_segmentation - INFO - 
+SEGMENTO: VIP
+2025-11-28 00:41:13,170 - customer_segmentation - INFO -   Tamaño: 285 clientes (22.1%)
+2025-11-28 00:41:13,170 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:41:13,170 - customer_segmentation - INFO -     Recency: 1052.1 días
+2025-11-28 00:41:13,170 - customer_segmentation - INFO -     Frequency: 5.3 compras
+2025-11-28 00:41:13,170 - customer_segmentation - INFO -     Monetary: $29362.63
+2025-11-28 00:41:13,170 - customer_segmentation - INFO -     AOV: $5659.33
+2025-11-28 00:41:13,171 - customer_segmentation - INFO -     Product Diversity: 5.2 productos
+2025-11-28 00:41:13,171 - customer_segmentation - INFO - 
+  Valor total del segmento: $8,368,349.79
+2025-11-28 00:41:13,171 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:41:13,171 - customer_segmentation - INFO -     -> Programas de fidelidad premium
+2025-11-28 00:41:13,171 - customer_segmentation - INFO -     -> Lanzamientos exclusivos
+2025-11-28 00:41:13,171 - customer_segmentation - INFO -     -> Atención personalizada
+2025-11-28 00:41:13,172 - customer_segmentation - INFO - 
+SEGMENTO: Ocasional
+2025-11-28 00:41:13,172 - customer_segmentation - INFO -   Tamaño: 279 clientes (21.6%)
+2025-11-28 00:41:13,172 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:41:13,172 - customer_segmentation - INFO -     Recency: 661.0 días
+2025-11-28 00:41:13,173 - customer_segmentation - INFO -     Frequency: 1.7 compras
+2025-11-28 00:41:13,173 - customer_segmentation - INFO -     Monetary: $8327.40
+2025-11-28 00:41:13,173 - customer_segmentation - INFO -     AOV: $4864.63
+2025-11-28 00:41:13,173 - customer_segmentation - INFO -     Product Diversity: 1.7 productos
+2025-11-28 00:41:13,173 - customer_segmentation - INFO - 
+  Valor total del segmento: $2,323,344.67
+2025-11-28 00:41:13,174 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:41:13,174 - customer_segmentation - INFO -     -> Campañas de retención
+2025-11-28 00:41:13,174 - customer_segmentation - INFO -     -> Descuentos en segunda compra
+2025-11-28 00:41:13,174 - customer_segmentation - INFO -     -> Email marketing educativo
+2025-11-28 00:41:13,175 - customer_segmentation - INFO - 
+SEGMENTO: Leal
+2025-11-28 00:41:13,175 - customer_segmentation - INFO -   Tamaño: 334 clientes (25.9%)
+2025-11-28 00:41:13,175 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:41:13,175 - customer_segmentation - INFO -     Recency: 461.7 días
+2025-11-28 00:41:13,175 - customer_segmentation - INFO -     Frequency: 3.6 compras
+2025-11-28 00:41:13,175 - customer_segmentation - INFO -     Monetary: $18900.03
+2025-11-28 00:41:13,176 - customer_segmentation - INFO -     AOV: $5250.50
+2025-11-28 00:41:13,176 - customer_segmentation - INFO -     Product Diversity: 3.6 productos
+2025-11-28 00:41:13,176 - customer_segmentation - INFO - 
+  Valor total del segmento: $6,312,608.75
+2025-11-28 00:41:13,176 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:41:13,176 - customer_segmentation - INFO -     -> Incentivos para aumentar ticket promedio
+2025-11-28 00:41:13,176 - customer_segmentation - INFO -     -> Cross-selling de productos complementarios
+2025-11-28 00:41:13,176 - customer_segmentation - INFO -     -> Programas de referidos
+2025-11-28 00:41:13,176 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:41:13,176 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:41:13,177 - customer_segmentation - INFO - SEGMENTACIÓN COMPLETADA
+2025-11-28 00:41:13,177 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:41:13,177 - __main__ - INFO - 
+Generando visualizaciones de segmentacion...
+2025-11-28 00:41:13,177 - customer_segmentation - INFO - 
+Generando visualizaciones...
+2025-11-28 00:41:14,046 - customer_segmentation - INFO -   Gráfico PCA guardado: dashboards\static\segments_pca.png
+2025-11-28 00:41:14,417 - customer_segmentation - INFO -   Gráfico de distribución guardado: dashboards\static\segments_distribution.png
+2025-11-28 00:41:15,135 - customer_segmentation - INFO -   Gráfico de perfiles RFM guardado: dashboards\static\segments_rfm_profiles.png
+2025-11-28 00:41:15,135 - __main__ - INFO - 
+Resumen de segmentacion:
+2025-11-28 00:41:15,135 - __main__ - INFO -   Clientes segmentados: 1292
+2025-11-28 00:41:15,136 - __main__ - INFO -   Segmentos identificados: 4
+2025-11-28 00:41:15,136 - __main__ - INFO -     Dormido: 394 clientes (30.5%)
+2025-11-28 00:41:15,137 - __main__ - INFO -     Leal: 334 clientes (25.9%)
+2025-11-28 00:41:15,137 - __main__ - INFO -     VIP: 285 clientes (22.1%)
+2025-11-28 00:41:15,137 - __main__ - INFO -     Ocasional: 279 clientes (21.6%)
+2025-11-28 00:41:15,137 - __main__ - INFO - 
+Segmentacion completada exitosamente
+2025-11-28 00:41:15,137 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:41:15,137 - __main__ - INFO - ETAPA 5/5: ANALISIS DE CORRELACION
+2025-11-28 00:41:15,138 - __main__ - INFO - ======================================================================
+2025-11-28 00:41:15,138 - __main__ - INFO - Iniciando analisis de correlacion...
+2025-11-28 00:41:15,138 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:41:15,138 - correlation_analysis - INFO - INICIANDO ANALISIS DE CORRELACION AVANZADO
+2025-11-28 00:41:15,138 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:41:15,138 - correlation_analysis - INFO - 
+[1/6] Correlacion general ventas vs social media...
+2025-11-28 00:41:15,138 - correlation_analysis - INFO -   Calculando correlaciones generales...
+2025-11-28 00:41:15,138 - correlation_analysis - INFO - 
+  === DIAGNOSTICO DE DATOS ===
+2025-11-28 00:41:15,138 - correlation_analysis - INFO -   Registros totales: 274
+2025-11-28 00:41:15,139 - correlation_analysis - INFO -   Dias con ventas > 0: 274
+2025-11-28 00:41:15,139 - correlation_analysis - INFO -   Dias con engagement > 0: 199
+2025-11-28 00:41:15,139 - correlation_analysis - INFO -   Rango ventas: $62198 - $110304
+2025-11-28 00:41:15,139 - correlation_analysis - INFO -   Rango engagement: 0.0000 - 0.0936
+2025-11-28 00:41:15,140 - correlation_analysis - INFO -   Variacion ventas (std): $8859.71
+2025-11-28 00:41:15,140 - correlation_analysis - INFO -   Variacion engagement (std): 0.0226
+2025-11-28 00:41:15,143 - correlation_analysis - INFO - 
+  Pearson: r = 0.091 (p=0.1314)
+2025-11-28 00:41:15,143 - correlation_analysis - INFO -   Spearman: rho = 0.075 (p=0.2135)
+2025-11-28 00:41:15,143 - correlation_analysis - INFO -   Kendall: tau = 0.053 (p=0.2020)
+2025-11-28 00:41:15,144 - correlation_analysis - INFO - 
+  Interpretacion: Correlacion muy debil positiva
+2025-11-28 00:41:15,144 - correlation_analysis - INFO -       -> La influencia es muy debil o inexistente
+2025-11-28 00:41:15,144 - correlation_analysis - INFO - 
+[2/6] Analisis de lag temporal...
+2025-11-28 00:41:15,144 - correlation_analysis - INFO -   Analizando lags de 0 a 14 dias...
+2025-11-28 00:41:15,171 - correlation_analysis - INFO - 
+  Mejor lag: 13 dias (r=0.113)
+2025-11-28 00:41:15,171 - correlation_analysis - INFO -       Interpretacion: Efecto a mediano plazo
+2025-11-28 00:41:15,171 - correlation_analysis - INFO - 
+[3/6] Analisis de ventanas moviles...
+2025-11-28 00:41:15,171 - correlation_analysis - INFO -   Calculando correlaciones con ventanas moviles...
+2025-11-28 00:41:15,172 - correlation_analysis - INFO -     Ventana de 7 dias...
+2025-11-28 00:41:15,328 - correlation_analysis - INFO -       Promedio: 0.067
+2025-11-28 00:41:15,328 - correlation_analysis - INFO -       Rango: [-0.879, 0.904]
+2025-11-28 00:41:15,329 - correlation_analysis - INFO -       Mejor periodo termina: 2020-12-07 (r=0.904)
+2025-11-28 00:41:15,329 - correlation_analysis - INFO -     Ventana de 14 dias...
+2025-11-28 00:41:15,456 - correlation_analysis - INFO -       Promedio: 0.090
+2025-11-28 00:41:15,457 - correlation_analysis - INFO -       Rango: [-0.518, 0.669]
+2025-11-28 00:41:15,457 - correlation_analysis - INFO -       Mejor periodo termina: 2024-11-04 (r=0.669)
+2025-11-28 00:41:15,457 - correlation_analysis - INFO -     Ventana de 30 dias...
+2025-11-28 00:41:15,583 - correlation_analysis - INFO -       Promedio: 0.118
+2025-11-28 00:41:15,583 - correlation_analysis - INFO -       Rango: [-0.228, 0.402]
+2025-11-28 00:41:15,584 - correlation_analysis - INFO - 
+[4/6] Correlacion por segmento de cliente...
+2025-11-28 00:41:15,584 - correlation_analysis - INFO -   Calculando correlacion por segmento...
+2025-11-28 00:41:15,616 - correlation_analysis - INFO - 
+  === CORRELACIONES POR SEGMENTO ===
+2025-11-28 00:41:15,616 - correlation_analysis - INFO -   Dormido: r = 0.108 (peso=0.7)
+2025-11-28 00:41:15,617 - correlation_analysis - INFO -   Leal: r = 0.102 (peso=1.1)
+2025-11-28 00:41:15,617 - correlation_analysis - INFO -   VIP: r = -0.039 (peso=1.3)
+2025-11-28 00:41:15,617 - correlation_analysis - INFO -   Ocasional: r = -0.045 (peso=0.9)
+2025-11-28 00:41:15,617 - correlation_analysis - INFO - 
+[5/6] Correlacion por producto...
+2025-11-28 00:41:15,617 - correlation_analysis - INFO -   Calculando correlacion por producto...
+2025-11-28 00:41:15,652 - correlation_analysis - INFO - 
+  === TOP PRODUCTOS MAS REACTIVOS ===
+2025-11-28 00:41:15,653 - correlation_analysis - INFO -   Melatonin: r = 0.168 (SIGNIF)
+2025-11-28 00:41:15,653 - correlation_analysis - INFO -   Green Tea Extract: r = 0.116 (NO_SIGNIF)
+2025-11-28 00:41:15,653 - correlation_analysis - INFO -   Multivitamin: r = 0.077 (NO_SIGNIF)
+2025-11-28 00:41:15,653 - correlation_analysis - INFO -   BCAA: r = 0.054 (NO_SIGNIF)
+2025-11-28 00:41:15,653 - correlation_analysis - INFO -   Whey Protein: r = 0.047 (NO_SIGNIF)
+2025-11-28 00:41:15,654 - correlation_analysis - INFO - 
+[6/6] Guardando resultados...
+2025-11-28 00:41:15,659 - correlation_analysis - INFO -   Resultados guardados
+2025-11-28 00:41:15,660 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:41:15,660 - correlation_analysis - INFO - REPORTE DE CORRELACION
+2025-11-28 00:41:15,660 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:41:15,660 - correlation_analysis - INFO - 
+CORRELACION GENERAL:
+2025-11-28 00:41:15,660 - correlation_analysis - INFO -   Pearson: 0.091 (No significativo)
+2025-11-28 00:41:15,660 - correlation_analysis - INFO -   Spearman: 0.075
+2025-11-28 00:41:15,660 - correlation_analysis - INFO -   Kendall: 0.053
+2025-11-28 00:41:15,660 - correlation_analysis - INFO -   Muestras: 274
+2025-11-28 00:41:15,660 - correlation_analysis - INFO - 
+VENTANAS MOVILES:
+2025-11-28 00:41:15,661 - correlation_analysis - INFO -   7.0 dias: promedio=0.067, max=0.904
+2025-11-28 00:41:15,661 - correlation_analysis - INFO -   14.0 dias: promedio=0.090, max=0.669
+2025-11-28 00:41:15,661 - correlation_analysis - INFO -   30.0 dias: promedio=0.118, max=0.402
+2025-11-28 00:41:15,661 - correlation_analysis - INFO - 
+LAG TEMPORAL:
+2025-11-28 00:41:15,661 - correlation_analysis - INFO -   Optimo: 13 dias (r=0.113)
+2025-11-28 00:41:15,662 - correlation_analysis - INFO - 
+TOP 3 PRODUCTOS MAS REACTIVOS:
+2025-11-28 00:41:15,662 - correlation_analysis - INFO -   11. Melatonin: r=0.168
+2025-11-28 00:41:15,662 - correlation_analysis - INFO -   8. Green Tea Extract: r=0.116
+2025-11-28 00:41:15,662 - correlation_analysis - INFO -   12. Multivitamin: r=0.077
+2025-11-28 00:41:15,662 - correlation_analysis - INFO - 
+SEGMENTOS:
+2025-11-28 00:41:15,663 - correlation_analysis - INFO -   Dormido: r=0.108
+2025-11-28 00:41:15,663 - correlation_analysis - INFO -   Leal: r=0.102
+2025-11-28 00:41:15,663 - correlation_analysis - INFO -   VIP: r=-0.039
+2025-11-28 00:41:15,663 - correlation_analysis - INFO -   Ocasional: r=-0.045
+2025-11-28 00:41:15,663 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:41:15,664 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:41:15,664 - correlation_analysis - INFO - ANALISIS DE CORRELACION COMPLETADO
+2025-11-28 00:41:15,664 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:41:15,664 - __main__ - INFO - 
+Generando visualizaciones de correlacion...
+2025-11-28 00:41:15,664 - correlation_analysis - INFO - 
+Generando visualizaciones...
+2025-11-28 00:41:16,243 - correlation_analysis - INFO -   Scatter plot: dashboards\static\correlation_scatter.png
+2025-11-28 00:41:16,586 - correlation_analysis - INFO -   Lag analysis: dashboards\static\correlation_lag.png
+2025-11-28 00:41:16,913 - correlation_analysis - INFO -   By segment: dashboards\static\correlation_by_segment.png
+2025-11-28 00:41:16,913 - __main__ - INFO - 
+Resumen de correlacion:
+2025-11-28 00:41:16,914 - __main__ - INFO -   Correlacion general (Pearson):
+2025-11-28 00:41:16,914 - __main__ - INFO -     r = 0.091
+2025-11-28 00:41:16,914 - __main__ - INFO -     p-value = 0.1314
+2025-11-28 00:41:16,914 - __main__ - INFO -     No significativa
+2025-11-28 00:41:16,914 - __main__ - INFO -   Lag optimo: 13 dias (r=0.113)
+2025-11-28 00:41:16,914 - __main__ - INFO -   Segmentos analizados: 4
+2025-11-28 00:41:16,915 - __main__ - INFO -   Productos analizados: 16
+2025-11-28 00:41:16,915 - __main__ - INFO - 
+Analisis de correlacion completado exitosamente
+2025-11-28 00:41:16,915 - __main__ - INFO - 
+===================================
+2025-11-28 00:41:16,915 - __main__ - INFO - PIPELINE COMPLETADO EXITOSAMENTE
+2025-11-28 00:41:16,915 - __main__ - INFO - ===================================
+2025-11-28 00:41:16,915 - __main__ - INFO - 
+Informacion de ejecucion:
+2025-11-28 00:41:16,915 - __main__ - INFO -   Inicio: 2025-11-28 00:41:12
+2025-11-28 00:41:16,915 - __main__ - INFO -   Fin: 2025-11-28 00:41:16
+2025-11-28 00:41:16,915 - __main__ - INFO -   Duracion: 4.50 segundos
+2025-11-28 00:41:16,915 - __main__ - INFO - 
+Etapas completadas (5/5):
+2025-11-28 00:41:16,916 - __main__ - INFO -   Ingestion
+2025-11-28 00:41:16,916 - __main__ - INFO -   Transformation
+2025-11-28 00:41:16,916 - __main__ - INFO -   Validation
+2025-11-28 00:41:16,916 - __main__ - INFO -   Segmentation
+2025-11-28 00:41:16,916 - __main__ - INFO -   Correlation
+2025-11-28 00:41:16,916 - __main__ - INFO - 
+Archivos generados:
+2025-11-28 00:41:16,917 - __main__ - INFO -   correlation_by_product.csv (0.00 MB)
+2025-11-28 00:41:16,917 - __main__ - INFO -   correlation_by_segment.csv (0.00 MB)
+2025-11-28 00:41:16,917 - __main__ - INFO -   correlation_general.csv (0.00 MB)
+2025-11-28 00:41:16,917 - __main__ - INFO -   correlation_lag.csv (0.00 MB)
+2025-11-28 00:41:16,918 - __main__ - INFO -   correlation_rolling.csv (0.00 MB)
+2025-11-28 00:41:16,918 - __main__ - INFO -   customer_segments.csv (0.06 MB)
+2025-11-28 00:41:16,918 - __main__ - INFO -   daily_aggregates_processed.csv (0.03 MB)
+2025-11-28 00:41:16,918 - __main__ - INFO -   instagram_processed.csv (0.07 MB)
+2025-11-28 00:41:16,918 - __main__ - INFO -   rfm_analysis.csv (0.06 MB)
+2025-11-28 00:41:16,919 - __main__ - INFO -   sales_processed.csv (0.45 MB)
+2025-11-28 00:41:16,919 - __main__ - INFO -   social_media_merged_processed.csv (0.23 MB)
+2025-11-28 00:41:16,919 - __main__ - INFO -   tiktok_processed.csv (0.10 MB)
+2025-11-28 00:41:16,919 - __main__ - INFO -   youtube_processed.csv (0.03 MB)
+2025-11-28 00:41:16,919 - __main__ - INFO - 
+Visualizaciones generadas:
+2025-11-28 00:41:16,920 - __main__ - INFO -   correlation_by_segment.png
+2025-11-28 00:41:16,920 - __main__ - INFO -   correlation_lag.png
+2025-11-28 00:41:16,920 - __main__ - INFO -   correlation_scatter.png
+2025-11-28 00:41:16,920 - __main__ - INFO -   segments_distribution.png
+2025-11-28 00:41:16,920 - __main__ - INFO -   segments_pca.png
+2025-11-28 00:41:16,921 - __main__ - INFO -   segments_rfm_profiles.png
+2025-11-28 00:41:16,921 - __main__ - INFO - 
+Calidad de datos: TODOS LOS CHECKS PASADOS
+2025-11-28 00:41:16,921 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:41:16,921 - __main__ - INFO - Log completo guardado en: pipeline_execution.log
+2025-11-28 00:41:16,921 - __main__ - INFO - ======================================================================
+
+2025-11-28 00:42:32,557 - __main__ - INFO - Inicializando Pipeline Orchestrator...
+2025-11-28 00:42:32,560 - data_ingestion - INFO - Configuración cargada desde config/pipeline_config.yaml
+2025-11-28 00:42:32,560 - __main__ - INFO - Modulos del pipeline inicializados correctamente
+2025-11-28 00:42:32,560 - __main__ - INFO - 
+===================================
+2025-11-28 00:42:32,560 - __main__ - INFO - INICIANDO EJECUCION DEL PIPELINE COMPLETO
+2025-11-28 00:42:32,560 - __main__ - INFO - ===================================
+
+2025-11-28 00:42:32,560 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:42:32,560 - __main__ - INFO - ETAPA 1/5: INGESTA DE DATOS
+2025-11-28 00:42:32,560 - __main__ - INFO - ======================================================================
+2025-11-28 00:42:32,560 - __main__ - INFO - Iniciando ingesta de datos...
+2025-11-28 00:42:32,561 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:42:32,561 - data_ingestion - INFO - INICIANDO INGESTA DE DATOS
+2025-11-28 00:42:32,561 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:42:32,561 - data_ingestion - INFO - Cargando datos de ventas desde data/raw/Supplement_Sales_Weekly_Expanded.csv
+2025-11-28 00:42:32,569 - data_ingestion - INFO - Archivo leído: 4384 registros
+2025-11-28 00:42:32,576 - data_ingestion - INFO - Rango de fechas: 2020-01-06 00:00:00 a 2025-03-31 00:00:00
+2025-11-28 00:42:32,576 - data_ingestion - INFO - Generando engagement seeds MEJORADOS...
+2025-11-28 00:42:32,730 - data_ingestion - INFO - Seeds generados para 274 fechas
+2025-11-28 00:42:32,730 - data_ingestion - INFO -    Rango: 0.210 - 1.000
+2025-11-28 00:42:32,730 - data_ingestion - INFO -    Promedio: 0.609
+2025-11-28 00:42:32,730 - data_ingestion - INFO -    Desviación std: 0.172 (>0.15 es bueno)
+2025-11-28 00:42:32,730 - data_ingestion - INFO - Datos cargados: 4384 registros
+2025-11-28 00:42:32,737 - data_ingestion - INFO - Instagram: 859 posts cargados
+2025-11-28 00:42:32,744 - data_ingestion - INFO - TikTok: 883 videos cargados
+2025-11-28 00:42:32,747 - data_ingestion - INFO - YouTube: 292 videos cargados
+2025-11-28 00:42:32,747 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:42:32,748 - data_ingestion - INFO - INGESTA COMPLETADA
+2025-11-28 00:42:32,748 - data_ingestion - INFO - ======================================================================
+2025-11-28 00:42:32,748 - __main__ - INFO - 
+Resumen de ingesta:
+2025-11-28 00:42:32,748 - __main__ - INFO -   sales: 4384 registros
+2025-11-28 00:42:32,748 - __main__ - INFO -   instagram: 859 registros
+2025-11-28 00:42:32,748 - __main__ - INFO -   tiktok: 883 registros
+2025-11-28 00:42:32,748 - __main__ - INFO -   youtube: 292 registros
+2025-11-28 00:42:32,748 - __main__ - INFO - 
+Ingesta completada exitosamente
+2025-11-28 00:42:32,748 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:42:32,749 - __main__ - INFO - ETAPA 2/5: TRANSFORMACION DE DATOS
+2025-11-28 00:42:32,749 - __main__ - INFO - ======================================================================
+2025-11-28 00:42:32,749 - __main__ - INFO - Iniciando transformacion de datos...
+2025-11-28 00:42:32,749 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,750 - data_transformation - INFO - INICIANDO TRANSFORMACIÓN DE DATOS
+2025-11-28 00:42:32,750 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,750 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:42:32,750 - data_transformation - INFO - TRANSFORMANDO DATOS DE VENTAS
+2025-11-28 00:42:32,750 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,750 - data_transformation - INFO - 
+[1/6] Generando identificadores...
+2025-11-28 00:42:32,752 - data_transformation - INFO - transaction_id generado
+2025-11-28 00:42:32,753 - data_transformation - INFO - product_id generado (16 productos)
+2025-11-28 00:42:32,759 - data_transformation - INFO - customer_id generado desde location (1292 clientes)
+2025-11-28 00:42:32,759 - data_transformation - INFO - 
+[2/6] Calculando métricas derivadas...
+2025-11-28 00:42:32,759 - data_transformation - INFO - 
+[3/6] Limpiando datos...
+2025-11-28 00:42:32,765 - data_transformation - INFO - 
+[4/6] Eliminando outliers...
+2025-11-28 00:42:32,767 - data_transformation - INFO - Outliers eliminados: 0 (0.0%)
+2025-11-28 00:42:32,767 - data_transformation - INFO - 
+[5/6] Creando features temporales...
+2025-11-28 00:42:32,773 - data_transformation - INFO -   Features temporales creadas
+2025-11-28 00:42:32,773 - data_transformation - INFO - 
+[6/6] Resumen de transformación...
+2025-11-28 00:42:32,773 - data_transformation - INFO -   Registros iniciales: 4384
+2025-11-28 00:42:32,773 - data_transformation - INFO -   Registros finales: 4384
+2025-11-28 00:42:32,773 - data_transformation - INFO -   Registros eliminados: 0 (0.0%)
+2025-11-28 00:42:32,774 - data_transformation - INFO -   Clientes únicos: 1292
+2025-11-28 00:42:32,774 - data_transformation - INFO -   Productos únicos: 16
+2025-11-28 00:42:32,774 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,774 - data_transformation - INFO - 
+Transformando datos de instagram...
+2025-11-28 00:42:32,776 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0136, max: 0.0765)
+2025-11-28 00:42:32,776 - data_transformation - INFO -   Variación: 0.0119
+2025-11-28 00:42:32,779 - data_transformation - INFO -   instagram: 859 registros procesados
+2025-11-28 00:42:32,779 - data_transformation - INFO - 
+Transformando datos de tiktok...
+2025-11-28 00:42:32,781 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0154, max: 0.1112)
+2025-11-28 00:42:32,781 - data_transformation - INFO -   Variación: 0.0172
+2025-11-28 00:42:32,784 - data_transformation - INFO -   tiktok: 883 registros procesados
+2025-11-28 00:42:32,784 - data_transformation - INFO - 
+Transformando datos de youtube...
+2025-11-28 00:42:32,785 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0105, max: 0.0501)
+2025-11-28 00:42:32,785 - data_transformation - INFO -   Variación: 0.0084
+2025-11-28 00:42:32,788 - data_transformation - INFO -   youtube: 292 registros procesados
+2025-11-28 00:42:32,788 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:42:32,788 - data_transformation - INFO - COMBINANDO DATOS DE REDES SOCIALES
+2025-11-28 00:42:32,788 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,788 - data_transformation - INFO -  Instagram: 859 posts
+2025-11-28 00:42:32,788 - data_transformation - INFO - TikTok: 883 videos
+2025-11-28 00:42:32,788 - data_transformation - INFO - YouTube: 292 videos
+2025-11-28 00:42:32,792 - data_transformation - INFO - 
+  Total combinado: 2034 registros
+2025-11-28 00:42:32,792 - data_transformation - INFO -   Plataformas: ['instagram', 'tiktok', 'youtube']
+2025-11-28 00:42:32,793 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,793 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:42:32,793 - data_transformation - INFO - CALCULANDO AGREGADOS DIARIOS
+2025-11-28 00:42:32,793 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,793 - data_transformation - INFO - 
+Agregando ventas por día...
+2025-11-28 00:42:32,800 - data_transformation - INFO -   Ventas agregadas: 274 días
+2025-11-28 00:42:32,801 - data_transformation - INFO -   Rango ventas: $62198 - $110304
+2025-11-28 00:42:32,801 - data_transformation - INFO - 
+Agregando redes sociales por día...
+2025-11-28 00:42:32,801 - data_transformation - INFO -   Engagement original - std: 0.0170
+2025-11-28 00:42:32,864 - data_transformation - INFO -   Redes sociales agregadas: 1414 días
+2025-11-28 00:42:32,864 - data_transformation - INFO -   Engagement diario - std: 0.0148
+2025-11-28 00:42:32,864 - data_transformation - INFO -   Rango engagement: 0.0105 - 0.0975
+2025-11-28 00:42:32,870 - data_transformation - INFO - 
+  Datos combinados: 274 días
+2025-11-28 00:42:32,871 - data_transformation - INFO -   Días con ventas: 274
+2025-11-28 00:42:32,871 - data_transformation - INFO -   Días con engagement: 199
+2025-11-28 00:42:32,872 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,872 - data_transformation - INFO - 
+======================================================================
+2025-11-28 00:42:32,872 - data_transformation - INFO - GUARDANDO DATOS PROCESADOS
+2025-11-28 00:42:32,872 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,909 - data_transformation - INFO - data\processed\sales_processed.csv (4384 registros)
+2025-11-28 00:42:32,914 - data_transformation - INFO - data\processed\instagram_processed.csv (859 registros)
+2025-11-28 00:42:32,920 - data_transformation - INFO - data\processed\tiktok_processed.csv (883 registros)
+2025-11-28 00:42:32,923 - data_transformation - INFO - data\processed\youtube_processed.csv (292 registros)
+2025-11-28 00:42:32,942 - data_transformation - INFO - data\processed\social_media_merged_processed.csv (2034 registros)
+2025-11-28 00:42:32,945 - data_transformation - INFO - data\processed\daily_aggregates_processed.csv (274 registros)
+2025-11-28 00:42:32,945 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,946 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,946 - data_transformation - INFO - TRANSFORMACIÓN COMPLETADA
+2025-11-28 00:42:32,946 - data_transformation - INFO - ======================================================================
+2025-11-28 00:42:32,946 - __main__ - INFO - 
+Resumen de transformacion:
+2025-11-28 00:42:32,946 - __main__ - INFO -   sales: 4384 registros
+2025-11-28 00:42:32,946 - __main__ - INFO -   instagram: 859 registros
+2025-11-28 00:42:32,946 - __main__ - INFO -   tiktok: 883 registros
+2025-11-28 00:42:32,946 - __main__ - INFO -   youtube: 292 registros
+2025-11-28 00:42:32,946 - __main__ - INFO -   social_media_merged: 2034 registros
+2025-11-28 00:42:32,947 - __main__ - INFO -   daily_aggregates: 274 registros
+2025-11-28 00:42:32,947 - __main__ - INFO - Todos los archivos criticos generados
+2025-11-28 00:42:32,947 - __main__ - INFO - 
+Transformacion completada exitosamente
+2025-11-28 00:42:32,947 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:42:32,947 - __main__ - INFO - ETAPA 3/5: VALIDACION DE CALIDAD
+2025-11-28 00:42:32,947 - __main__ - INFO - ======================================================================
+2025-11-28 00:42:32,947 - __main__ - INFO - Iniciando validacion de datos transformados...
+2025-11-28 00:42:32,947 - data_validation - INFO - 
+                    
+2025-11-28 00:42:32,947 - data_validation - INFO - INICIANDO VALIDACIÓN COMPLETA DE DATOS
+2025-11-28 00:42:32,947 - data_validation - INFO -                     
+
+2025-11-28 00:42:32,948 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:42:32,948 - data_validation - INFO - VALIDANDO DATOS DE VENTAS
+2025-11-28 00:42:32,948 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,948 - data_validation - INFO - [SALES] Todas las columnas requeridas presentes
+2025-11-28 00:42:32,949 - data_validation - INFO - [SALES] Sin nulos en columnas criticas
+2025-11-28 00:42:32,950 - data_validation - INFO - [SALES] Sin duplicados
+2025-11-28 00:42:32,950 - data_validation - INFO - [SALES] Rangos numéricos válidos
+2025-11-28 00:42:32,951 - data_validation - INFO - [SALES] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-28 00:42:32,951 - data_validation - INFO - [SALES] customer_id: 1292 valores unicos
+2025-11-28 00:42:32,951 - data_validation - INFO - [SALES] product_id: 16 valores unicos
+2025-11-28 00:42:32,951 - data_validation - INFO - 
+[SALES] Resumen:
+2025-11-28 00:42:32,952 - data_validation - INFO -  Total registros: 4384
+2025-11-28 00:42:32,952 - data_validation - INFO -  Clientes únicos: 1292
+2025-11-28 00:42:32,952 - data_validation - INFO -  Productos únicos: 16
+2025-11-28 00:42:32,952 - data_validation - INFO -  Checks pasados: 7/7
+2025-11-28 00:42:32,952 - data_validation - INFO - [SALES] VALIDACIÓN EXITOSA
+2025-11-28 00:42:32,952 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,952 - data_validation - INFO - 
+[INSTAGRAM] Validando...
+2025-11-28 00:42:32,953 - data_validation - INFO - [INSTAGRAM] Todas las columnas requeridas presentes
+2025-11-28 00:42:32,953 - data_validation - INFO - [INSTAGRAM] Sin nulos en columnas criticas
+2025-11-28 00:42:32,954 - data_validation - INFO - [INSTAGRAM] Rangos numéricos válidos
+2025-11-28 00:42:32,954 - data_validation - INFO - [INSTAGRAM] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-28 00:42:32,954 - data_validation - INFO - [INSTAGRAM] Validación exitosa (859 registros)
+2025-11-28 00:42:32,954 - data_validation - INFO - 
+[TIKTOK] Validando...
+2025-11-28 00:42:32,954 - data_validation - INFO - [TIKTOK] Todas las columnas requeridas presentes
+2025-11-28 00:42:32,955 - data_validation - INFO - [TIKTOK] Sin nulos en columnas criticas
+2025-11-28 00:42:32,955 - data_validation - INFO - [TIKTOK] Rangos numéricos válidos
+2025-11-28 00:42:32,955 - data_validation - INFO - [TIKTOK] Fechas válidas (2020-01-06 a 2025-03-27)
+2025-11-28 00:42:32,955 - data_validation - INFO - [TIKTOK] Validación exitosa (883 registros)
+2025-11-28 00:42:32,956 - data_validation - INFO - 
+[YOUTUBE] Validando...
+2025-11-28 00:42:32,956 - data_validation - INFO - [YOUTUBE] Todas las columnas requeridas presentes
+2025-11-28 00:42:32,956 - data_validation - INFO - [YOUTUBE] Sin nulos en columnas criticas
+2025-11-28 00:42:32,957 - data_validation - INFO - [YOUTUBE] Rangos numéricos válidos
+2025-11-28 00:42:32,957 - data_validation - INFO - [YOUTUBE] Fechas válidas (2020-01-07 a 2025-03-23)
+2025-11-28 00:42:32,957 - data_validation - INFO - [YOUTUBE] Validación exitosa (292 registros)
+2025-11-28 00:42:32,957 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:42:32,957 - data_validation - INFO - VALIDANDO SOCIAL MEDIA MERGED
+2025-11-28 00:42:32,957 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,958 - data_validation - INFO - [SOCIAL_MERGED] Todas las columnas requeridas presentes
+2025-11-28 00:42:32,958 - data_validation - INFO - [SOCIAL_MERGED] Sin nulos en columnas criticas
+2025-11-28 00:42:32,959 - data_validation - INFO - [SOCIAL_MERGED] Rangos numéricos válidos
+2025-11-28 00:42:32,959 - data_validation - INFO - [SOCIAL_MERGED] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-28 00:42:32,959 - data_validation - INFO - [SOCIAL_MERGED] platform: 3 valores unicos
+2025-11-28 00:42:32,959 - data_validation - INFO - 
+[SOCIAL_MERGED] Distribución por plataforma:
+2025-11-28 00:42:32,960 - data_validation - INFO -  tiktok: 883 registros
+2025-11-28 00:42:32,960 - data_validation - INFO -  instagram: 859 registros
+2025-11-28 00:42:32,960 - data_validation - INFO -  youtube: 292 registros
+2025-11-28 00:42:32,960 - data_validation - INFO - 
+[SOCIAL_MERGED] Checks pasados: 5/5
+2025-11-28 00:42:32,960 - data_validation - INFO - [SOCIAL_MERGED] VALIDACIÓN EXITOSA
+2025-11-28 00:42:32,960 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,960 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:42:32,960 - data_validation - INFO - VALIDANDO DAILY AGGREGATES
+2025-11-28 00:42:32,961 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,961 - data_validation - INFO - [DAILY_AGG] Todas las columnas requeridas presentes
+2025-11-28 00:42:32,961 - data_validation - INFO - [DAILY_AGG] Sin nulos en columnas criticas
+2025-11-28 00:42:32,962 - data_validation - INFO - [DAILY_AGG] Rangos numéricos válidos
+2025-11-28 00:42:32,962 - data_validation - INFO - [DAILY_AGG] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-28 00:42:32,963 - data_validation - INFO - [DAILY_AGG] Continuidad de fechas OK (gap máximo: 7.0 días)
+2025-11-28 00:42:32,964 - data_validation - INFO - 
+[DAILY_AGG] Resumen:
+2025-11-28 00:42:32,964 - data_validation - INFO -  Total días: 274
+2025-11-28 00:42:32,964 - data_validation - INFO -  Rango: 2020-01-06 a 2025-03-31
+2025-11-28 00:42:32,964 - data_validation - INFO -  Ventas totales: $22,913,280.45
+2025-11-28 00:42:32,964 - data_validation - INFO -  Checks pasados: 5/5
+2025-11-28 00:42:32,964 - data_validation - INFO - [DAILY_AGG] VALIDACIÓN EXITOSA
+2025-11-28 00:42:32,965 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,965 - data_validation - INFO - 
+======================================================================
+2025-11-28 00:42:32,965 - data_validation - INFO - RESUMEN DE VALIDACIÓN
+2025-11-28 00:42:32,965 - data_validation - INFO - ======================================================================
+2025-11-28 00:42:32,965 - data_validation - INFO -  SALES: PASÓ
+2025-11-28 00:42:32,965 - data_validation - INFO -  INSTAGRAM: PASÓ
+2025-11-28 00:42:32,965 - data_validation - INFO -  TIKTOK: PASÓ
+2025-11-28 00:42:32,965 - data_validation - INFO -  YOUTUBE: PASÓ
+2025-11-28 00:42:32,965 - data_validation - INFO -  SOCIAL_MEDIA_MERGED: PASÓ
+2025-11-28 00:42:32,966 - data_validation - INFO -  DAILY_AGGREGATES: PASÓ
+2025-11-28 00:42:32,966 - data_validation - INFO - 
+Total: 6/6 datasets validados exitosamente
+2025-11-28 00:42:32,966 - data_validation - INFO - 
+TODOS LOS DATASETS PASARON LA VALIDACIÓN
+2025-11-28 00:42:32,966 - data_validation - INFO - ======================================================================
+
+2025-11-28 00:42:32,968 - data_validation - INFO -  Reporte de validación guardado: data\processed\validation_report_20251128_004232.json
+2025-11-28 00:42:32,968 - __main__ - INFO - 
+Resultados de validacion:
+2025-11-28 00:42:32,968 - __main__ - INFO -   Datasets validados: 6/6 (100.0%)
+2025-11-28 00:42:32,969 - __main__ - INFO -   PASO: sales
+2025-11-28 00:42:32,969 - __main__ - INFO -   PASO: instagram
+2025-11-28 00:42:32,969 - __main__ - INFO -   PASO: tiktok
+2025-11-28 00:42:32,969 - __main__ - INFO -   PASO: youtube
+2025-11-28 00:42:32,969 - __main__ - INFO -   PASO: social_media_merged
+2025-11-28 00:42:32,969 - __main__ - INFO -   PASO: daily_aggregates
+2025-11-28 00:42:32,969 - __main__ - INFO - 
+Todos los datasets pasaron la validacion
+2025-11-28 00:42:32,969 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:42:32,969 - __main__ - INFO - ETAPA 4/5: SEGMENTACION DE CLIENTES
+2025-11-28 00:42:32,970 - __main__ - INFO - ======================================================================
+2025-11-28 00:42:32,970 - __main__ - INFO - Iniciando segmentacion de clientes...
+2025-11-28 00:42:32,970 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:42:32,970 - customer_segmentation - INFO - INICIANDO SEGMENTACIÓN DE CLIENTES
+2025-11-28 00:42:32,970 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:42:32,970 - customer_segmentation - INFO - 
+[1/5] Calculando métricas RFM...
+2025-11-28 00:42:32,970 - customer_segmentation - INFO -   Calculando métricas RFM por cliente...
+2025-11-28 00:42:32,970 - customer_segmentation - INFO -   Fecha de referencia: 2025-03-31
+2025-11-28 00:42:33,073 - customer_segmentation - INFO -   RFM calculado para 1292 clientes
+2025-11-28 00:42:33,073 - customer_segmentation - INFO -   Recency: 0 - 1911 días
+2025-11-28 00:42:33,073 - customer_segmentation - INFO -   Frequency: 1 - 8 compras
+2025-11-28 00:42:33,074 - customer_segmentation - INFO -   Monetary: $1500.94 - $49828.02
+2025-11-28 00:42:33,074 - customer_segmentation - INFO - 
+[2/5] Aplicando K-means clustering...
+2025-11-28 00:42:33,074 - customer_segmentation - INFO -   Aplicando K-means con 4 clusters...
+2025-11-28 00:42:33,385 - customer_segmentation - INFO -   Clustering completado (inertia: 1285.35)
+2025-11-28 00:42:33,387 - customer_segmentation - INFO -   Distribución de segmentos:
+2025-11-28 00:42:33,387 - customer_segmentation - INFO -     Segmento 0: 285 clientes (22.1%)
+2025-11-28 00:42:33,387 - customer_segmentation - INFO -     Segmento 1: 394 clientes (30.5%)
+2025-11-28 00:42:33,387 - customer_segmentation - INFO -     Segmento 2: 334 clientes (25.9%)
+2025-11-28 00:42:33,387 - customer_segmentation - INFO -     Segmento 3: 279 clientes (21.6%)
+2025-11-28 00:42:33,387 - customer_segmentation - INFO - 
+[3/5] Etiquetando segmentos...
+2025-11-28 00:42:33,387 - customer_segmentation - INFO -   Analizando características de cada segmento...
+2025-11-28 00:42:33,390 - customer_segmentation - INFO - 
+  Perfiles de segmentos:
+2025-11-28 00:42:33,393 - customer_segmentation - INFO -          recency  frequency  monetary
+segment                              
+0        1052.11       5.25  29362.63
+1        1503.17       3.01  14997.40
+2         461.69       3.64  18900.03
+3         661.01       1.73   8327.40
+2025-11-28 00:42:33,398 - customer_segmentation - INFO - 
+  Etiquetas asignadas:
+2025-11-28 00:42:33,398 - customer_segmentation - INFO -     Segmento 1 -> 'Dormido' (394 clientes)
+2025-11-28 00:42:33,398 - customer_segmentation - INFO -     Segmento 0 -> 'VIP' (285 clientes)
+2025-11-28 00:42:33,398 - customer_segmentation - INFO -     Segmento 3 -> 'Ocasional' (279 clientes)
+2025-11-28 00:42:33,399 - customer_segmentation - INFO -     Segmento 2 -> 'Leal' (334 clientes)
+2025-11-28 00:42:33,399 - customer_segmentation - INFO - 
+[4/5] Aplicando PCA para visualización...
+2025-11-28 00:42:33,399 - customer_segmentation - INFO -   Aplicando PCA (2 componentes)...
+2025-11-28 00:42:33,421 - customer_segmentation - INFO -   PCA completado
+2025-11-28 00:42:33,421 - customer_segmentation - INFO -   Varianza explicada por componente:
+2025-11-28 00:42:33,421 - customer_segmentation - INFO -     PC1: 62.81%
+2025-11-28 00:42:33,421 - customer_segmentation - INFO -     PC2: 33.33%
+2025-11-28 00:42:33,421 - customer_segmentation - INFO -   Varianza total explicada: 96.14%
+2025-11-28 00:42:33,421 - customer_segmentation - INFO - 
+[5/5] Guardando resultados...
+2025-11-28 00:42:33,428 - customer_segmentation - INFO -   RFM guardado: data\processed\rfm_analysis.csv
+2025-11-28 00:42:33,435 - customer_segmentation - INFO -   Segmentos guardados: data\processed\customer_segments.csv
+2025-11-28 00:42:33,435 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:42:33,435 - customer_segmentation - INFO - REPORTE DE SEGMENTACIÓN
+2025-11-28 00:42:33,435 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:42:33,436 - customer_segmentation - INFO - 
+SEGMENTO: Dormido
+2025-11-28 00:42:33,437 - customer_segmentation - INFO -   Tamaño: 394 clientes (30.5%)
+2025-11-28 00:42:33,437 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:42:33,437 - customer_segmentation - INFO -     Recency: 1503.2 días
+2025-11-28 00:42:33,437 - customer_segmentation - INFO -     Frequency: 3.0 compras
+2025-11-28 00:42:33,438 - customer_segmentation - INFO -     Monetary: $14997.40
+2025-11-28 00:42:33,438 - customer_segmentation - INFO -     AOV: $5073.88
+2025-11-28 00:42:33,438 - customer_segmentation - INFO -     Product Diversity: 3.0 productos
+2025-11-28 00:42:33,438 - customer_segmentation - INFO - 
+  Valor total del segmento: $5,908,977.24
+2025-11-28 00:42:33,438 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:42:33,438 - customer_segmentation - INFO -     -> Campañas de reactivación
+2025-11-28 00:42:33,439 - customer_segmentation - INFO -     -> Descuentos especiales de 'regreso'
+2025-11-28 00:42:33,439 - customer_segmentation - INFO -     -> Encuestas para entender por qué se fueron
+2025-11-28 00:42:33,439 - customer_segmentation - INFO - 
+SEGMENTO: VIP
+2025-11-28 00:42:33,439 - customer_segmentation - INFO -   Tamaño: 285 clientes (22.1%)
+2025-11-28 00:42:33,439 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:42:33,440 - customer_segmentation - INFO -     Recency: 1052.1 días
+2025-11-28 00:42:33,440 - customer_segmentation - INFO -     Frequency: 5.3 compras
+2025-11-28 00:42:33,440 - customer_segmentation - INFO -     Monetary: $29362.63
+2025-11-28 00:42:33,440 - customer_segmentation - INFO -     AOV: $5659.33
+2025-11-28 00:42:33,440 - customer_segmentation - INFO -     Product Diversity: 5.2 productos
+2025-11-28 00:42:33,441 - customer_segmentation - INFO - 
+  Valor total del segmento: $8,368,349.79
+2025-11-28 00:42:33,441 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:42:33,441 - customer_segmentation - INFO -     -> Programas de fidelidad premium
+2025-11-28 00:42:33,441 - customer_segmentation - INFO -     -> Lanzamientos exclusivos
+2025-11-28 00:42:33,441 - customer_segmentation - INFO -     -> Atención personalizada
+2025-11-28 00:42:33,442 - customer_segmentation - INFO - 
+SEGMENTO: Ocasional
+2025-11-28 00:42:33,442 - customer_segmentation - INFO -   Tamaño: 279 clientes (21.6%)
+2025-11-28 00:42:33,442 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:42:33,442 - customer_segmentation - INFO -     Recency: 661.0 días
+2025-11-28 00:42:33,442 - customer_segmentation - INFO -     Frequency: 1.7 compras
+2025-11-28 00:42:33,443 - customer_segmentation - INFO -     Monetary: $8327.40
+2025-11-28 00:42:33,443 - customer_segmentation - INFO -     AOV: $4864.63
+2025-11-28 00:42:33,443 - customer_segmentation - INFO -     Product Diversity: 1.7 productos
+2025-11-28 00:42:33,443 - customer_segmentation - INFO - 
+  Valor total del segmento: $2,323,344.67
+2025-11-28 00:42:33,443 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:42:33,443 - customer_segmentation - INFO -     -> Campañas de retención
+2025-11-28 00:42:33,443 - customer_segmentation - INFO -     -> Descuentos en segunda compra
+2025-11-28 00:42:33,444 - customer_segmentation - INFO -     -> Email marketing educativo
+2025-11-28 00:42:33,444 - customer_segmentation - INFO - 
+SEGMENTO: Leal
+2025-11-28 00:42:33,444 - customer_segmentation - INFO -   Tamaño: 334 clientes (25.9%)
+2025-11-28 00:42:33,444 - customer_segmentation - INFO - 
+  Características promedio:
+2025-11-28 00:42:33,445 - customer_segmentation - INFO -     Recency: 461.7 días
+2025-11-28 00:42:33,445 - customer_segmentation - INFO -     Frequency: 3.6 compras
+2025-11-28 00:42:33,445 - customer_segmentation - INFO -     Monetary: $18900.03
+2025-11-28 00:42:33,445 - customer_segmentation - INFO -     AOV: $5250.50
+2025-11-28 00:42:33,445 - customer_segmentation - INFO -     Product Diversity: 3.6 productos
+2025-11-28 00:42:33,446 - customer_segmentation - INFO - 
+  Valor total del segmento: $6,312,608.75
+2025-11-28 00:42:33,446 - customer_segmentation - INFO - 
+  Estrategia recomendada:
+2025-11-28 00:42:33,446 - customer_segmentation - INFO -     -> Incentivos para aumentar ticket promedio
+2025-11-28 00:42:33,446 - customer_segmentation - INFO -     -> Cross-selling de productos complementarios
+2025-11-28 00:42:33,446 - customer_segmentation - INFO -     -> Programas de referidos
+2025-11-28 00:42:33,446 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:42:33,446 - customer_segmentation - INFO - 
+======================================================================
+2025-11-28 00:42:33,446 - customer_segmentation - INFO - SEGMENTACIÓN COMPLETADA
+2025-11-28 00:42:33,446 - customer_segmentation - INFO - ======================================================================
+2025-11-28 00:42:33,447 - __main__ - INFO - 
+Generando visualizaciones de segmentacion...
+2025-11-28 00:42:33,447 - customer_segmentation - INFO - 
+Generando visualizaciones...
+2025-11-28 00:42:34,361 - customer_segmentation - INFO -   Gráfico PCA guardado: dashboards\static\segments_pca.png
+2025-11-28 00:42:34,742 - customer_segmentation - INFO -   Gráfico de distribución guardado: dashboards\static\segments_distribution.png
+2025-11-28 00:42:35,417 - customer_segmentation - INFO -   Gráfico de perfiles RFM guardado: dashboards\static\segments_rfm_profiles.png
+2025-11-28 00:42:35,418 - __main__ - INFO - 
+Resumen de segmentacion:
+2025-11-28 00:42:35,418 - __main__ - INFO -   Clientes segmentados: 1292
+2025-11-28 00:42:35,418 - __main__ - INFO -   Segmentos identificados: 4
+2025-11-28 00:42:35,419 - __main__ - INFO -     Dormido: 394 clientes (30.5%)
+2025-11-28 00:42:35,419 - __main__ - INFO -     Leal: 334 clientes (25.9%)
+2025-11-28 00:42:35,419 - __main__ - INFO -     VIP: 285 clientes (22.1%)
+2025-11-28 00:42:35,419 - __main__ - INFO -     Ocasional: 279 clientes (21.6%)
+2025-11-28 00:42:35,419 - __main__ - INFO - 
+Segmentacion completada exitosamente
+2025-11-28 00:42:35,419 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:42:35,419 - __main__ - INFO - ETAPA 5/5: ANALISIS DE CORRELACION
+2025-11-28 00:42:35,419 - __main__ - INFO - ======================================================================
+2025-11-28 00:42:35,419 - __main__ - INFO - Iniciando analisis de correlacion...
+2025-11-28 00:42:35,420 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:42:35,420 - correlation_analysis - INFO - INICIANDO ANALISIS DE CORRELACION AVANZADO
+2025-11-28 00:42:35,420 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:42:35,420 - correlation_analysis - INFO - 
+[1/6] Correlacion general ventas vs social media...
+2025-11-28 00:42:35,420 - correlation_analysis - INFO -   Calculando correlaciones generales...
+2025-11-28 00:42:35,420 - correlation_analysis - INFO - 
+  === DIAGNOSTICO DE DATOS ===
+2025-11-28 00:42:35,420 - correlation_analysis - INFO -   Registros totales: 274
+2025-11-28 00:42:35,420 - correlation_analysis - INFO -   Dias con ventas > 0: 274
+2025-11-28 00:42:35,421 - correlation_analysis - INFO -   Dias con engagement > 0: 199
+2025-11-28 00:42:35,421 - correlation_analysis - INFO -   Rango ventas: $62198 - $110304
+2025-11-28 00:42:35,421 - correlation_analysis - INFO -   Rango engagement: 0.0000 - 0.0936
+2025-11-28 00:42:35,421 - correlation_analysis - INFO -   Variacion ventas (std): $8859.71
+2025-11-28 00:42:35,422 - correlation_analysis - INFO -   Variacion engagement (std): 0.0226
+2025-11-28 00:42:35,429 - correlation_analysis - INFO - 
+  Pearson: r = 0.091 (p=0.1314)
+2025-11-28 00:42:35,429 - correlation_analysis - INFO -   Spearman: rho = 0.075 (p=0.2135)
+2025-11-28 00:42:35,429 - correlation_analysis - INFO -   Kendall: tau = 0.053 (p=0.2020)
+2025-11-28 00:42:35,429 - correlation_analysis - INFO - 
+  Interpretacion: Correlacion muy debil positiva
+2025-11-28 00:42:35,429 - correlation_analysis - INFO -       -> La influencia es muy debil o inexistente
+2025-11-28 00:42:35,429 - correlation_analysis - INFO - 
+[2/6] Analisis de lag temporal...
+2025-11-28 00:42:35,430 - correlation_analysis - INFO -   Analizando lags de 0 a 14 dias...
+2025-11-28 00:42:35,455 - correlation_analysis - INFO - 
+  Mejor lag: 13 dias (r=0.113)
+2025-11-28 00:42:35,455 - correlation_analysis - INFO -       Interpretacion: Efecto a mediano plazo
+2025-11-28 00:42:35,455 - correlation_analysis - INFO - 
+[3/6] Analisis de ventanas moviles...
+2025-11-28 00:42:35,455 - correlation_analysis - INFO -   Calculando correlaciones con ventanas moviles...
+2025-11-28 00:42:35,456 - correlation_analysis - INFO -     Ventana de 7 dias...
+2025-11-28 00:42:35,607 - correlation_analysis - INFO -       Promedio: 0.067
+2025-11-28 00:42:35,607 - correlation_analysis - INFO -       Rango: [-0.879, 0.904]
+2025-11-28 00:42:35,607 - correlation_analysis - INFO -       Mejor periodo termina: 2020-12-07 (r=0.904)
+2025-11-28 00:42:35,607 - correlation_analysis - INFO -     Ventana de 14 dias...
+2025-11-28 00:42:35,734 - correlation_analysis - INFO -       Promedio: 0.090
+2025-11-28 00:42:35,734 - correlation_analysis - INFO -       Rango: [-0.518, 0.669]
+2025-11-28 00:42:35,734 - correlation_analysis - INFO -       Mejor periodo termina: 2024-11-04 (r=0.669)
+2025-11-28 00:42:35,734 - correlation_analysis - INFO -     Ventana de 30 dias...
+2025-11-28 00:42:35,845 - correlation_analysis - INFO -       Promedio: 0.118
+2025-11-28 00:42:35,846 - correlation_analysis - INFO -       Rango: [-0.228, 0.402]
+2025-11-28 00:42:35,846 - correlation_analysis - INFO - 
+[4/6] Correlacion por segmento de cliente...
+2025-11-28 00:42:35,846 - correlation_analysis - INFO -   Calculando correlacion por segmento...
+2025-11-28 00:42:35,870 - correlation_analysis - INFO - 
+  === CORRELACIONES POR SEGMENTO ===
+2025-11-28 00:42:35,871 - correlation_analysis - INFO -   Dormido: r = 0.108 (peso=0.7)
+2025-11-28 00:42:35,871 - correlation_analysis - INFO -   Leal: r = 0.102 (peso=1.1)
+2025-11-28 00:42:35,871 - correlation_analysis - INFO -   VIP: r = -0.039 (peso=1.3)
+2025-11-28 00:42:35,871 - correlation_analysis - INFO -   Ocasional: r = -0.045 (peso=0.9)
+2025-11-28 00:42:35,872 - correlation_analysis - INFO - 
+[5/6] Correlacion por producto...
+2025-11-28 00:42:35,872 - correlation_analysis - INFO -   Calculando correlacion por producto...
+2025-11-28 00:42:35,894 - correlation_analysis - INFO - 
+  === TOP PRODUCTOS MAS REACTIVOS ===
+2025-11-28 00:42:35,895 - correlation_analysis - INFO -   Melatonin: r = 0.168 (SIGNIF)
+2025-11-28 00:42:35,895 - correlation_analysis - INFO -   Green Tea Extract: r = 0.116 (NO_SIGNIF)
+2025-11-28 00:42:35,895 - correlation_analysis - INFO -   Multivitamin: r = 0.077 (NO_SIGNIF)
+2025-11-28 00:42:35,896 - correlation_analysis - INFO -   BCAA: r = 0.054 (NO_SIGNIF)
+2025-11-28 00:42:35,896 - correlation_analysis - INFO -   Whey Protein: r = 0.047 (NO_SIGNIF)
+2025-11-28 00:42:35,896 - correlation_analysis - INFO - 
+[6/6] Guardando resultados...
+2025-11-28 00:42:35,902 - correlation_analysis - INFO -   Resultados guardados
+2025-11-28 00:42:35,902 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:42:35,902 - correlation_analysis - INFO - REPORTE DE CORRELACION
+2025-11-28 00:42:35,902 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:42:35,902 - correlation_analysis - INFO - 
+CORRELACION GENERAL:
+2025-11-28 00:42:35,902 - correlation_analysis - INFO -   Pearson: 0.091 (No significativo)
+2025-11-28 00:42:35,902 - correlation_analysis - INFO -   Spearman: 0.075
+2025-11-28 00:42:35,902 - correlation_analysis - INFO -   Kendall: 0.053
+2025-11-28 00:42:35,902 - correlation_analysis - INFO -   Muestras: 274
+2025-11-28 00:42:35,903 - correlation_analysis - INFO - 
+VENTANAS MOVILES:
+2025-11-28 00:42:35,903 - correlation_analysis - INFO -   7.0 dias: promedio=0.067, max=0.904
+2025-11-28 00:42:35,903 - correlation_analysis - INFO -   14.0 dias: promedio=0.090, max=0.669
+2025-11-28 00:42:35,903 - correlation_analysis - INFO -   30.0 dias: promedio=0.118, max=0.402
+2025-11-28 00:42:35,903 - correlation_analysis - INFO - 
+LAG TEMPORAL:
+2025-11-28 00:42:35,903 - correlation_analysis - INFO -   Optimo: 13 dias (r=0.113)
+2025-11-28 00:42:35,904 - correlation_analysis - INFO - 
+TOP 3 PRODUCTOS MAS REACTIVOS:
+2025-11-28 00:42:35,904 - correlation_analysis - INFO -   11. Melatonin: r=0.168
+2025-11-28 00:42:35,904 - correlation_analysis - INFO -   8. Green Tea Extract: r=0.116
+2025-11-28 00:42:35,904 - correlation_analysis - INFO -   12. Multivitamin: r=0.077
+2025-11-28 00:42:35,904 - correlation_analysis - INFO - 
+SEGMENTOS:
+2025-11-28 00:42:35,905 - correlation_analysis - INFO -   Dormido: r=0.108
+2025-11-28 00:42:35,905 - correlation_analysis - INFO -   Leal: r=0.102
+2025-11-28 00:42:35,905 - correlation_analysis - INFO -   VIP: r=-0.039
+2025-11-28 00:42:35,905 - correlation_analysis - INFO -   Ocasional: r=-0.045
+2025-11-28 00:42:35,905 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:42:35,905 - correlation_analysis - INFO - 
+======================================================================
+2025-11-28 00:42:35,905 - correlation_analysis - INFO - ANALISIS DE CORRELACION COMPLETADO
+2025-11-28 00:42:35,906 - correlation_analysis - INFO - ======================================================================
+2025-11-28 00:42:35,906 - __main__ - INFO - 
+Generando visualizaciones de correlacion...
+2025-11-28 00:42:35,906 - correlation_analysis - INFO - 
+Generando visualizaciones...
+2025-11-28 00:42:36,480 - correlation_analysis - INFO -   Scatter plot: dashboards\static\correlation_scatter.png
+2025-11-28 00:42:36,829 - correlation_analysis - INFO -   Lag analysis: dashboards\static\correlation_lag.png
+2025-11-28 00:42:37,129 - correlation_analysis - INFO -   By segment: dashboards\static\correlation_by_segment.png
+2025-11-28 00:42:37,129 - __main__ - INFO - 
+Resumen de correlacion:
+2025-11-28 00:42:37,129 - __main__ - INFO -   Correlacion general (Pearson):
+2025-11-28 00:42:37,130 - __main__ - INFO -     r = 0.091
+2025-11-28 00:42:37,130 - __main__ - INFO -     p-value = 0.1314
+2025-11-28 00:42:37,130 - __main__ - INFO -     No significativa
+2025-11-28 00:42:37,130 - __main__ - INFO -   Lag optimo: 13 dias (r=0.113)
+2025-11-28 00:42:37,131 - __main__ - INFO -   Segmentos analizados: 4
+2025-11-28 00:42:37,131 - __main__ - INFO -   Productos analizados: 16
+2025-11-28 00:42:37,131 - __main__ - INFO - 
+Analisis de correlacion completado exitosamente
+2025-11-28 00:42:37,131 - __main__ - INFO - 
+===================================
+2025-11-28 00:42:37,131 - __main__ - INFO - PIPELINE COMPLETADO EXITOSAMENTE
+2025-11-28 00:42:37,131 - __main__ - INFO - ===================================
+2025-11-28 00:42:37,131 - __main__ - INFO - 
+Informacion de ejecucion:
+2025-11-28 00:42:37,131 - __main__ - INFO -   Inicio: 2025-11-28 00:42:32
+2025-11-28 00:42:37,131 - __main__ - INFO -   Fin: 2025-11-28 00:42:37
+2025-11-28 00:42:37,132 - __main__ - INFO -   Duracion: 4.57 segundos
+2025-11-28 00:42:37,132 - __main__ - INFO - 
+Etapas completadas (5/5):
+2025-11-28 00:42:37,132 - __main__ - INFO -   Ingestion
+2025-11-28 00:42:37,132 - __main__ - INFO -   Transformation
+2025-11-28 00:42:37,132 - __main__ - INFO -   Validation
+2025-11-28 00:42:37,132 - __main__ - INFO -   Segmentation
+2025-11-28 00:42:37,132 - __main__ - INFO -   Correlation
+2025-11-28 00:42:37,132 - __main__ - INFO - 
+Archivos generados:
+2025-11-28 00:42:37,133 - __main__ - INFO -   correlation_by_product.csv (0.00 MB)
+2025-11-28 00:42:37,134 - __main__ - INFO -   correlation_by_segment.csv (0.00 MB)
+2025-11-28 00:42:37,134 - __main__ - INFO -   correlation_general.csv (0.00 MB)
+2025-11-28 00:42:37,134 - __main__ - INFO -   correlation_lag.csv (0.00 MB)
+2025-11-28 00:42:37,134 - __main__ - INFO -   correlation_rolling.csv (0.00 MB)
+2025-11-28 00:42:37,134 - __main__ - INFO -   customer_segments.csv (0.06 MB)
+2025-11-28 00:42:37,135 - __main__ - INFO -   daily_aggregates_processed.csv (0.03 MB)
+2025-11-28 00:42:37,135 - __main__ - INFO -   instagram_processed.csv (0.07 MB)
+2025-11-28 00:42:37,135 - __main__ - INFO -   rfm_analysis.csv (0.06 MB)
+2025-11-28 00:42:37,135 - __main__ - INFO -   sales_processed.csv (0.45 MB)
+2025-11-28 00:42:37,135 - __main__ - INFO -   social_media_merged_processed.csv (0.23 MB)
+2025-11-28 00:42:37,135 - __main__ - INFO -   tiktok_processed.csv (0.10 MB)
+2025-11-28 00:42:37,136 - __main__ - INFO -   youtube_processed.csv (0.03 MB)
+2025-11-28 00:42:37,136 - __main__ - INFO - 
+Visualizaciones generadas:
+2025-11-28 00:42:37,136 - __main__ - INFO -   correlation_by_segment.png
+2025-11-28 00:42:37,136 - __main__ - INFO -   correlation_lag.png
+2025-11-28 00:42:37,136 - __main__ - INFO -   correlation_scatter.png
+2025-11-28 00:42:37,136 - __main__ - INFO -   segments_distribution.png
+2025-11-28 00:42:37,137 - __main__ - INFO -   segments_pca.png
+2025-11-28 00:42:37,137 - __main__ - INFO -   segments_rfm_profiles.png
+2025-11-28 00:42:37,137 - __main__ - INFO - 
+Calidad de datos: TODOS LOS CHECKS PASADOS
+2025-11-28 00:42:37,137 - __main__ - INFO - 
+======================================================================
+2025-11-28 00:42:37,137 - __main__ - INFO - Log completo guardado en: pipeline_execution.log
+2025-11-28 00:42:37,137 - __main__ - INFO - ======================================================================
+
