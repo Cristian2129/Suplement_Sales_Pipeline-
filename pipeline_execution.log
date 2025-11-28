@@ -3319,3 +3319,295 @@ TODOS LOS DATASETS PASARON LA VALIDACIÓN
 2025-11-25 17:21:23,503 - __main__ - INFO - Log completo guardado en: pipeline_execution.log
 2025-11-25 17:21:23,503 - __main__ - INFO - ======================================================================
 
+2025-11-26 01:03:04,716 - __main__ - INFO - Inicializando Pipeline Orchestrator...
+2025-11-26 01:03:04,732 - data_ingestion - INFO - Configuración cargada desde config/pipeline_config.yaml
+2025-11-26 01:03:04,732 - __main__ - INFO - Módulos del pipeline inicializados correctamente
+2025-11-26 01:03:04,732 - __main__ - INFO - 
+
+2025-11-26 01:03:04,732 - __main__ - INFO - INICIANDO EJECUCIÓN DEL PIPELINE
+2025-11-26 01:03:04,733 - __main__ - INFO -                                    
+
+2025-11-26 01:03:04,733 - __main__ - INFO - 
+======================================================================
+2025-11-26 01:03:04,733 - __main__ - INFO - STAGE 1: INGESTA DE DATOS
+2025-11-26 01:03:04,733 - __main__ - INFO - ======================================================================
+2025-11-26 01:03:04,734 - __main__ - INFO - Iniciando ingesta de datos...
+2025-11-26 01:03:04,734 - data_ingestion - INFO - ======================================================================
+2025-11-26 01:03:04,734 - data_ingestion - INFO - INICIANDO INGESTA DE DATOS
+2025-11-26 01:03:04,735 - data_ingestion - INFO - ======================================================================
+2025-11-26 01:03:04,735 - data_ingestion - INFO - Cargando datos de ventas desde data/raw/Supplement_Sales_Weekly_Expanded.csv
+2025-11-26 01:03:04,781 - data_ingestion - INFO - Archivo leído: 4384 registros
+2025-11-26 01:03:04,796 - data_ingestion - INFO - Rango de fechas: 2020-01-06 00:00:00 a 2025-03-31 00:00:00
+2025-11-26 01:03:04,796 - data_ingestion - INFO - Generando engagement seeds MEJORADOS...
+2025-11-26 01:03:04,938 - data_ingestion - INFO - Seeds generados para 274 fechas
+2025-11-26 01:03:04,938 - data_ingestion - INFO -    Rango: 0.244 - 1.000
+2025-11-26 01:03:04,939 - data_ingestion - INFO -    Promedio: 0.604
+2025-11-26 01:03:04,939 - data_ingestion - INFO -    Desviación std: 0.159 (>0.15 es bueno)
+2025-11-26 01:03:04,939 - data_ingestion - INFO - Datos cargados: 4384 registros
+2025-11-26 01:03:04,940 - data_ingestion - INFO - Generando Instagram sincronizado...
+2025-11-26 01:03:05,902 - data_ingestion - INFO - Generando 859 posts de Instagram
+2025-11-26 01:03:06,426 - data_ingestion - INFO - Instagram: 859 posts con engagement_rate std=0.0119
+2025-11-26 01:03:06,439 - data_ingestion - INFO - Generando TikTok sincronizado...
+2025-11-26 01:03:07,419 - data_ingestion - INFO - Generando 883 videos de TikTok
+2025-11-26 01:03:07,977 - data_ingestion - INFO - TikTok: 883 videos con engagement_rate std=0.0172
+2025-11-26 01:03:07,981 - data_ingestion - INFO - Generando YouTube sincronizado...
+2025-11-26 01:03:08,990 - data_ingestion - INFO - Generando 292 videos de YouTube
+2025-11-26 01:03:09,170 - data_ingestion - INFO - YouTube: 292 videos con engagement_rate std=0.0084
+2025-11-26 01:03:09,173 - data_ingestion - INFO - ======================================================================
+2025-11-26 01:03:09,173 - data_ingestion - INFO - INGESTA COMPLETADA
+2025-11-26 01:03:09,173 - data_ingestion - INFO - ======================================================================
+2025-11-26 01:03:09,174 - __main__ - INFO - 
+ Resumen de ingesta:
+2025-11-26 01:03:09,174 - __main__ - INFO -  sales: 4384 registros
+2025-11-26 01:03:09,174 - __main__ - INFO -  instagram: 859 registros
+2025-11-26 01:03:09,174 - __main__ - INFO -  tiktok: 883 registros
+2025-11-26 01:03:09,174 - __main__ - INFO -  youtube: 292 registros
+2025-11-26 01:03:09,175 - __main__ - INFO - 
+ Ingesta completada exitosamente
+2025-11-26 01:03:09,175 - __main__ - INFO - 
+======================================================================
+2025-11-26 01:03:09,175 - __main__ - INFO - STAGE 2: TRANSFORMACIÓN DE DATOS
+2025-11-26 01:03:09,175 - __main__ - INFO - ======================================================================
+2025-11-26 01:03:09,176 - __main__ - INFO - Iniciando transformación de datos...
+2025-11-26 01:03:09,176 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,176 - data_transformation - INFO - INICIANDO TRANSFORMACIÓN DE DATOS
+2025-11-26 01:03:09,176 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,176 - data_transformation - INFO - 
+======================================================================
+2025-11-26 01:03:09,176 - data_transformation - INFO - TRANSFORMANDO DATOS DE VENTAS
+2025-11-26 01:03:09,177 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,177 - data_transformation - INFO - 
+[1/6] Generando identificadores...
+2025-11-26 01:03:09,179 - data_transformation - INFO - transaction_id generado
+2025-11-26 01:03:09,180 - data_transformation - INFO - product_id generado (16 productos)
+2025-11-26 01:03:09,189 - data_transformation - INFO - customer_id generado desde location (1292 clientes)
+2025-11-26 01:03:09,189 - data_transformation - INFO - 
+[2/6] Calculando métricas derivadas...
+2025-11-26 01:03:09,189 - data_transformation - INFO - 
+[3/6] Limpiando datos...
+2025-11-26 01:03:09,195 - data_transformation - INFO - 
+[4/6] Eliminando outliers...
+2025-11-26 01:03:09,197 - data_transformation - INFO - Outliers eliminados: 0 (0.0%)
+2025-11-26 01:03:09,198 - data_transformation - INFO - 
+[5/6] Creando features temporales...
+2025-11-26 01:03:09,205 - data_transformation - INFO -   Features temporales creadas
+2025-11-26 01:03:09,205 - data_transformation - INFO - 
+[6/6] Resumen de transformación...
+2025-11-26 01:03:09,205 - data_transformation - INFO -   Registros iniciales: 4384
+2025-11-26 01:03:09,206 - data_transformation - INFO -   Registros finales: 4384
+2025-11-26 01:03:09,206 - data_transformation - INFO -   Registros eliminados: 0 (0.0%)
+2025-11-26 01:03:09,206 - data_transformation - INFO -   Clientes únicos: 1292
+2025-11-26 01:03:09,207 - data_transformation - INFO -   Productos únicos: 16
+2025-11-26 01:03:09,207 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,207 - data_transformation - INFO - 
+Transformando datos de instagram...
+2025-11-26 01:03:09,209 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0136, max: 0.0765)
+2025-11-26 01:03:09,209 - data_transformation - INFO -   Variación: 0.0119
+2025-11-26 01:03:09,212 - data_transformation - INFO -   instagram: 859 registros procesados
+2025-11-26 01:03:09,213 - data_transformation - INFO - 
+Transformando datos de tiktok...
+2025-11-26 01:03:09,215 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0154, max: 0.1112)
+2025-11-26 01:03:09,215 - data_transformation - INFO -   Variación: 0.0172
+2025-11-26 01:03:09,218 - data_transformation - INFO -   tiktok: 883 registros procesados
+2025-11-26 01:03:09,219 - data_transformation - INFO - 
+Transformando datos de youtube...
+2025-11-26 01:03:09,221 - data_transformation - INFO -   engagement_rate ya existe (min: 0.0105, max: 0.0501)
+2025-11-26 01:03:09,221 - data_transformation - INFO -   Variación: 0.0084
+2025-11-26 01:03:09,224 - data_transformation - INFO -   youtube: 292 registros procesados
+2025-11-26 01:03:09,224 - data_transformation - INFO - 
+======================================================================
+2025-11-26 01:03:09,225 - data_transformation - INFO - COMBINANDO DATOS DE REDES SOCIALES
+2025-11-26 01:03:09,225 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,225 - data_transformation - INFO -  Instagram: 859 posts
+2025-11-26 01:03:09,226 - data_transformation - INFO - TikTok: 883 videos
+2025-11-26 01:03:09,226 - data_transformation - INFO - YouTube: 292 videos
+2025-11-26 01:03:09,229 - data_transformation - INFO - 
+  Total combinado: 2034 registros
+2025-11-26 01:03:09,230 - data_transformation - INFO -   Plataformas: ['instagram', 'tiktok', 'youtube']
+2025-11-26 01:03:09,230 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,230 - data_transformation - INFO - 
+======================================================================
+2025-11-26 01:03:09,230 - data_transformation - INFO - CALCULANDO AGREGADOS DIARIOS
+2025-11-26 01:03:09,231 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,231 - data_transformation - INFO - 
+Agregando ventas por día...
+2025-11-26 01:03:09,239 - data_transformation - INFO -   Ventas agregadas: 274 días
+2025-11-26 01:03:09,240 - data_transformation - INFO -   Rango ventas: $62198 - $110304
+2025-11-26 01:03:09,240 - data_transformation - INFO - 
+Agregando redes sociales por día...
+2025-11-26 01:03:09,240 - data_transformation - INFO -   Engagement original - std: 0.0170
+2025-11-26 01:03:09,298 - data_transformation - INFO -   Redes sociales agregadas: 1414 días
+2025-11-26 01:03:09,299 - data_transformation - INFO -   Engagement diario - std: 0.0148
+2025-11-26 01:03:09,299 - data_transformation - INFO -   Rango engagement: 0.0105 - 0.0975
+2025-11-26 01:03:09,305 - data_transformation - INFO - 
+  Datos combinados: 274 días
+2025-11-26 01:03:09,305 - data_transformation - INFO -   Días con ventas: 274
+2025-11-26 01:03:09,306 - data_transformation - INFO -   Días con engagement: 199
+2025-11-26 01:03:09,306 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,306 - data_transformation - INFO - 
+======================================================================
+2025-11-26 01:03:09,307 - data_transformation - INFO - GUARDANDO DATOS PROCESADOS
+2025-11-26 01:03:09,307 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,337 - data_transformation - INFO - data\processed\sales_processed.csv (4384 registros)
+2025-11-26 01:03:09,343 - data_transformation - INFO - data\processed\instagram_processed.csv (859 registros)
+2025-11-26 01:03:09,350 - data_transformation - INFO - data\processed\tiktok_processed.csv (883 registros)
+2025-11-26 01:03:09,355 - data_transformation - INFO - data\processed\youtube_processed.csv (292 registros)
+2025-11-26 01:03:09,375 - data_transformation - INFO - data\processed\social_media_merged_processed.csv (2034 registros)
+2025-11-26 01:03:09,380 - data_transformation - INFO - data\processed\daily_aggregates_processed.csv (274 registros)
+2025-11-26 01:03:09,380 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,381 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,381 - data_transformation - INFO - TRANSFORMACIÓN COMPLETADA
+2025-11-26 01:03:09,381 - data_transformation - INFO - ======================================================================
+2025-11-26 01:03:09,382 - __main__ - INFO - 
+ Resumen de transformación:
+2025-11-26 01:03:09,382 - __main__ - INFO -   sales: 4384 registros
+2025-11-26 01:03:09,382 - __main__ - INFO -   instagram: 859 registros
+2025-11-26 01:03:09,382 - __main__ - INFO -   tiktok: 883 registros
+2025-11-26 01:03:09,383 - __main__ - INFO -   youtube: 292 registros
+2025-11-26 01:03:09,383 - __main__ - INFO -   social_media_merged: 2034 registros
+2025-11-26 01:03:09,383 - __main__ - INFO -   daily_aggregates: 274 registros
+2025-11-26 01:03:09,383 - __main__ - INFO - Todos los archivos críticos generados
+2025-11-26 01:03:09,384 - __main__ - INFO - 
+ Transformación completada exitosamente
+2025-11-26 01:03:09,384 - __main__ - INFO - 
+======================================================================
+2025-11-26 01:03:09,384 - __main__ - INFO - STAGE 3: VALIDACIÓN DE CALIDAD
+2025-11-26 01:03:09,384 - __main__ - INFO - ======================================================================
+2025-11-26 01:03:09,385 - __main__ - INFO - Iniciando validación de datos transformados...
+2025-11-26 01:03:09,385 - data_validation - INFO - 
+                    
+2025-11-26 01:03:09,385 - data_validation - INFO - INICIANDO VALIDACIÓN COMPLETA DE DATOS
+2025-11-26 01:03:09,385 - data_validation - INFO -                     
+
+2025-11-26 01:03:09,386 - data_validation - INFO - 
+======================================================================
+2025-11-26 01:03:09,386 - data_validation - INFO - VALIDANDO DATOS DE VENTAS
+2025-11-26 01:03:09,386 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,387 - data_validation - INFO - [SALES] Todas las columnas requeridas presentes
+2025-11-26 01:03:09,389 - data_validation - INFO - [SALES] Sin nulos en columnas criticas
+2025-11-26 01:03:09,390 - data_validation - INFO - [SALES] Sin duplicados
+2025-11-26 01:03:09,390 - data_validation - INFO - [SALES] Rangos numéricos válidos
+2025-11-26 01:03:09,391 - data_validation - INFO - [SALES] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-26 01:03:09,391 - data_validation - INFO - [SALES] customer_id: 1292 valores unicos
+2025-11-26 01:03:09,392 - data_validation - INFO - [SALES] product_id: 16 valores unicos
+2025-11-26 01:03:09,392 - data_validation - INFO - 
+[SALES] Resumen:
+2025-11-26 01:03:09,392 - data_validation - INFO -  Total registros: 4384
+2025-11-26 01:03:09,393 - data_validation - INFO -  Clientes únicos: 1292
+2025-11-26 01:03:09,393 - data_validation - INFO -  Productos únicos: 16
+2025-11-26 01:03:09,393 - data_validation - INFO -  Checks pasados: 7/7
+2025-11-26 01:03:09,393 - data_validation - INFO - [SALES] VALIDACIÓN EXITOSA
+2025-11-26 01:03:09,394 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,394 - data_validation - INFO - 
+[INSTAGRAM] Validando...
+2025-11-26 01:03:09,395 - data_validation - INFO - [INSTAGRAM] Todas las columnas requeridas presentes
+2025-11-26 01:03:09,396 - data_validation - INFO - [INSTAGRAM] Sin nulos en columnas criticas
+2025-11-26 01:03:09,397 - data_validation - INFO - [INSTAGRAM] Rangos numéricos válidos
+2025-11-26 01:03:09,397 - data_validation - INFO - [INSTAGRAM] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-26 01:03:09,398 - data_validation - INFO - [INSTAGRAM] Validación exitosa (859 registros)
+2025-11-26 01:03:09,398 - data_validation - INFO - 
+[TIKTOK] Validando...
+2025-11-26 01:03:09,398 - data_validation - INFO - [TIKTOK] Todas las columnas requeridas presentes
+2025-11-26 01:03:09,399 - data_validation - INFO - [TIKTOK] Sin nulos en columnas criticas
+2025-11-26 01:03:09,400 - data_validation - INFO - [TIKTOK] Rangos numéricos válidos
+2025-11-26 01:03:09,400 - data_validation - INFO - [TIKTOK] Fechas válidas (2020-01-06 a 2025-03-27)
+2025-11-26 01:03:09,400 - data_validation - INFO - [TIKTOK] Validación exitosa (883 registros)
+2025-11-26 01:03:09,401 - data_validation - INFO - 
+[YOUTUBE] Validando...
+2025-11-26 01:03:09,401 - data_validation - INFO - [YOUTUBE] Todas las columnas requeridas presentes
+2025-11-26 01:03:09,403 - data_validation - INFO - [YOUTUBE] Sin nulos en columnas criticas
+2025-11-26 01:03:09,403 - data_validation - INFO - [YOUTUBE] Rangos numéricos válidos
+2025-11-26 01:03:09,404 - data_validation - INFO - [YOUTUBE] Fechas válidas (2020-01-07 a 2025-03-23)
+2025-11-26 01:03:09,404 - data_validation - INFO - [YOUTUBE] Validación exitosa (292 registros)
+2025-11-26 01:03:09,404 - data_validation - INFO - 
+======================================================================
+2025-11-26 01:03:09,404 - data_validation - INFO - VALIDANDO SOCIAL MEDIA MERGED
+2025-11-26 01:03:09,405 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,405 - data_validation - INFO - [SOCIAL_MERGED] Todas las columnas requeridas presentes
+2025-11-26 01:03:09,406 - data_validation - INFO - [SOCIAL_MERGED] Sin nulos en columnas criticas
+2025-11-26 01:03:09,407 - data_validation - INFO - [SOCIAL_MERGED] Rangos numéricos válidos
+2025-11-26 01:03:09,407 - data_validation - INFO - [SOCIAL_MERGED] Fechas válidas (2020-01-06 a 2025-03-28)
+2025-11-26 01:03:09,408 - data_validation - INFO - [SOCIAL_MERGED] platform: 3 valores unicos
+2025-11-26 01:03:09,408 - data_validation - INFO - 
+[SOCIAL_MERGED] Distribución por plataforma:
+2025-11-26 01:03:09,409 - data_validation - INFO -  tiktok: 883 registros
+2025-11-26 01:03:09,409 - data_validation - INFO -  instagram: 859 registros
+2025-11-26 01:03:09,409 - data_validation - INFO -  youtube: 292 registros
+2025-11-26 01:03:09,410 - data_validation - INFO - 
+[SOCIAL_MERGED] Checks pasados: 5/5
+2025-11-26 01:03:09,410 - data_validation - INFO - [SOCIAL_MERGED] VALIDACIÓN EXITOSA
+2025-11-26 01:03:09,410 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,411 - data_validation - INFO - 
+======================================================================
+2025-11-26 01:03:09,411 - data_validation - INFO - VALIDANDO DAILY AGGREGATES
+2025-11-26 01:03:09,411 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,412 - data_validation - INFO - [DAILY_AGG] Todas las columnas requeridas presentes
+2025-11-26 01:03:09,413 - data_validation - INFO - [DAILY_AGG] Sin nulos en columnas criticas
+2025-11-26 01:03:09,414 - data_validation - INFO - [DAILY_AGG] Rangos numéricos válidos
+2025-11-26 01:03:09,415 - data_validation - INFO - [DAILY_AGG] Fechas válidas (2020-01-06 a 2025-03-31)
+2025-11-26 01:03:09,416 - data_validation - INFO - [DAILY_AGG] Continuidad de fechas OK (gap máximo: 7.0 días)
+2025-11-26 01:03:09,416 - data_validation - INFO - 
+[DAILY_AGG] Resumen:
+2025-11-26 01:03:09,417 - data_validation - INFO -  Total días: 274
+2025-11-26 01:03:09,417 - data_validation - INFO -  Rango: 2020-01-06 a 2025-03-31
+2025-11-26 01:03:09,418 - data_validation - INFO -  Ventas totales: $22,913,280.45
+2025-11-26 01:03:09,418 - data_validation - INFO -  Checks pasados: 5/5
+2025-11-26 01:03:09,418 - data_validation - INFO - [DAILY_AGG] VALIDACIÓN EXITOSA
+2025-11-26 01:03:09,418 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,419 - data_validation - INFO - 
+======================================================================
+2025-11-26 01:03:09,419 - data_validation - INFO - RESUMEN DE VALIDACIÓN
+2025-11-26 01:03:09,419 - data_validation - INFO - ======================================================================
+2025-11-26 01:03:09,419 - data_validation - INFO -  SALES: PASÓ
+2025-11-26 01:03:09,420 - data_validation - INFO -  INSTAGRAM: PASÓ
+2025-11-26 01:03:09,420 - data_validation - INFO -  TIKTOK: PASÓ
+2025-11-26 01:03:09,420 - data_validation - INFO -  YOUTUBE: PASÓ
+2025-11-26 01:03:09,421 - data_validation - INFO -  SOCIAL_MEDIA_MERGED: PASÓ
+2025-11-26 01:03:09,421 - data_validation - INFO -  DAILY_AGGREGATES: PASÓ
+2025-11-26 01:03:09,421 - data_validation - INFO - 
+Total: 6/6 datasets validados exitosamente
+2025-11-26 01:03:09,422 - data_validation - INFO - 
+TODOS LOS DATASETS PASARON LA VALIDACIÓN
+2025-11-26 01:03:09,422 - data_validation - INFO - ======================================================================
+
+2025-11-26 01:03:09,424 - data_validation - INFO -  Reporte de validación guardado: data\processed\validation_report_20251126_010309.json
+2025-11-26 01:03:09,424 - __main__ - INFO - 
+ Resultados de validación:
+2025-11-26 01:03:09,424 - __main__ - INFO -   Datasets validados: 6/6 (100.0%)
+2025-11-26 01:03:09,425 - __main__ - INFO -   sales:  PASÓ
+2025-11-26 01:03:09,425 - __main__ - INFO -   instagram:  PASÓ
+2025-11-26 01:03:09,425 - __main__ - INFO -   tiktok:  PASÓ
+2025-11-26 01:03:09,426 - __main__ - INFO -   youtube:  PASÓ
+2025-11-26 01:03:09,426 - __main__ - INFO -   social_media_merged:  PASÓ
+2025-11-26 01:03:09,426 - __main__ - INFO -   daily_aggregates:  PASÓ
+2025-11-26 01:03:09,426 - __main__ - INFO - 
+ Todos los datasets pasaron la validación
+2025-11-26 01:03:09,427 - __main__ - INFO - 
+                                   
+2025-11-26 01:03:09,427 - __main__ - INFO - PIPELINE COMPLETADO EXITOSAMENTE
+2025-11-26 01:03:09,427 - __main__ - INFO -                                    
+2025-11-26 01:03:09,427 - __main__ - INFO - 
+ Información de ejecución:
+2025-11-26 01:03:09,428 - __main__ - INFO -   Inicio: 2025-11-26 01:03:04
+2025-11-26 01:03:09,428 - __main__ - INFO -   Fin: 2025-11-26 01:03:09
+2025-11-26 01:03:09,428 - __main__ - INFO -   Duración: 4.69 segundos
+2025-11-26 01:03:09,429 - __main__ - INFO - 
+ Etapas completadas:
+2025-11-26 01:03:09,429 - __main__ - INFO -  ingestion
+2025-11-26 01:03:09,429 - __main__ - INFO -  transformation
+2025-11-26 01:03:09,430 - __main__ - INFO -  validation
+2025-11-26 01:03:09,430 - __main__ - INFO - 
+ Archivos generados:
+2025-11-26 01:03:09,431 - __main__ - INFO -  daily_aggregates_processed.csv (0.03 MB)
+2025-11-26 01:03:09,431 - __main__ - INFO -  instagram_processed.csv (0.07 MB)
+2025-11-26 01:03:09,432 - __main__ - INFO -  sales_processed.csv (0.45 MB)
+2025-11-26 01:03:09,433 - __main__ - INFO -  social_media_merged_processed.csv (0.23 MB)
+2025-11-26 01:03:09,433 - __main__ - INFO -  tiktok_processed.csv (0.10 MB)
+2025-11-26 01:03:09,433 - __main__ - INFO -  youtube_processed.csv (0.03 MB)
+2025-11-26 01:03:09,434 - __main__ - INFO - 
+ Calidad de datos: TODOS LOS CHECKS PASADOS
+2025-11-26 01:03:09,434 - __main__ - INFO - 
+======================================================================
+2025-11-26 01:03:09,434 - __main__ - INFO - Log completo guardado en: pipeline_execution.log
+2025-11-26 01:03:09,435 - __main__ - INFO - ======================================================================
+

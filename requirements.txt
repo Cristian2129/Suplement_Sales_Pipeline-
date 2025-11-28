@@ -10,10 +10,6 @@ seaborn==0.12.2
 plotly==5.16.1
 streamlit==1.26.0
 
-# NLP Simple
-textblob==0.17.1
-vaderSentiment==3.3.2
-
 # Testing
 pytest==7.4.0
 

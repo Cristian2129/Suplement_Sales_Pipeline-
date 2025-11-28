@@ -1,0 +1,62 @@
+[
+  {
+    "timestamp": "2025-11-27T21:26:48.229922",
+    "status": "error",
+    "duration_seconds": 0.14928507804870605,
+    "error": "cannot import name 'DataPipelineOrchestrator' from 'orchestrator' (C:\\Users\\Rodcr\\Documents\\Endo\\Proyecto final\\src\\orchestrator.py)"
+  },
+  {
+    "timestamp": "2025-11-27T21:37:18.504086",
+    "status": "error",
+    "duration_seconds": 2.2649765014648438e-05,
+    "error": "cannot import name 'DataPipelineOrchestrator' from 'orchestrator' (C:\\Users\\Rodcr\\Documents\\Endo\\Proyecto final\\src\\orchestrator.py)"
+  },
+  {
+    "timestamp": "2025-11-27T21:37:34.492783",
+    "status": "error",
+    "duration_seconds": 3.314018249511719e-05,
+    "error": "cannot import name 'DataPipelineOrchestrator' from 'orchestrator' (C:\\Users\\Rodcr\\Documents\\Endo\\Proyecto final\\src\\orchestrator.py)"
+  },
+  {
+    "timestamp": "2025-11-27T21:44:42.419004",
+    "status": "error",
+    "duration_seconds": 0.09972858428955078,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  },
+  {
+    "timestamp": "2025-11-27T21:45:05.141915",
+    "status": "error",
+    "duration_seconds": 0.020744800567626953,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  },
+  {
+    "timestamp": "2025-11-27T21:45:52.156113",
+    "status": "error",
+    "duration_seconds": 0.008353710174560547,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  },
+  {
+    "timestamp": "2025-11-27T21:46:05.751029",
+    "status": "error",
+    "duration_seconds": 0.004361867904663086,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  },
+  {
+    "timestamp": "2025-11-27T21:46:18.925693",
+    "status": "error",
+    "duration_seconds": 0.007297039031982422,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  },
+  {
+    "timestamp": "2025-11-27T21:48:06.282972",
+    "status": "error",
+    "duration_seconds": 0.00657343864440918,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  },
+  {
+    "timestamp": "2025-11-27T22:43:54.439611",
+    "status": "error",
+    "duration_seconds": 0.07949304580688477,
+    "error": "`set_page_config()` can only be called once per app page, and must be called as the first Streamlit command in your script.\n\nFor more information refer to the [docs](https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config)."
+  }
+]
